@@ -141,6 +141,8 @@ article { margin-top: 32px; }
   min-height: calc(100vh - 140px); min-height: calc(100dvh - 140px);
   display: flex; align-items: center; justify-content: center; padding: 24px;
 }
+.soon-inner { display: flex; flex-direction: column; align-items: center; gap: clamp(28px, 4vw, 40px); }
+.smile { display: block; width: clamp(72px, 9vw, 104px); height: auto; }
 .soon h1 {
   margin: 0; font-size: clamp(36px, 6vw, 72px); font-weight: 800;
   letter-spacing: -0.035em; line-height: 1; text-align: center;

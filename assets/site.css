@@ -67,6 +67,19 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   letter-spacing: -0.035em; line-height: 1; white-space: nowrap;
 }
 .lab { font-weight: 300; color: var(--accent); }
+.tagline {
+  margin: -12px 0 0; max-width: 32em;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  text-align: center; text-wrap: balance;
+}
+.tagline strong {
+  font-size: clamp(19px, 2.4vw, 24px); font-weight: 800;
+  letter-spacing: -0.02em; line-height: 1.2; color: var(--accent);
+}
+.tagline span {
+  font-size: clamp(15px, 1.8vw, 18px); font-weight: 400;
+  letter-spacing: 0.005em; line-height: 1.45; color: var(--white);
+}
 
 /* ---------- Inner pages header ---------- */
 .site-header {

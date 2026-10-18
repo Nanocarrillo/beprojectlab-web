@@ -74,12 +74,9 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 }
 .tagline strong {
   font-size: clamp(19px, 2.4vw, 24px); font-weight: 800;
-  letter-spacing: -0.02em; line-height: 1.2; color: var(--accent);
+  letter-spacing: -0.02em; line-height: 1.2; color: var(--white);
 }
-.tagline span {
-  font-size: clamp(15px, 1.8vw, 18px); font-weight: 400;
-  letter-spacing: 0.005em; line-height: 1.45; color: var(--white);
-}
+.tagline .accent { color: var(--accent); }
 
 /* ---------- Inner pages header ---------- */
 .site-header {

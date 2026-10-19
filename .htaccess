@@ -1,0 +1,6 @@
+# Send www.beprojectlab.com to beprojectlab.com so Google sees a single site.
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^www\.beprojectlab\.com$ [NC]
+RewriteRule ^(.*)$ https://beprojectlab.com/$1 [R=301,L]
+</IfModule>

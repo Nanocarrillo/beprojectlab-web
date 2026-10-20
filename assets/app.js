@@ -7,7 +7,7 @@
 
   // Public settings. The publishable key is meant to live in the website.
   var SUPABASE_URL = 'https://sohfylmeymppewbetvhd.supabase.co';
-  var SUPABASE_KEY = '';
+  var SUPABASE_KEY = 'sb_publishable_OtMKVmMrnKAs1T95x0GM_Q_zpoIHpjF';
 
   var LANG = document.documentElement.lang === 'en' ? 'en' : 'es';
   var PAGE = document.body.getAttribute('data-page');

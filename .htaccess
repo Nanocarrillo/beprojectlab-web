@@ -4,3 +4,6 @@ RewriteEngine On
 RewriteCond %{HTTP_HOST} ^www\.beprojectlab\.com$ [NC]
 RewriteRule ^(.*)$ https://beprojectlab.com/$1 [R=301,L]
 </IfModule>
+
+# The supabase/ folder holds database changes for Supabase; it is not part of the website.
+RedirectMatch 404 ^/supabase(/|$)

@@ -1,0 +1,5 @@
+# Supabase project settings for BeProject Lab.
+# The GitHub integration applies new files in supabase/migrations to the
+# production database when they are pushed to main. Auth settings (site URL,
+# redirect URLs, SMTP) are managed in the Supabase dashboard, not here.
+project_id = "beprojectlab-web"

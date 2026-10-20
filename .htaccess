@@ -7,3 +7,11 @@ RewriteRule ^(.*)$ https://beprojectlab.com/$1 [R=301,L]
 
 # The supabase/ folder holds database changes for Supabase; it is not part of the website.
 RedirectMatch 404 ^/supabase(/|$)
+
+# Pages: browsers must check for a newer version every time, so changes show up
+# without clearing the cache. Styles and scripts carry a ?v= number instead.
+<IfModule mod_headers.c>
+<FilesMatch "\.html$">
+Header set Cache-Control "no-cache"
+</FilesMatch>
+</IfModule>

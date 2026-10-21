@@ -383,3 +383,83 @@ dialog.profile-dialog::backdrop { background: rgba(0, 0, 0, 0.6); }
   .actions .btn { flex: 1 1 auto; }
   dialog.profile-dialog { padding: 24px 20px; }
 }
+
+/* Small buttons */
+.btn-sm { min-height: 44px; padding: 0 16px; font-size: 14px; }
+
+/* Notifications bell in the menu */
+.bell {
+  position: relative; display: inline-flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px; border-radius: 8px; color: var(--soft); text-decoration: none;
+  transition: color .2s, background .2s;
+}
+.bell:hover, .bell[aria-current="page"] { color: var(--white); background: rgba(255, 255, 255, 0.08); }
+.bell .icon, .bell svg { display: block; width: 20px; height: 20px; }
+.bell-count {
+  position: absolute; top: 4px; right: 2px; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 999px;
+  background: var(--accent); color: var(--ink); font-size: 11px; font-weight: 800; line-height: 18px; text-align: center;
+}
+.bell-count[hidden] { display: none; }
+
+/* Icons and the "hidden until you connect" box */
+.icon { display: inline-flex; }
+.icon svg { width: 100%; height: 100%; }
+.lockbox { display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px; border-radius: 10px; background: var(--panel); }
+.lockbox .icon { flex: none; width: 18px; height: 18px; margin-top: 2px; color: var(--accent); }
+.lockbox p { margin: 0; font-size: 15px; line-height: 1.55; color: var(--text); }
+.lockbox p + p { margin-top: 6px; font-size: 14px; }
+.status-pill.connected::before { background: var(--ok); }
+
+/* "Me interesa" inside a caja */
+.int-panel { margin-top: 24px; padding: clamp(18px, 3vw, 24px); border-radius: 12px; background: var(--panel); border: 1px solid var(--line); display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
+.int-panel h3 { margin: 0; font-size: 19px; font-weight: 800; letter-spacing: -0.02em; }
+.int-panel > p { margin: 0; font-size: 15px; line-height: 1.55; color: var(--soft); }
+.int-panel .form { width: 100%; }
+.int-panel .my-msg { padding: 12px 14px; border-radius: 8px; background: var(--field); color: var(--text); white-space: pre-line; overflow-wrap: anywhere; }
+.int-links { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 18px; font-size: 14px; }
+.int-note { color: var(--soft); }
+
+/* Interested list, for the caja's author */
+.int-section { margin-top: 28px; }
+.int-head { display: flex; align-items: baseline; gap: 10px; }
+.int-head h3 { margin: 0; font-size: 22px; font-weight: 800; letter-spacing: -0.02em; }
+.int-count { font-size: 15px; color: var(--accent); }
+.int-list { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+.int-card { padding: 18px; border-radius: 12px; background: var(--panel); border: 1px solid var(--line); display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
+.int-card .meta-line { margin-top: 0; }
+.int-card p { margin: 0; font-size: 16px; line-height: 1.6; color: var(--text); white-space: pre-line; overflow-wrap: anywhere; }
+
+/* Dialog extras: connection confirm and contact */
+.shared-box { margin-top: 16px; padding: 14px 16px; border-radius: 10px; background: rgba(255, 255, 255, 0.05); display: flex; flex-direction: column; gap: 6px; }
+.shared-box p { margin: 0; font-size: 15px; line-height: 1.55; color: var(--text); white-space: pre-line; overflow-wrap: anywhere; }
+.shared-box p.muted { color: var(--muted); }
+.pd-top { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; }
+.profile-dialog .bio + .shared-box, .profile-dialog h2 + .bio { margin-top: 12px; }
+
+/* Notifications page */
+.notifs { list-style: none; margin: 28px 0 0; padding: 0; border-top: 1px solid var(--line); }
+.notif { position: relative; display: flex; flex-direction: column; gap: 8px; padding: 18px 0 18px 22px; border-bottom: 1px solid var(--line); }
+.notif.unread::before { content: ""; position: absolute; left: 2px; top: 27px; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+.notif .text { margin: 0; font-size: 16px; line-height: 1.55; color: var(--soft); overflow-wrap: anywhere; }
+.notif.unread .text { color: var(--text); }
+.notif .text b { color: var(--white); }
+.notif .when { margin: 0; font-size: 13px; color: var(--muted); }
+.notif .acts { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 18px; font-size: 14px; }
+
+/* Connections in Mi perfil */
+.section-title { margin: 48px 0 0; font-size: 24px; font-weight: 800; letter-spacing: -0.02em; }
+.conns { list-style: none; margin: 14px 0 0; padding: 0; border-top: 1px solid var(--line); }
+.conn { display: flex; align-items: center; gap: 12px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.conn .who { flex: 1 1 auto; min-width: 0; }
+.conn .who b { font-size: 17px; }
+.conn .who .small { margin-top: 4px; overflow-wrap: anywhere; }
+.conn .btn { flex: none; }
+@media (max-width: 360px) {
+  .bell { width: 40px; }
+}
+/* Phones with the bell in the menu: show only the other language and tighten the links. */
+@media (max-width: 560px) {
+  .nav:has(.bell) .link { padding: 0 8px; }
+  .nav:has(.bell) .lang { padding-left: 4px; }
+  .nav:has(.bell) .lang a[aria-current="true"], .nav:has(.bell) .lang .sep { display: none; }
+}

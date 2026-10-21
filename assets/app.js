@@ -16,8 +16,8 @@
   var CONTACT = 'info@beprojectlab.com';
 
   var PATHS = {
-    es: { home: '/', community: '/comunidad/', account: '/cuenta/', profile: '/perfil/', privacy: '/privacidad/', terms: '/condiciones/' },
-    en: { home: '/en/', community: '/en/community/', account: '/en/account/', profile: '/en/profile/', privacy: '/en/privacy/', terms: '/en/terms/' }
+    es: { home: '/', community: '/comunidad/', account: '/cuenta/', profile: '/perfil/', notifications: '/notificaciones/', privacy: '/privacidad/', terms: '/condiciones/' },
+    en: { home: '/en/', community: '/en/community/', account: '/en/account/', profile: '/en/profile/', notifications: '/en/notifications/', privacy: '/en/privacy/', terms: '/en/terms/' }
   }[LANG];
 
   var STR = {
@@ -144,12 +144,67 @@
       close_caja: 'Cerrar caja', reopen: 'Reabrir',
       delete: 'Borrar', delete_sure: 'Confirmar: borrar',
       reply_label: 'Tu respuesta',
-      reply_hint: 'Cuenta cómo puedes ayudar. Si encaja, la persona verá tu perfil y tus redes.',
+      reply_hint: 'Las respuestas las ven todos los miembros, con tu nombre y tu tipo de perfil.',
       reply_btn: 'Responder',
       err_reply: 'Escribe al menos 2 caracteres (máximo 1.000).',
       closed_note: 'Esta caja está cerrada y ya no admite respuestas.',
       no_links: 'Todavía no ha añadido sus redes.',
-      view_profile: 'Ver perfil de {name}'
+      view_profile: 'Ver perfil de {name}',
+      // interest and connections
+      can_help: '¿Puedes ayudar a {name}?',
+      can_help_text: '{name} leerá tu mensaje. Vuestros perfiles y enlaces solo se comparten si los dos aceptáis conectaros.',
+      interest_btn: 'Me interesa',
+      interest_lead: 'Cuéntale a {name} cómo puedes ayudar. Todavía no ve tu perfil: este mensaje es tu presentación.',
+      interest_label: 'Tu mensaje',
+      interest_lock: 'Tu perfil y tus enlaces siguen ocultos. Solo se comparten si {name} conecta contigo.',
+      err_interest: 'Escribe al menos 20 caracteres (máximo 500).',
+      send: 'Enviar',
+      interest_sent: 'Interés enviado · {date}',
+      interest_sent_text: '{name} ya tiene tu mensaje. Si conecta contigo, te llegará una notificación aquí y podréis ver vuestros perfiles.',
+      show_my_msg: 'Ver mi mensaje', hide_my_msg: 'Ocultar mi mensaje',
+      withdraw: 'Retirar interés', withdraw_sure: 'Confirmar: retirar',
+      connected_pill: 'Conectados · {date}',
+      connected_text: 'Ya podéis ver vuestros perfiles y cómo contactaros.',
+      interested_title: 'Interesados',
+      interested_hint: 'Solo tú ves esta lista. Si no conectas con alguien, no recibe ningún aviso.',
+      interested_empty: 'Todavía nadie ha dicho «Me interesa».',
+      connect: 'Conectar',
+      connect_q: '¿Conectar con {name}?',
+      connect_text: '{name} verá tu perfil completo y cómo contactarte, y tú verás los suyos. {name} recibirá una notificación.',
+      connect_shared_label: 'Se comparte',
+      connect_shared: 'Una línea sobre ti, país, descripción, LinkedIn, Instagram, TikTok, web y «Cómo contactarme». Tu email de acceso nunca se comparte.',
+      connected_done: 'Conectados. {name} ya puede ver tu perfil y tú el suyo.',
+      foot_interested_1: '1 interesado', foot_interested_n: '{n} interesados',
+      foot_interest_sent: 'Interés enviado', foot_connected: 'Conectados',
+      locked_text: 'Su perfil y sus enlaces se ven cuando los dos aceptáis conectaros.',
+      locked_hint: 'Para conectar, pulsa «Me interesa» en una de sus cajas.',
+      contact_label: 'Cómo contactarme',
+      no_contact: 'Todavía no ha escrito cómo prefiere que le contacten.',
+      this_is_you: 'Así te ven las personas con las que conectas.',
+      edit_profile: 'Editar mi perfil',
+      // profile: privacy, contact and connections
+      privacy_note: 'Todos los miembros ven tu nombre y tu tipo de perfil. El resto, incluido cómo contactarte, solo lo ven las personas con las que conectas.',
+      contact_field: 'Cómo contactarme',
+      contact_hint: 'Por ejemplo, un email o tu LinkedIn. Solo lo ven las personas con las que conectas; tu email de acceso nunca se comparte.',
+      my_data: 'Tus datos',
+      connections_title: 'Mis conexiones',
+      connections_empty: 'Todavía no tienes conexiones. Empiezan en las cajas: di «Me interesa» en la de otra persona o conecta con quien se interese por la tuya.',
+      pending_interests_1: 'Tienes 1 interés enviado en espera.',
+      pending_interests_n: 'Tienes {n} intereses enviados en espera.',
+      view_profile_btn: 'Ver perfil',
+      // notifications
+      bell: 'Notificaciones', bell_1: 'Notificaciones: 1 nueva', bell_n: 'Notificaciones: {n} nuevas',
+      notif_title: 'Notificaciones',
+      notif_empty: 'Todavía no tienes notificaciones.',
+      notif_interest: '{name}, {role}, quiere ayudarte con tu caja «{title}».',
+      notif_connected: '{name} ha conectado contigo por la caja «{title}». Ya podéis ver vuestros perfiles y cómo contactaros.',
+      notif_reply: '{name} respondió en tu caja «{title}».',
+      notif_approved: 'Tu cuenta está aprobada. Ya puedes abrir cajas, responder y decir «Me interesa».',
+      notif_new: 'Nueva',
+      notif_view_interested: 'Ver interesados',
+      notif_view_caja: 'Ver caja',
+      someone: 'Un miembro',
+      t_now: 'Hace un momento', t_min: 'Hace {n} min', t_h: 'Hace {n} h', t_yesterday: 'Ayer'
     },
     en: {
       loading: 'Loading…',
@@ -271,12 +326,64 @@
       close_caja: 'Close post', reopen: 'Reopen',
       delete: 'Delete', delete_sure: 'Confirm: delete',
       reply_label: 'Your reply',
-      reply_hint: 'Say how you can help. If it fits, they will see your profile and your social links.',
+      reply_hint: 'All members see replies, with your name and profile type.',
       reply_btn: 'Reply',
       err_reply: 'Use at least 2 characters (1,000 at most).',
       closed_note: 'This post is closed and no longer accepts replies.',
       no_links: 'No social profiles added yet.',
-      view_profile: "View {name}'s profile"
+      view_profile: "View {name}'s profile",
+      can_help: 'Can you help {name}?',
+      can_help_text: '{name} will read your message. Your profiles and links are shared only if you both agree to connect.',
+      interest_btn: "I'm interested",
+      interest_lead: "Tell {name} how you can help. They can't see your profile yet: this message is how you introduce yourself.",
+      interest_label: 'Your message',
+      interest_lock: 'Your profile and links stay hidden. They are shared only if {name} connects with you.',
+      err_interest: 'Use at least 20 characters (500 at most).',
+      send: 'Send',
+      interest_sent: 'Interest sent · {date}',
+      interest_sent_text: '{name} has your message. If they connect with you, you will get a notification here and you will both see each other’s profiles.',
+      show_my_msg: 'Show my message', hide_my_msg: 'Hide my message',
+      withdraw: 'Withdraw interest', withdraw_sure: 'Confirm: withdraw',
+      connected_pill: 'Connected · {date}',
+      connected_text: 'You can now see each other’s profiles and how to get in touch.',
+      interested_title: 'Interested',
+      interested_hint: 'Only you see this list. If you don’t connect with someone, they are not told.',
+      interested_empty: "Nobody has said “I'm interested” yet.",
+      connect: 'Connect',
+      connect_q: 'Connect with {name}?',
+      connect_text: '{name} will see your full profile and how to contact you, and you will see theirs. {name} will get a notification.',
+      connect_shared_label: 'What is shared',
+      connect_shared: 'One line about you, country, description, LinkedIn, Instagram, TikTok, website and “How to reach me”. Your sign-in email is never shared.',
+      connected_done: 'Connected. {name} can now see your profile and you can see theirs.',
+      foot_interested_1: '1 interested', foot_interested_n: '{n} interested',
+      foot_interest_sent: 'Interest sent', foot_connected: 'Connected',
+      locked_text: 'Their profile and links become visible once you both agree to connect.',
+      locked_hint: "To connect, press “I'm interested” on one of their posts.",
+      contact_label: 'How to reach me',
+      no_contact: 'They have not said how they prefer to be contacted yet.',
+      this_is_you: 'This is how the people you connect with see you.',
+      edit_profile: 'Edit my profile',
+      privacy_note: 'All members see your name and profile type. Everything else, including how to reach you, is visible only to the people you connect with.',
+      contact_field: 'How to reach me',
+      contact_hint: 'For example an email or your LinkedIn. Only the people you connect with see it; your sign-in email is never shared.',
+      my_data: 'Your details',
+      connections_title: 'My connections',
+      connections_empty: "You have no connections yet. They start in the posts: say “I'm interested” on someone else's, or connect with someone interested in yours.",
+      pending_interests_1: 'You have 1 interest waiting for an answer.',
+      pending_interests_n: 'You have {n} interests waiting for an answer.',
+      view_profile_btn: 'View profile',
+      bell: 'Notifications', bell_1: 'Notifications: 1 new', bell_n: 'Notifications: {n} new',
+      notif_title: 'Notifications',
+      notif_empty: 'You have no notifications yet.',
+      notif_interest: '{name}, {role}, wants to help with your post “{title}”.',
+      notif_connected: '{name} connected with you through the post “{title}”. You can now see each other’s profiles and how to get in touch.',
+      notif_reply: '{name} replied to your post “{title}”.',
+      notif_approved: "Your account is approved. You can now post, reply and say “I'm interested”.",
+      notif_new: 'New',
+      notif_view_interested: 'See who is interested',
+      notif_view_caja: 'View post',
+      someone: 'A member',
+      t_now: 'Just now', t_min: '{n} min ago', t_h: '{n} h ago', t_yesterday: 'Yesterday'
     }
   }[LANG];
 
@@ -345,6 +452,28 @@
   function fold(s) { return (s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); }
   var DATE = new Intl.DateTimeFormat(LANG === 'en' ? 'en-GB' : 'es-ES', { day: 'numeric', month: 'short', year: 'numeric' });
   function fmtDate(iso) { try { return DATE.format(new Date(iso)); } catch (e) { return ''; } }
+  function ago(iso) {
+    var s = (Date.now() - new Date(iso).getTime()) / 1000;
+    if (!(s >= 0)) return fmtDate(iso);
+    if (s < 60) return t('t_now');
+    if (s < 3600) return t('t_min', { n: Math.floor(s / 60) });
+    if (s < 86400) return t('t_h', { n: Math.floor(s / 3600) });
+    if (s < 172800) return t('t_yesterday');
+    return fmtDate(iso);
+  }
+  // Fixed icon markup (no user data), drawn with stroke so it follows the text colour.
+  var ICONS = {
+    bell: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>',
+    lock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>'
+  };
+  function icon(name) { var s = document.createElement('span'); s.className = 'icon'; s.innerHTML = ICONS[name]; return s; }
+  function lockbox(text) { return h('div', { class: 'lockbox' }, [icon('lock'), h('p', { text: text })]); }
+  function armed(btn, label, sure, action) {
+    return function () {
+      if (btn.dataset.armed !== '1') { btn.dataset.armed = '1'; btn.textContent = sure; setTimeout(function () { btn.dataset.armed = ''; btn.textContent = label; }, 5000); return; }
+      action();
+    };
+  }
   function roleLabel(r) { return t('role_' + (r || 'owner')); }
   function firstName(name) { return (name || '').trim().split(/\s+/)[0] || t('member'); }
   function isEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v); }
@@ -404,14 +533,41 @@
     });
     sb.auth.getSession().then(function (res) {
       var session = res && res.data ? res.data.session : null;
+      if (session && PAGE !== 'account') setupBell();
       if (PAGE === 'account') accountPage(session);
       else if (PAGE === 'profile') profilePage(session);
       else if (PAGE === 'community') communityPage(session);
+      else if (PAGE === 'notifications') notificationsPage(session);
     }).catch(function () { mount(notice(t('error_generic'), 'error')); });
   }
 
+  // Your own full profile. Other members' profiles are private (see get_profile).
   function loadMyProfile(user) {
-    return sb.from('profiles').select('*').eq('id', user.id).maybeSingle();
+    return sb.rpc('get_profile', { p_id: user.id }).maybeSingle();
+  }
+
+  // ---------------------------------------------------------------- bell
+  var bellEl = null;
+  function setupBell() {
+    var nav = document.querySelector('.site-header .nav');
+    if (!nav || bellEl) return;
+    bellEl = h('a', { class: 'bell', href: PATHS.notifications, 'aria-label': t('bell') }, [icon('bell'), h('span', { class: 'bell-count', 'aria-hidden': 'true', hidden: true })]);
+    if (PAGE === 'notifications') bellEl.setAttribute('aria-current', 'page');
+    nav.insertBefore(bellEl, nav.querySelector('.lang'));
+    refreshBell();
+    setInterval(function () { if (!document.hidden) refreshBell(); }, 60000);
+    document.addEventListener('visibilitychange', function () { if (!document.hidden) refreshBell(); });
+  }
+  function setBell(n) {
+    if (!bellEl) return;
+    var c = bellEl.querySelector('.bell-count');
+    c.hidden = !n; c.textContent = n > 9 ? '9+' : String(n);
+    bellEl.setAttribute('aria-label', !n ? t('bell') : n === 1 ? t('bell_1') : t('bell_n', { n: n }));
+  }
+  function refreshBell() {
+    sb.from('notifications').select('id', { count: 'exact', head: true }).is('read_at', null).then(function (res) {
+      if (!res.error) setBell(res.count || 0);
+    });
   }
 
   // ================================================================ ACCOUNT
@@ -586,6 +742,7 @@
     var headline = field({ label: t('headline'), name: 'headline', max: 120, optional: true, hint: t('headline_hint'), value: p.headline });
     var bio = field({ label: t('bio'), name: 'bio', textarea: true, rows: 5, max: 600, optional: true, hint: t('bio_hint'), value: p.bio });
     var country = field({ label: t('country'), name: 'country', autocomplete: 'country-name', max: 60, optional: true, value: p.country });
+    var contact = field({ label: t('contact_field'), name: 'contact', textarea: true, rows: 3, max: 300, optional: true, hint: t('contact_hint'), value: p.contact_info });
     var li = field({ label: t('linkedin'), type: 'url', name: 'linkedin', max: 200, inputmode: 'url', value: p.linkedin_url, hint: t('linkedin_hint') });
     var ig = field({ label: t('instagram'), type: 'url', name: 'instagram', max: 200, inputmode: 'url', optional: true, value: p.instagram_url, placeholder: 'https://www.instagram.com/…' });
     var tk = field({ label: t('tiktok'), type: 'url', name: 'tiktok', max: 200, inputmode: 'url', optional: true, value: p.tiktok_url, placeholder: 'https://www.tiktok.com/@…' });
@@ -611,6 +768,7 @@
         headline: headline.input.value.trim() || null,
         bio: bio.input.value.trim() || null,
         country: country.input.value.trim() || null,
+        contact_info: contact.input.value.trim() || null,
         linkedin_url: li.input.value || null,
         instagram_url: ig.input.value || null,
         tiktok_url: tk.input.value || null,
@@ -618,12 +776,12 @@
       };
       if (pending) update.role = roleSel.value;
       busy(btn, true);
-      sb.from('profiles').update(update).eq('id', user.id).select().maybeSingle().then(function (res) {
+      sb.from('profiles').update(update).eq('id', user.id).then(function (res) {
         busy(btn, false);
         if (res.error) { msg.replaceChildren(notice(t('error_generic'), 'error')); return; }
         msg.replaceChildren(notice(t('saved'), 'ok'));
       });
-    } }, [name.wrap, roleWrap, headline.wrap, bio.wrap, country.wrap, li.wrap, ig.wrap, tk.wrap, web.wrap, email.wrap, msg, h('div', { class: 'actions' }, [btn])]);
+    } }, [name.wrap, roleWrap, headline.wrap, bio.wrap, country.wrap, contact.wrap, li.wrap, ig.wrap, tk.wrap, web.wrap, email.wrap, msg, h('div', { class: 'actions' }, [btn])]);
 
     var danger = h('div', { class: 'panel', style: 'margin-top:56px' });
     function dangerIdle() {
@@ -653,25 +811,60 @@
       ]),
       h('h1', { class: 'page-title', text: t('profile_title') }),
       pending ? notice(t('pending_notice')) : p.status === 'rejected' ? notice(t('rejected_notice'), 'error') : null,
+      p.status === 'approved' ? connectionsSection(user) : null,
+      h('h2', { class: 'section-title', text: t('my_data') }),
+      h('p', { class: 'small muted', style: 'margin:10px 0 0', text: t('privacy_note') }),
       form,
       danger
     );
   }
 
+  function connectionsSection(user) {
+    var list = h('div', null, [h('p', { class: 'small muted', style: 'margin-top:12px', text: t('loading') })]);
+    Promise.all([
+      sb.from('connections')
+        .select('id,owner_id,helper_id,request_title,created_at,owner:profiles!connections_owner_id_fkey(id,full_name,role),helper:profiles!connections_helper_id_fkey(id,full_name,role)')
+        .order('created_at', { ascending: false }),
+      sb.from('interests').select('id', { count: 'exact', head: true }).eq('helper_id', user.id).is('connected_at', null)
+    ]).then(function (r) {
+      var res = r[0], pend = r[1];
+      if (res.error) { list.replaceChildren(notice(t('error_generic'), 'error')); return; }
+      var rows = (res.data || []).map(function (c) {
+        var other = c.owner_id === user.id ? c.helper : c.owner;
+        if (!other) return null;
+        return h('li', { class: 'conn' }, [
+          h('div', { class: 'who' }, [
+            h('div', null, [h('b', { text: other.full_name }), h('span', { class: 'muted', text: ' · ' + roleLabel(other.role) })]),
+            h('div', { class: 'small muted', text: c.request_title + ' · ' + fmtDate(c.created_at) })
+          ]),
+          h('button', { class: 'btn btn-ghost btn-sm', type: 'button', text: t('view_profile_btn'), 'aria-label': t('view_profile', { name: other.full_name }), onclick: function () { openProfile(other.id); } })
+        ]);
+      }).filter(Boolean);
+      var n = pend && !pend.error ? (pend.count || 0) : 0;
+      put(list, [
+        rows.length ? h('ul', { class: 'conns' }, rows) : h('p', { class: 'small muted', style: 'margin-top:12px', text: t('connections_empty') }),
+        n ? h('p', { class: 'small muted', style: 'margin-top:12px', text: n === 1 ? t('pending_interests_1') : t('pending_interests_n', { n: n }) }) : null
+      ]);
+    }).catch(function () { list.replaceChildren(notice(t('error_generic'), 'error')); });
+    return h('section', { 'aria-labelledby': 'conn-title' }, [h('h2', { id: 'conn-title', class: 'section-title', text: t('connections_title') }), list]);
+  }
+
   function signOut() { sb.auth.signOut().finally(function () { window.location.href = PATHS.community; }); }
 
   // ================================================================ COMMUNITY
-  var state = { me: null, user: null, cajas: [], filter: 'all', q: '', open: {}, replies: {} };
+  var state = { me: null, user: null, cajas: [], filter: 'all', q: '', open: {}, replies: {}, interests: {} };
 
   function communityPage(session) {
     if (!session) return; // the page already shows the public intro
     ROOT.setAttribute('aria-busy', 'true');
     ROOT.replaceChildren(h('p', { class: 'lead', text: t('loading') }));
     state.user = session.user;
+    var wanted = new URLSearchParams(window.location.search).get('caja');
+    if (wanted && !/^[0-9a-f-]{36}$/i.test(wanted)) wanted = null;
     loadMyProfile(session.user).then(function (res) {
       if (res.error || !res.data) { mount(h('h1', { class: 'page-title', text: t('comm_title') }), notice(t('error_generic'), 'error')); return; }
       state.me = res.data;
-      if (res.data.status === 'approved') renderBoard();
+      if (res.data.status === 'approved') renderBoard(wanted);
       else renderWaiting(res.data);
     });
   }
@@ -695,7 +888,7 @@
   }
 
   var listEl, countEl, dialog;
-  function renderBoard() {
+  function renderBoard(wanted) {
     var formPanel = h('div', { hidden: true });
     var newBtn = h('button', { class: 'btn btn-primary', type: 'button', text: t('new_caja'), 'aria-expanded': 'false', onclick: function () {
       var showing = !formPanel.hidden;
@@ -713,7 +906,6 @@
     }));
     listEl = h('ul', { class: 'cajas' });
     countEl = h('p', { class: 'sr', 'aria-live': 'polite' });
-    dialog = buildDialog();
     mount(
       userbar(),
       h('div', { class: 'head-row' }, [h('h1', { class: 'page-title', text: t('comm_title') }), newBtn]),
@@ -721,23 +913,29 @@
       h('div', { class: 'toolbar' }, [h('label', { class: 'sr', for: 'q', text: t('search_label') }), search,
         h('div', { class: 'filter-row' }, [h('span', { class: 'filter-label', 'aria-hidden': 'true', text: t('filter_prefix') }), chips])]),
       countEl,
-      listEl,
-      dialog
+      listEl
     );
-    loadCajas();
+    loadCajas(wanted, true);
   }
 
-  function loadCajas(openId) {
+  // Each caja carries the interests the reader may see: all of them for its
+  // author, only their own for anyone else (the database decides).
+  function loadCajas(openId, scroll) {
     return sb.from('requests')
-      .select('id,title,body,seeking,is_open,created_at,author_id,author:profiles!requests_author_id_fkey(id,full_name,role),replies(count)')
+      .select('id,title,body,seeking,is_open,created_at,author_id,author:profiles!requests_author_id_fkey(id,full_name,role),replies(count),interests(id,helper_id,connected_at)')
       .order('created_at', { ascending: false })
       .limit(200)
       .then(function (res) {
         if (res.error) { listEl.replaceChildren(h('li', null, [notice(t('error_generic'), 'error')])); return; }
         state.cajas = res.data || [];
-        if (openId) state.open[openId] = true;
+        var known = openId && state.cajas.some(function (c) { return c.id === openId; });
+        if (known) state.open[openId] = true;
         renderList();
-        if (openId) loadReplies(openId);
+        if (known) {
+          loadReplies(openId);
+          loadInterests(openId);
+          if (scroll) { var el = document.getElementById('c-' + openId); if (el) el.scrollIntoView({ block: 'start' }); }
+        }
       });
   }
 
@@ -773,8 +971,10 @@
     var open = !!state.open[c.id];
     var mine = c.author_id === state.user.id;
     var detailId = 'caja-' + c.id;
-    var li = h('li', { class: 'caja' });
-    var toggle = function () { state.open[c.id] = !open; renderList(); if (!open) loadReplies(c.id); };
+    var li = h('li', { class: 'caja', id: 'c-' + c.id });
+    var toggle = function () { state.open[c.id] = !open; renderList(); if (!open) { loadReplies(c.id); loadInterests(c.id); } };
+    var ints = c.interests || [];
+    var myInt = mine ? null : ints.filter(function (x) { return x.helper_id === state.user.id; })[0];
     var kids = [
       h('div', { class: 'caja-top' }, [h('span', { class: 'badge', text: t('seek_' + c.seeking) }), c.is_open ? null : h('span', { class: 'badge closed', text: t('closed') })]),
       h('h2', null, [h('button', { type: 'button', 'aria-expanded': String(open), 'aria-controls': detailId, text: c.title, onclick: toggle })]),
@@ -783,10 +983,18 @@
     if (!open) {
       kids.push(h('p', { class: 'excerpt', text: c.body.length > 220 ? c.body.slice(0, 217).trimEnd() + '…' : c.body }));
     } else {
-      kids.push(h('div', { id: detailId }, [h('p', { class: 'fulltext', text: c.body }), h('div', { class: 'thread', 'data-thread': c.id }, [h('p', { class: 'small muted', style: 'margin-top:20px', text: t('loading') })])]));
+      kids.push(h('div', { id: detailId }, [
+        h('p', { class: 'fulltext', text: c.body }),
+        h('div', { class: 'interest', 'data-interest': c.id }),
+        h('div', { class: 'thread', 'data-thread': c.id }, [h('p', { class: 'small muted', style: 'margin-top:20px', text: t('loading') })])
+      ]));
     }
+    var intNote = null;
+    if (mine && ints.length) intNote = h('span', { class: 'int-note', text: ints.length === 1 ? t('foot_interested_1') : t('foot_interested_n', { n: ints.length }) });
+    else if (myInt) intNote = h('span', { class: 'int-note', text: myInt.connected_at ? t('foot_connected') : t('foot_interest_sent') });
     var foot = h('div', { class: 'caja-foot' }, [
       h('span', { text: replyCount(c) }),
+      intNote,
       h('button', { class: 'linkish', type: 'button', text: open ? t('hide') : t('view'), onclick: toggle })
     ]);
     if (mine) {
@@ -800,9 +1008,150 @@
       foot.appendChild(del);
     }
     kids.push(foot);
-    li.replaceChildren.apply(li, kids);
+    li.replaceChildren.apply(li, kids.filter(Boolean));
     if (open && state.replies[c.id]) renderThread(c, li.querySelector('[data-thread]'));
+    if (open && state.interests[c.id]) renderInterests(c, li.querySelector('[data-interest]'));
     return li;
+  }
+
+  // ---------------------------------------------------------------- interests
+  function loadInterests(id) {
+    return sb.from('interests')
+      .select('id,request_id,helper_id,message,connected_at,created_at,helper:profiles!interests_helper_id_fkey(id,full_name,role)')
+      .eq('request_id', id)
+      .order('created_at', { ascending: true })
+      .then(function (res) {
+        state.interests[id] = res.error ? null : (res.data || []);
+        var box = listEl && listEl.querySelector('[data-interest="' + id + '"]');
+        var c = state.cajas.filter(function (x) { return x.id === id; })[0];
+        if (box && c) {
+          if (res.error) box.replaceChildren(notice(t('error_generic'), 'error'));
+          else renderInterests(c, box);
+        }
+      });
+  }
+
+  function cajaChanged(id) {
+    delete state.interests[id];
+    loadCajas(id);
+  }
+
+  function renderInterests(c, box) {
+    var list = state.interests[c.id] || [];
+    if (c.author_id === state.user.id) return renderInterested(c, box, list);
+    var mine = list.filter(function (x) { return x.helper_id === state.user.id; })[0];
+    var who = c.author ? firstName(c.author.full_name) : t('someone');
+    var panel = h('section', { class: 'int-panel' });
+    if (mine && mine.connected_at) {
+      put(panel, [
+        h('span', { class: 'status-pill connected', text: t('connected_pill', { date: fmtDate(mine.connected_at) }) }),
+        h('p', { text: t('connected_text') }),
+        c.author ? h('button', { class: 'btn btn-ghost btn-sm', type: 'button', text: t('view_profile', { name: who }), onclick: function () { openProfile(c.author.id); } }) : null
+      ]);
+    } else if (mine) {
+      var msgEl = h('p', { class: 'my-msg', hidden: true, text: mine.message });
+      var toggleMsg = h('button', { class: 'linkish', type: 'button', text: t('show_my_msg'), 'aria-expanded': 'false', onclick: function () {
+        msgEl.hidden = !msgEl.hidden;
+        toggleMsg.textContent = msgEl.hidden ? t('show_my_msg') : t('hide_my_msg');
+        toggleMsg.setAttribute('aria-expanded', String(!msgEl.hidden));
+      } });
+      var wd = h('button', { class: 'linkish', type: 'button', text: t('withdraw') });
+      wd.addEventListener('click', armed(wd, t('withdraw'), t('withdraw_sure'), function () {
+        busy(wd, true);
+        sb.from('interests').delete().eq('id', mine.id).then(function (res) {
+          if (res.error) { busy(wd, false); panel.appendChild(notice(t('error_generic'), 'error')); return; }
+          cajaChanged(c.id);
+        });
+      }));
+      put(panel, [
+        h('span', { class: 'status-pill', text: t('interest_sent', { date: fmtDate(mine.created_at) }) }),
+        h('p', { text: t('interest_sent_text', { name: who }) }),
+        msgEl,
+        h('div', { class: 'int-links' }, [toggleMsg, wd])
+      ]);
+    } else if (c.is_open && c.author) {
+      var start = h('button', { class: 'btn btn-primary', type: 'button', text: t('interest_btn'), onclick: function () { interestForm(c, panel, who); } });
+      put(panel, [h('h3', { text: t('can_help', { name: who }) }), h('p', { text: t('can_help_text', { name: who }) }), start]);
+    } else {
+      box.replaceChildren();
+      return;
+    }
+    box.replaceChildren(panel);
+  }
+
+  function interestForm(c, panel, who) {
+    var f = field({ label: t('interest_label'), name: 'interest', textarea: true, rows: 5, max: 500, hint: t('interest_lead', { name: who }) });
+    var msg = h('div');
+    var btn = h('button', { class: 'btn btn-primary', type: 'submit', text: t('send') });
+    var form = h('form', { class: 'form', style: 'margin-top:0', novalidate: true, onsubmit: function (e) {
+      e.preventDefault();
+      var v = f.input.value.trim();
+      var bad = v.length < 20 || v.length > 500;
+      f.error(bad ? t('err_interest') : '');
+      if (bad) return f.input.focus();
+      busy(btn, true);
+      sb.from('interests').insert({ request_id: c.id, message: v }).then(function (res) {
+        if (res.error) { busy(btn, false); msg.replaceChildren(notice(t('error_generic'), 'error')); return; }
+        cajaChanged(c.id);
+      });
+    } }, [
+      f.wrap,
+      lockbox(t('interest_lock', { name: who })),
+      msg,
+      h('div', { class: 'actions', style: 'margin-top:4px' }, [btn, h('button', { class: 'btn btn-ghost', type: 'button', text: t('cancel'), onclick: function () { renderInterests(c, panel.parentNode); } })])
+    ]);
+    put(panel, [h('h3', { text: t('interest_btn') }), form]);
+    f.input.focus();
+  }
+
+  function renderInterested(c, box, list) {
+    var items = list.map(function (it) {
+      var p = it.helper;
+      var name = p ? p.full_name : t('someone');
+      var tail;
+      if (it.connected_at) {
+        tail = h('div', { class: 'int-links' }, [
+          h('span', { class: 'status-pill connected', text: t('connected_pill', { date: fmtDate(it.connected_at) }) }),
+          p ? h('button', { class: 'linkish', type: 'button', text: t('view_profile_btn'), 'aria-label': t('view_profile', { name: name }), onclick: function () { openProfile(p.id); } }) : null
+        ]);
+      } else {
+        tail = h('button', { class: 'btn btn-primary btn-sm', type: 'button', text: t('connect'), 'aria-label': t('connect_q', { name: name }), onclick: function () { confirmConnect(c, it, name); } });
+      }
+      return h('li', { class: 'int-card' }, [
+        h('div', { class: 'meta-line' }, [authorButton(p), h('span', { 'aria-hidden': 'true', text: '·' }), h('span', { text: roleLabel(p && p.role) }), h('span', { 'aria-hidden': 'true', text: '·' }), h('span', { text: fmtDate(it.created_at) })]),
+        h('p', { text: it.message }),
+        tail
+      ]);
+    });
+    box.replaceChildren(h('section', { class: 'int-section', 'aria-labelledby': 'int-' + c.id }, [
+      h('div', { class: 'int-head' }, [h('h3', { id: 'int-' + c.id, text: t('interested_title') }), list.length ? h('span', { class: 'int-count', text: String(list.length) }) : null]),
+      h('p', { class: 'small muted', style: 'margin:6px 0 0', text: t('interested_hint') }),
+      items.length ? h('ul', { class: 'int-list' }, items) : h('p', { class: 'small muted', style: 'margin:12px 0 0', text: t('interested_empty') })
+    ]));
+  }
+
+  function confirmConnect(c, it, name) {
+    var d = ensureDialog();
+    var who = firstName(name);
+    var msg = h('div');
+    var yes = h('button', { class: 'btn btn-primary', type: 'button', text: t('connect'), onclick: function () {
+      busy(yes, true);
+      sb.rpc('connect_interest', { p_interest: it.id }).then(function (res) {
+        if (res.error) { busy(yes, false); msg.replaceChildren(notice(t('error_generic'), 'error')); return; }
+        d.close();
+        cajaChanged(c.id);
+      });
+    } });
+    d.replaceChildren(
+      h('button', { class: 'dialog-close', type: 'button', 'aria-label': t('close'), text: '×', onclick: function () { d.close(); } }),
+      h('h2', { id: 'pd-name', text: t('connect_q', { name: who }) }),
+      h('p', { class: 'bio', text: t('connect_text', { name: who }) }),
+      h('div', { class: 'shared-box' }, [h('span', { class: 'badge', text: t('connect_shared_label') }), h('p', { text: t('connect_shared') })]),
+      msg,
+      h('div', { class: 'actions', style: 'margin-top:20px' }, [yes, h('button', { class: 'btn btn-ghost', type: 'button', text: t('cancel'), onclick: function () { d.close(); } })])
+    );
+    if (!d.open) d.showModal();
+    yes.focus();
   }
 
   function loadReplies(id) {
@@ -899,33 +1248,123 @@
     return h('div', { class: 'panel' }, [h('h2', { text: t('new_caja_title') }), form]);
   }
 
-  function buildDialog() {
-    var d = h('dialog', { class: 'profile-dialog', 'aria-labelledby': 'pd-name' });
-    d.addEventListener('click', function (e) { if (e.target === d) d.close(); });
-    return d;
+  // One dialog per page, used for profiles and for confirming a connection.
+  function ensureDialog() {
+    if (dialog && dialog.isConnected) return dialog;
+    dialog = h('dialog', { class: 'profile-dialog', 'aria-labelledby': 'pd-name' });
+    dialog.addEventListener('click', function (e) { if (e.target === dialog) dialog.close(); });
+    document.body.appendChild(dialog);
+    return dialog;
   }
 
+  // Full profile for yourself and your connections; name and type only for
+  // everyone else (the database returns nothing more).
   function openProfile(id) {
-    var close = h('button', { class: 'dialog-close', type: 'button', 'aria-label': t('close'), text: '×', onclick: function () { dialog.close(); } });
-    dialog.replaceChildren(close, h('p', { class: 'small muted', text: t('loading') }));
-    if (!dialog.open) dialog.showModal();
-    sb.from('profiles').select('full_name,role,headline,bio,country,linkedin_url,instagram_url,tiktok_url,website_url').eq('id', id).maybeSingle().then(function (res) {
-      if (res.error || !res.data) { dialog.replaceChildren(close, notice(t('error_generic'), 'error')); return; }
-      var p = res.data;
+    var d = ensureDialog();
+    var close = h('button', { class: 'dialog-close', type: 'button', 'aria-label': t('close'), text: '×', onclick: function () { d.close(); } });
+    d.replaceChildren(close, h('p', { class: 'small muted', text: t('loading') }));
+    if (!d.open) d.showModal();
+    Promise.all([
+      sb.rpc('get_profile', { p_id: id }).maybeSingle(),
+      sb.from('profiles').select('id,full_name,role').eq('id', id).maybeSingle()
+    ]).then(function (r) {
+      var full = r[0] && !r[0].error ? r[0].data : null;
+      var basic = r[1] && !r[1].error ? r[1].data : null;
+      if (!full && !basic) { d.replaceChildren(close, notice(t('error_generic'), 'error')); return; }
+      if (!full) {
+        put(d, [
+          close,
+          h('span', { class: 'badge', text: roleLabel(basic.role) }),
+          h('h2', { id: 'pd-name', text: basic.full_name }),
+          h('div', { class: 'lockbox', style: 'margin-top:20px' }, [icon('lock'), h('div', null, [h('p', { text: t('locked_text') }), h('p', { class: 'muted', text: t('locked_hint') })])])
+        ]);
+        close.focus();
+        return;
+      }
+      var p = full;
       var links = [['LinkedIn', p.linkedin_url], [t('instagram'), p.instagram_url], [t('tiktok'), p.tiktok_url], [t('website'), p.website_url]]
         .filter(function (l) { return l[1] && /^https:\/\//i.test(l[1]); })
         .map(function (l) { return h('a', { href: l[1], target: '_blank', rel: 'noopener noreferrer nofollow', text: l[0] }); });
-      put(dialog, [
+      put(d, [
         close,
-        h('span', { class: 'badge', text: roleLabel(p.role) }),
+        h('div', { class: 'pd-top' }, [
+          h('span', { class: 'badge', text: roleLabel(p.role) }),
+          p.connected_at && !p.is_self ? h('span', { class: 'status-pill connected', text: t('connected_pill', { date: fmtDate(p.connected_at) }) }) : null
+        ]),
         h('h2', { id: 'pd-name', text: p.full_name }),
+        p.is_self ? h('p', { class: 'small muted', style: 'margin:8px 0 0', text: t('this_is_you') }) : null,
         p.headline ? h('p', { class: 'headline', text: p.headline }) : null,
         p.country ? h('p', { class: 'small muted', style: 'margin:6px 0 0', text: p.country }) : null,
         p.bio ? h('p', { class: 'bio', text: p.bio }) : null,
-        links.length ? h('div', { class: 'socials' }, links) : h('p', { class: 'small muted', style: 'margin-top:20px', text: t('no_links') })
+        h('div', { class: 'shared-box', style: 'margin-top:20px' }, [
+          h('span', { class: 'badge', text: t('contact_label') }),
+          h('p', { class: p.contact_info ? 'contact' : 'muted', text: p.contact_info || t('no_contact') })
+        ]),
+        links.length ? h('div', { class: 'socials' }, links) : h('p', { class: 'small muted', style: 'margin-top:20px', text: t('no_links') }),
+        p.is_self ? h('p', { class: 'small', style: 'margin-top:16px' }, [h('a', { class: 'linkish', href: PATHS.profile, text: t('edit_profile') })]) : null
       ]);
       close.focus();
-    });
+    }).catch(function () { d.replaceChildren(close, notice(t('error_generic'), 'error')); });
+  }
+
+  // ================================================================ NOTIFICATIONS
+  function notificationsPage(session) {
+    if (!session) { window.location.replace(PATHS.account); return; }
+    var user = session.user;
+    sb.from('notifications')
+      .select('id,kind,actor_id,request_id,request_title,read_at,created_at,actor:profiles!notifications_actor_id_fkey(id,full_name,role)')
+      .order('created_at', { ascending: false })
+      .limit(100)
+      .then(function (res) {
+        if (res.error) { mount(h('h1', { class: 'page-title', text: t('notif_title') }), notice(t('error_generic'), 'error')); return; }
+        var rows = res.data || [];
+        mount(
+          h('div', { class: 'userbar' }, [
+            h('span', { class: 'hello' }),
+            h('a', { class: 'linkish', href: PATHS.community, text: t('go_community') }),
+            h('a', { class: 'linkish', href: PATHS.profile, text: t('my_profile') }),
+            h('button', { class: 'linkish', type: 'button', text: t('signout'), onclick: signOut })
+          ]),
+          h('h1', { class: 'page-title', text: t('notif_title') }),
+          rows.length ? h('ul', { class: 'notifs' }, rows.map(notifItem)) : h('p', { class: 'lead', text: t('notif_empty') })
+        );
+        if (rows.some(function (n) { return !n.read_at; })) {
+          sb.from('notifications').update({ read_at: new Date().toISOString() }).eq('user_id', user.id).is('read_at', null).then(function (r) {
+            if (!r.error) setBell(0);
+          });
+        }
+      });
+  }
+
+  function notifItem(n) {
+    var actor = n.actor;
+    var name = actor ? actor.full_name : t('someone');
+    var title = n.request_title || '';
+    var cajaLink = n.request_id ? PATHS.community + '?caja=' + encodeURIComponent(n.request_id) : PATHS.community;
+    var key, acts = [];
+    if (n.kind === 'interest') {
+      key = 'notif_interest';
+      acts.push(h('a', { class: 'linkish', href: cajaLink, text: t('notif_view_interested') }));
+    } else if (n.kind === 'connected') {
+      key = 'notif_connected';
+      if (actor) acts.push(h('button', { class: 'btn btn-primary btn-sm', type: 'button', text: t('view_profile', { name: firstName(name) }), onclick: function () { openProfile(actor.id); } }));
+    } else if (n.kind === 'reply') {
+      key = 'notif_reply';
+      acts.push(h('a', { class: 'linkish', href: cajaLink, text: t('notif_view_caja') }));
+    } else {
+      key = 'notif_approved';
+      acts.push(h('a', { class: 'linkish', href: PATHS.community, text: t('go_community') }));
+    }
+    // The member's name in bold: fill the other values, then split on {name}.
+    var parts = t(key, { role: roleLabel(actor && actor.role).toLowerCase(), title: title }).split('{name}');
+    var text = [];
+    parts.forEach(function (part, i) { if (i) text.push(h('b', { text: name })); if (part) text.push(part); });
+    var unread = !n.read_at;
+    return h('li', { class: 'notif' + (unread ? ' unread' : '') }, [
+      h('p', { class: 'text' }, text),
+      h('p', { class: 'when' }, [ago(n.created_at), unread ? ' · ' + t('notif_new') : '']),
+      h('div', { class: 'acts' }, acts)
+    ]);
   }
 
   start();

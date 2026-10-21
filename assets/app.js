@@ -16,8 +16,8 @@
   var CONTACT = 'info@beprojectlab.com';
 
   var PATHS = {
-    es: { home: '/', community: '/comunidad/', account: '/cuenta/', profile: '/perfil/', notifications: '/notificaciones/', resources: '/recursos/', privacy: '/privacidad/', terms: '/condiciones/' },
-    en: { home: '/en/', community: '/en/community/', account: '/en/account/', profile: '/en/profile/', notifications: '/en/notifications/', resources: '/en/resources/', privacy: '/en/privacy/', terms: '/en/terms/' }
+    es: { home: '/', community: '/comunidad/', account: '/cuenta/', profile: '/perfil/', notifications: '/notificaciones/', resources: '/recursos/', admin: '/admin/', privacy: '/privacidad/', terms: '/condiciones/' },
+    en: { home: '/en/', community: '/en/community/', account: '/en/account/', profile: '/en/profile/', notifications: '/en/notifications/', resources: '/en/resources/', admin: '/en/admin/', privacy: '/en/privacy/', terms: '/en/terms/' }
   }[LANG];
 
   var STR = {
@@ -247,6 +247,104 @@
       rs_meta_published: '{kind} · en {section} · publicado el {date}',
       rs_meta_rejected: '{kind} · {date}. Si tienes dudas, escríbenos a ' + CONTACT + '.',
       view_in_resources: 'Ver en Recursos',
+      // administration
+      adm_title: 'Administración',
+      adm_nav: 'Admin',
+      adm_only: 'Esta página es solo para administradores.',
+      adm_signin_lead: 'Entra con tu cuenta de administrador.',
+      adm_session_ok: 'Sesión verificada con código',
+      adm_exit: 'Salir del panel',
+      adm_sections: 'Secciones del panel',
+      adm_tab_resumen: 'Resumen', adm_tab_cuentas: 'Cuentas', adm_tab_recursos: 'Recursos', adm_tab_registro: 'Registro',
+      adm_pending_sr: '({n} pendientes)',
+      adm_box_text: 'Eres administrador del sitio.',
+      adm_box_open: 'Abrir el panel',
+      adm_box_note: 'Solo tú ves este recuadro. Los demás miembros te ven como a cualquier otro miembro.',
+      adm_waiting: 'Por revisar: {what}.',
+      adm_n_member: '{n} cuentas', adm_n_member_1: '1 cuenta',
+      adm_n_res: '{n} recursos', adm_n_res_1: '1 recurso',
+      adm_nothing: 'Nada pendiente.',
+      mfa_kicker: 'Administración · solo la primera vez',
+      mfa_title: 'Verificación en dos pasos',
+      mfa_lead: 'El panel aprueba cuentas y publica recursos, así que pide algo más que tu contraseña: un código de tu móvil que cambia cada 30 segundos.',
+      mfa_step1: 'Instala una app de códigos en tu móvil: Google Authenticator, Microsoft Authenticator o 1Password.',
+      mfa_step2: 'Escanea este código con la app.',
+      mfa_qr_alt: 'Código QR para tu app de códigos',
+      mfa_show_secret: '¿No puedes escanearlo? Ver la clave',
+      mfa_secret_label: 'Escribe esta clave en la app:',
+      mfa_step3: 'Escribe el código de 6 cifras que muestra la app.',
+      mfa_code: 'Código de 6 cifras',
+      mfa_activate: 'Activar y entrar al panel',
+      mfa_note: 'Sin la app no podrás entrar en el panel. Si pierdes el móvil, el acceso se recupera desde Supabase. Tu cuenta de miembro sigue funcionando igual.',
+      mfa_enter_lead: 'Escribe el código de 6 cifras de tu app de verificación.',
+      mfa_enter_btn: 'Entrar al panel',
+      mfa_enter_note: 'Te lo pide una vez en cada inicio de sesión.',
+      mfa_enroll_error: 'No se ha podido preparar la verificación en dos pasos. Recarga la página para intentarlo de nuevo.',
+      err_code: 'Escribe las 6 cifras del código.',
+      err_code_wrong: 'Ese código no vale. Comprueba que la hora de tu móvil es correcta y escribe el código que se ve ahora.',
+      adm_to_review: 'Por revisar',
+      adm_card_member: 'cuentas por aprobar', adm_card_member_1: 'cuenta por aprobar',
+      adm_card_res: 'recursos por revisar', adm_card_res_1: 'recurso por revisar',
+      adm_community: 'La comunidad',
+      adm_st_members: 'Miembros', adm_st_unconfirmed: 'Sin confirmar email', adm_st_open: 'Cajas abiertas',
+      adm_st_connections: 'Conexiones', adm_st_published: 'Recursos publicados', adm_st_inactive: 'No activas',
+      adm_latest: 'Lo último',
+      adm_view_log: 'Ver el registro',
+      adm_filter: 'Filtrar',
+      adm_mf_pending: 'Por aprobar ({n})', adm_mf_approved: 'Aprobadas ({n})', adm_mf_rejected: 'No activas ({n})',
+      adm_email_ok: 'email confirmado', adm_email_no: 'email sin confirmar',
+      adm_joined: 'Registro: {when}',
+      adm_linkedin: 'Ver su LinkedIn', adm_no_linkedin: 'Sin LinkedIn',
+      adm_approve: 'Aprobar', adm_reject: 'Rechazar', adm_reject_sure: '¿Seguro? Rechazar',
+      adm_wait_email: 'Mejor esperar a que confirme su email: así sabes que es real.',
+      adm_members_note: 'Al aprobar, la persona recibe un aviso en su campana. Al rechazar, no se le avisa: ve que su cuenta no está activa.',
+      adm_approved_msg: 'La cuenta de {name} está aprobada. Le hemos avisado en su campana.',
+      adm_rejected_msg: 'La cuenta de {name} queda rechazada.',
+      adm_suspended_msg: 'La cuenta de {name} queda suspendida.',
+      adm_reactivated_msg: 'La cuenta de {name} vuelve a estar activa.',
+      adm_search: 'Buscar por nombre o email',
+      adm_suspend: 'Suspender', adm_suspend_sure: '¿Seguro? Suspender',
+      adm_suspend_hint: 'Una cuenta suspendida deja de ver la comunidad y nadie ve su perfil. Puedes reactivarla cuando quieras desde «No activas».',
+      adm_reactivate: 'Reactivar',
+      adm_your_account: 'Tu cuenta',
+      adm_admin_tag: 'administrador',
+      adm_since: 'aprobada el {date}',
+      adm_rejected_row: 'rechazada', adm_suspended_row: 'suspendida',
+      adm_empty_pending: 'No hay cuentas por aprobar.',
+      adm_empty_approved: 'Todavía no hay cuentas aprobadas.',
+      adm_empty_rejected: 'No hay cuentas rechazadas ni suspendidas.',
+      adm_no_match: 'Nadie coincide con la búsqueda.',
+      adm_rf_pending: 'Por revisar ({n})', adm_rf_published: 'Publicados ({n})', adm_rf_rejected: 'No publicados ({n})',
+      adm_section: 'sección {s}',
+      adm_sent: 'enviado: {when}',
+      adm_published_on: 'publicado el {date}',
+      adm_open_link: 'Abrir el enlace',
+      adm_publish: 'Publicar', adm_unpublish: 'No publicar', adm_unpublish_sure: '¿Seguro? No publicar',
+      adm_withdraw: 'Retirar', adm_withdraw_sure: '¿Seguro? Retirar',
+      adm_res_note: 'Al publicarlo, aparece en Recursos con el nombre de quien lo comparte y le llega un aviso. Si no lo publicas, lo ve como «No publicado».',
+      adm_published_msg: '«{title}» está publicado. {name} ha recibido un aviso.',
+      adm_unpublished_msg: '«{title}» queda sin publicar.',
+      adm_withdrawn_msg: '«{title}» ya no está en Recursos.',
+      adm_empty_res_pending: 'No hay recursos por revisar.',
+      adm_empty_res_published: 'Todavía no hay recursos publicados.',
+      adm_empty_res_rejected: 'No hay recursos sin publicar.',
+      adm_log_lead: 'Todo lo que se hace desde el panel queda aquí, con la hora. Desde la web no se puede borrar.',
+      adm_log_empty: 'Todavía no hay acciones registradas.',
+      adm_today: 'Hoy', adm_yesterday: 'Ayer',
+      adm_more: 'Ver más',
+      log_approved: 'Aprobaste a {name}', log_rejected: 'Rechazaste a {name}', log_suspended: 'Suspendiste a {name}',
+      log_reactivated: 'Reactivaste a {name}', log_member_other: 'Cambiaste la cuenta de {name} a «{status}»',
+      log_published: 'Publicaste «{title}»', log_unpublished: 'Dejaste sin publicar «{title}»', log_withdrawn: 'Retiraste «{title}»',
+      log_res_other: 'Cambiaste «{title}» a «{status}»',
+      log_del_request: 'Quitaste la caja «{title}»',
+      log_del_reply: 'Quitaste una respuesta en «{title}»: «{body}»',
+      log_del_reply_short: 'Quitaste una respuesta: «{body}»',
+      mod_label: 'Administración',
+      mod_remove_caja: 'Quitar caja',
+      mod_remove: 'Quitar', mod_sure: '¿Seguro? Quitar',
+      notif_admin_member: 'Cuenta nueva para aprobar: {name}.',
+      notif_admin_resource: 'Recurso nuevo para revisar: «{title}», de {name}.',
+      notif_view_panel: 'Abrir el panel',
       t_now: 'Hace un momento', t_min: 'Hace {n} min', t_h: 'Hace {n} h', t_yesterday: 'Ayer'
     },
     en: {
@@ -468,6 +566,104 @@
       rs_meta_published: '{kind} · in {section} · published on {date}',
       rs_meta_rejected: '{kind} · {date}. If you have questions, write to us at ' + CONTACT + '.',
       view_in_resources: 'View in Resources',
+      // administration
+      adm_title: 'Administration',
+      adm_nav: 'Admin',
+      adm_only: 'This page is for administrators only.',
+      adm_signin_lead: 'Sign in with your administrator account.',
+      adm_session_ok: 'Session verified with a code',
+      adm_exit: 'Leave the panel',
+      adm_sections: 'Panel sections',
+      adm_tab_resumen: 'Overview', adm_tab_cuentas: 'Accounts', adm_tab_recursos: 'Resources', adm_tab_registro: 'Log',
+      adm_pending_sr: '({n} pending)',
+      adm_box_text: 'You are a site administrator.',
+      adm_box_open: 'Open the panel',
+      adm_box_note: 'Only you see this box. Other members see you like any other member.',
+      adm_waiting: 'To review: {what}.',
+      adm_n_member: '{n} accounts', adm_n_member_1: '1 account',
+      adm_n_res: '{n} resources', adm_n_res_1: '1 resource',
+      adm_nothing: 'Nothing pending.',
+      mfa_kicker: 'Administration · first time only',
+      mfa_title: 'Two-step verification',
+      mfa_lead: 'The panel approves accounts and publishes resources, so it asks for more than your password: a code from your phone that changes every 30 seconds.',
+      mfa_step1: 'Install a code app on your phone: Google Authenticator, Microsoft Authenticator or 1Password.',
+      mfa_step2: 'Scan this code with the app.',
+      mfa_qr_alt: 'QR code for your code app',
+      mfa_show_secret: 'Can’t scan it? Show the key',
+      mfa_secret_label: 'Type this key into the app:',
+      mfa_step3: 'Type the 6-digit code the app shows.',
+      mfa_code: '6-digit code',
+      mfa_activate: 'Turn on and open the panel',
+      mfa_note: 'Without the app you can’t open the panel. If you lose your phone, access is restored from Supabase. Your member account keeps working as usual.',
+      mfa_enter_lead: 'Type the 6-digit code from your verification app.',
+      mfa_enter_btn: 'Open the panel',
+      mfa_enter_note: 'It asks once each time you sign in.',
+      mfa_enroll_error: 'Two-step verification could not be set up. Reload the page to try again.',
+      err_code: 'Type the 6 digits of the code.',
+      err_code_wrong: 'That code didn’t work. Check that your phone’s clock is right and type the code shown now.',
+      adm_to_review: 'To review',
+      adm_card_member: 'accounts to approve', adm_card_member_1: 'account to approve',
+      adm_card_res: 'resources to review', adm_card_res_1: 'resource to review',
+      adm_community: 'The community',
+      adm_st_members: 'Members', adm_st_unconfirmed: 'Email not confirmed', adm_st_open: 'Open posts',
+      adm_st_connections: 'Connections', adm_st_published: 'Published resources', adm_st_inactive: 'Inactive',
+      adm_latest: 'Latest',
+      adm_view_log: 'View the log',
+      adm_filter: 'Filter',
+      adm_mf_pending: 'To approve ({n})', adm_mf_approved: 'Approved ({n})', adm_mf_rejected: 'Inactive ({n})',
+      adm_email_ok: 'email confirmed', adm_email_no: 'email not confirmed',
+      adm_joined: 'Signed up: {when}',
+      adm_linkedin: 'See their LinkedIn', adm_no_linkedin: 'No LinkedIn',
+      adm_approve: 'Approve', adm_reject: 'Reject', adm_reject_sure: 'Sure? Reject',
+      adm_wait_email: 'Better wait until they confirm their email: that way you know it is real.',
+      adm_members_note: 'When you approve, the person gets a notice in their bell. When you reject, they are not told: they see their account is not active.',
+      adm_approved_msg: '{name}’s account is approved. They got a notice in their bell.',
+      adm_rejected_msg: '{name}’s account is rejected.',
+      adm_suspended_msg: '{name}’s account is suspended.',
+      adm_reactivated_msg: '{name}’s account is active again.',
+      adm_search: 'Search by name or email',
+      adm_suspend: 'Suspend', adm_suspend_sure: 'Sure? Suspend',
+      adm_suspend_hint: 'A suspended account no longer sees the community and nobody sees its profile. You can reactivate it any time from “Inactive”.',
+      adm_reactivate: 'Reactivate',
+      adm_your_account: 'Your account',
+      adm_admin_tag: 'administrator',
+      adm_since: 'approved on {date}',
+      adm_rejected_row: 'rejected', adm_suspended_row: 'suspended',
+      adm_empty_pending: 'No accounts to approve.',
+      adm_empty_approved: 'No approved accounts yet.',
+      adm_empty_rejected: 'No rejected or suspended accounts.',
+      adm_no_match: 'Nobody matches the search.',
+      adm_rf_pending: 'To review ({n})', adm_rf_published: 'Published ({n})', adm_rf_rejected: 'Not published ({n})',
+      adm_section: '{s} section',
+      adm_sent: 'sent: {when}',
+      adm_published_on: 'published on {date}',
+      adm_open_link: 'Open the link',
+      adm_publish: 'Publish', adm_unpublish: 'Don’t publish', adm_unpublish_sure: 'Sure? Don’t publish',
+      adm_withdraw: 'Withdraw', adm_withdraw_sure: 'Sure? Withdraw',
+      adm_res_note: 'Once published, it appears in Resources with the sharer’s name and they get a notice. If you don’t publish it, they see it as “Not published”.',
+      adm_published_msg: '“{title}” is published. {name} got a notice.',
+      adm_unpublished_msg: '“{title}” stays unpublished.',
+      adm_withdrawn_msg: '“{title}” is no longer in Resources.',
+      adm_empty_res_pending: 'No resources to review.',
+      adm_empty_res_published: 'No published resources yet.',
+      adm_empty_res_rejected: 'No unpublished resources.',
+      adm_log_lead: 'Everything done from the panel is kept here, with the time. It can’t be deleted from the site.',
+      adm_log_empty: 'No actions logged yet.',
+      adm_today: 'Today', adm_yesterday: 'Yesterday',
+      adm_more: 'Show more',
+      log_approved: 'You approved {name}', log_rejected: 'You rejected {name}', log_suspended: 'You suspended {name}',
+      log_reactivated: 'You reactivated {name}', log_member_other: 'You set {name}’s account to “{status}”',
+      log_published: 'You published “{title}”', log_unpublished: 'You left “{title}” unpublished', log_withdrawn: 'You withdrew “{title}”',
+      log_res_other: 'You set “{title}” to “{status}”',
+      log_del_request: 'You removed the post “{title}”',
+      log_del_reply: 'You removed a reply on “{title}”: “{body}”',
+      log_del_reply_short: 'You removed a reply: “{body}”',
+      mod_label: 'Administration',
+      mod_remove_caja: 'Remove post',
+      mod_remove: 'Remove', mod_sure: 'Sure? Remove',
+      notif_admin_member: 'New account to approve: {name}.',
+      notif_admin_resource: 'New resource to review: “{title}”, from {name}.',
+      notif_view_panel: 'Open the panel',
       t_now: 'Just now', t_min: '{n} min ago', t_h: '{n} h ago', t_yesterday: 'Yesterday'
     }
   }[LANG];
@@ -563,7 +759,8 @@
     bell: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>',
     lock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>',
     external: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>',
-    info: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 8v5"/><path d="M12 16h.01"/></svg>'
+    info: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 8v5"/><path d="M12 16h.01"/></svg>',
+    shield: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>'
   };
   // One-choice chip group (section, type…). Returns the element and a getter.
   function chipChoice(label, options, selected) {
@@ -578,7 +775,12 @@
   function lockbox(text) { return h('div', { class: 'lockbox' }, [icon('lock'), h('p', { text: text })]); }
   function armed(btn, label, sure, action) {
     return function () {
-      if (btn.dataset.armed !== '1') { btn.dataset.armed = '1'; btn.textContent = sure; setTimeout(function () { btn.dataset.armed = ''; btn.textContent = label; }, 5000); return; }
+      if (btn.dataset.armed !== '1') {
+        btn.dataset.armed = '1'; btn.textContent = sure; btn.classList.add('is-armed');
+        setTimeout(function () { if (btn.disabled) return; btn.dataset.armed = ''; btn.textContent = label; btn.classList.remove('is-armed'); }, 5000);
+        return;
+      }
+      btn.classList.remove('is-armed');
       action();
     };
   }
@@ -649,13 +851,37 @@
     });
     sb.auth.getSession().then(function (res) {
       var session = res && res.data ? res.data.session : null;
-      if (session && PAGE !== 'account') setupBell();
+      if (session && PAGE !== 'account') { setupBell(); setupAdminLink(); }
       if (PAGE === 'account') accountPage(session);
       else if (PAGE === 'profile') profilePage(session);
       else if (PAGE === 'community') communityPage(session);
       else if (PAGE === 'notifications') notificationsPage(session);
       else if (PAGE === 'resources') resourcesPage(session);
+      else if (PAGE === 'admin') adminPage(session);
     }).catch(function () { mount(notice(t('error_generic'), 'error')); });
+  }
+
+  // Is the signed-in member an administrator, and is the session confirmed
+  // with the second factor? Asked once per page; the database checks again on
+  // every administrator action.
+  var adminInfoP = null;
+  function adminInfo() {
+    if (!adminInfoP) {
+      adminInfoP = sb.rpc('admin_status').then(function (r) {
+        return r && !r.error && r.data ? r.data : { admin: false, aal: 'aal1' };
+      }, function () { return { admin: false, aal: 'aal1' }; });
+    }
+    return adminInfoP;
+  }
+  // "Admin" in the menu, on wider screens only (on phones: from Mi perfil).
+  function setupAdminLink() {
+    adminInfo().then(function (a) {
+      var nav = document.querySelector('.site-header .nav');
+      if (!a.admin || !nav || nav.querySelector('.nav-admin')) return;
+      var link = h('a', { class: 'link nav-admin', href: PATHS.admin, text: t('adm_nav') });
+      if (PAGE === 'admin') link.setAttribute('aria-current', 'page');
+      nav.insertBefore(link, nav.querySelector('.bell') || nav.querySelector('.lang'));
+    });
   }
 
   // Your own full profile. Other members' profiles are private (see get_profile).
@@ -932,6 +1158,7 @@
       h('h1', { class: 'page-title', text: t('profile_title') }),
       h('p', { class: 'who-line', text: p.full_name + ' · ' + rolesLabel(rolesOf(p)) }),
       pending ? notice(t('pending_notice')) : p.status === 'rejected' ? notice(t('rejected_notice'), 'error') : null,
+      adminBox(),
       p.status === 'approved' ? connectionsSection(user) : null,
       p.status === 'approved' ? myResourcesSection(user, p) : null,
       h('h2', { class: 'section-title', text: t('my_data') }),
@@ -939,6 +1166,35 @@
       form,
       danger
     );
+  }
+
+  // Only administrators see this box in Mi perfil.
+  function adminBox() {
+    var box = h('div', { hidden: true });
+    adminInfo().then(function (a) {
+      if (!a.admin) return;
+      var text = h('p', { text: t('adm_box_text') });
+      put(box, [h('section', { class: 'adm-box', 'aria-labelledby': 'adm-box-h' }, [
+        h('div', { class: 'adm-box-head' }, [icon('shield'), h('h2', { id: 'adm-box-h', text: t('adm_title') })]),
+        text,
+        h('a', { class: 'btn btn-primary', href: PATHS.admin, text: t('adm_box_open') }),
+        h('p', { class: 'small', text: t('adm_box_note') })
+      ])]);
+      box.hidden = false;
+      if (a.aal !== 'aal2') return;
+      sb.rpc('admin_overview').then(function (r) {
+        if (!r.error && r.data) text.textContent = t('adm_box_text') + ' ' + pendingSentence(r.data);
+      });
+    });
+    return box;
+  }
+  function pendingSentence(o) {
+    var m = (o.members_pending || 0) + (o.members_unconfirmed || 0), r = o.resources_pending || 0;
+    if (!m && !r) return t('adm_nothing');
+    var parts = [];
+    if (m) parts.push(m === 1 ? t('adm_n_member_1') : t('adm_n_member', { n: m }));
+    if (r) parts.push(r === 1 ? t('adm_n_res_1') : t('adm_n_res', { n: r }));
+    return t('adm_waiting', { what: parts.join(t('and')) });
   }
 
   // ---------------------------------------------------------------- my resources
@@ -1130,8 +1386,9 @@
     loadMyProfile(session.user).then(function (res) {
       if (res.error || !res.data) { mount(h('h1', { class: 'page-title', text: t('comm_title') }), notice(t('error_generic'), 'error')); return; }
       state.me = res.data;
-      if (res.data.status === 'approved') renderBoard(wanted);
-      else renderWaiting(res.data);
+      if (res.data.status !== 'approved') { renderWaiting(res.data); return; }
+      // Administrators with a confirmed session can remove other members' boxes and replies.
+      adminInfo().then(function (a) { state.mod = !!(a.admin && a.aal === 'aal2'); renderBoard(wanted); });
     });
   }
 
@@ -1251,6 +1508,7 @@
     } else {
       kids.push(h('div', { id: detailId }, [
         h('p', { class: 'fulltext', text: c.body }),
+        state.mod && !mine ? modBar(c) : null,
         h('div', { class: 'interest', 'data-interest': c.id }),
         h('div', { class: 'thread', 'data-thread': c.id }, [h('p', { class: 'small muted', style: 'margin-top:20px', text: t('loading') })])
       ]));
@@ -1278,6 +1536,33 @@
     if (open && state.replies[c.id]) renderThread(c, li.querySelector('[data-thread]'));
     if (open && state.interests[c.id]) renderInterests(c, li.querySelector('[data-interest]'));
     return li;
+  }
+
+  // Administrator: remove someone else's box (the database checks the rights
+  // and logs it; a removal that the rules refuse deletes nothing).
+  function modBar(c) {
+    var msg = h('div', { class: 'mod-msg' });
+    var btn = h('button', { class: 'btn btn-ghost btn-sm', type: 'button', text: t('mod_remove_caja') });
+    btn.addEventListener('click', armed(btn, t('mod_remove_caja'), t('mod_sure'), function () {
+      busy(btn, true);
+      sb.from('requests').delete({ count: 'exact' }).eq('id', c.id).then(function (res) {
+        if (res.error || !res.count) { busy(btn, false); msg.replaceChildren(notice(t('error_generic'), 'error')); return; }
+        delete state.open[c.id];
+        loadCajas();
+      });
+    }));
+    return h('div', { class: 'mod-bar' }, [icon('shield'), h('span', { class: 'lbl', text: t('mod_label') }), btn, msg]);
+  }
+  function modRemoveReply(c, r) {
+    var btn = h('button', { class: 'linkish', type: 'button', text: t('mod_remove') });
+    btn.addEventListener('click', armed(btn, t('mod_remove'), t('mod_sure'), function () {
+      busy(btn, true);
+      sb.from('replies').delete({ count: 'exact' }).eq('id', r.id).then(function (res) {
+        if (res.error || !res.count) { busy(btn, false); btn.textContent = t('error_generic'); return; }
+        refreshAfterReply(c.id);
+      });
+    }));
+    return btn;
   }
 
   // ---------------------------------------------------------------- interests
@@ -1443,7 +1728,7 @@
       var del = mine ? h('button', { class: 'linkish', type: 'button', text: t('delete'), onclick: function () {
         if (del.dataset.armed !== '1') { del.dataset.armed = '1'; del.textContent = t('delete_sure'); setTimeout(function () { del.dataset.armed = ''; del.textContent = t('delete'); }, 5000); return; }
         sb.from('replies').delete().eq('id', r.id).then(function (res) { if (!res.error) refreshAfterReply(c.id); });
-      } }) : null;
+      } }) : state.mod ? modRemoveReply(c, r) : null;
       return h('li', { class: 'reply' }, [
         h('div', { class: 'meta-line' }, [authorButton(r.author), h('span', { 'aria-hidden': 'true', text: '·' }), h('span', { text: rolesLabel(r.author && r.author.roles) }), h('span', { 'aria-hidden': 'true', text: '·' }), h('span', { text: fmtDate(r.created_at) }), del ? h('span', { 'aria-hidden': 'true', text: '·' }) : null, del]),
         h('p', { text: r.body })
@@ -1607,7 +1892,7 @@
     var name = actor ? actor.full_name : t('someone');
     var title = n.request_title || '';
     var cajaLink = n.request_id ? PATHS.community + '?caja=' + encodeURIComponent(n.request_id) : PATHS.community;
-    var key, acts = [];
+    var key, acts = [], admin = false;
     if (n.kind === 'interest') {
       key = 'notif_interest';
       acts.push(h('a', { class: 'linkish', href: cajaLink, text: t('notif_view_interested') }));
@@ -1620,6 +1905,13 @@
     } else if (n.kind === 'resource_published') {
       key = 'notif_resource';
       acts.push(h('a', { class: 'linkish', href: PATHS.resources, text: t('notif_view_resources') }));
+    } else if (n.kind === 'admin_new_member') {
+      // The new member's profile is not readable yet: the name travels in the notice.
+      key = 'notif_admin_member'; name = n.request_title || t('someone'); admin = true;
+      acts.push(h('a', { class: 'linkish', href: PATHS.admin + '#cuentas', text: t('notif_view_panel') }));
+    } else if (n.kind === 'admin_new_resource') {
+      key = 'notif_admin_resource'; admin = true;
+      acts.push(h('a', { class: 'linkish', href: PATHS.admin + '#recursos', text: t('notif_view_panel') }));
     } else {
       key = 'notif_approved';
       acts.push(h('a', { class: 'linkish', href: PATHS.community, text: t('go_community') }));
@@ -1630,10 +1922,486 @@
     parts.forEach(function (part, i) { if (i) text.push(h('b', { text: name })); if (part) text.push(part); });
     var unread = !n.read_at;
     return h('li', { class: 'notif' + (unread ? ' unread' : '') }, [
+      admin ? h('span', { class: 'badge', text: t('mod_label') }) : null,
       h('p', { class: 'text' }, text),
       h('p', { class: 'when' }, [ago(n.created_at), unread ? ' · ' + t('notif_new') : '']),
       h('div', { class: 'acts' }, acts)
     ]);
+  }
+
+  // ================================================================ ADMIN
+  // Only for administrators (private.admins in the database), and only with a
+  // session confirmed by a second factor: a code from an authenticator app.
+  // The database checks both on every call; this page guides the way in.
+  var ADM = { me: null, myName: '', tab: 'resumen', overview: null, members: null, resources: null, mfilter: 'pending', rfilter: 'pending', q: '', flash: null, navEl: null, mainEl: null };
+  var ADM_TABS = ['resumen', 'cuentas', 'recursos', 'registro'];
+  var TIME = new Intl.DateTimeFormat(LANG === 'en' ? 'en-GB' : 'es-ES', { hour: '2-digit', minute: '2-digit' });
+
+  function adminPage(session) {
+    if (!session) return adminSignin();
+    ADM.me = session.user;
+    adminInfo().then(function (a) {
+      if (!a.admin) {
+        mount(h('h1', { class: 'page-title', text: t('adm_title') }), h('p', { class: 'lead', text: t('adm_only') }),
+          h('div', { class: 'actions' }, [h('a', { class: 'btn btn-ghost', href: PATHS.profile, text: t('my_profile') })]));
+        return;
+      }
+      adminGate();
+    });
+  }
+
+  function adminSignin() {
+    var email = field({ label: t('email'), type: 'email', name: 'email', autocomplete: 'email', required: true, inputmode: 'email' });
+    var pw = field({ label: t('password'), type: 'password', name: 'password', autocomplete: 'current-password', required: true });
+    var msg = h('div');
+    var btn = h('button', { class: 'btn btn-primary', type: 'submit', text: t('signin_btn') });
+    var form = h('form', { class: 'form', novalidate: true, onsubmit: function (e) {
+      e.preventDefault();
+      msg.replaceChildren();
+      var ev = email.input.value.trim(), pv = pw.input.value;
+      email.error(!ev ? t('err_required') : !isEmail(ev) ? t('err_email') : '');
+      pw.error(!pv ? t('err_required') : '');
+      if (!ev || !isEmail(ev) || !pv) return firstInvalid(form);
+      busy(btn, true);
+      sb.auth.signInWithPassword({ email: ev, password: pv }).then(function (res) {
+        if (res.error) { busy(btn, false); msg.replaceChildren(notice(authError(res.error), 'error')); return; }
+        window.location.reload();
+      }).catch(function () { busy(btn, false); msg.replaceChildren(notice(t('error_generic'), 'error')); });
+    } }, [email.wrap, pw.wrap, msg, h('div', { class: 'actions' }, [btn])]);
+    mount(h('h1', { class: 'page-title', text: t('adm_title') }), h('p', { class: 'lead', text: t('adm_signin_lead') }), form);
+  }
+
+  // Which step: panel (code already given), code, or first-time set-up.
+  function adminGate() {
+    sb.auth.mfa.getAuthenticatorAssuranceLevel().then(function (r) {
+      var d = (r && r.data) || {};
+      if (d.currentLevel === 'aal2') adminPanel();
+      else if (d.nextLevel === 'aal2') mfaChallenge();
+      else mfaEnroll();
+    }).catch(function () { mount(h('h1', { class: 'page-title', text: t('adm_title') }), notice(t('error_generic'), 'error')); });
+  }
+
+  function codeField() {
+    var f = field({ label: t('mfa_code'), name: 'code', autocomplete: 'one-time-code', inputmode: 'numeric', max: 7, required: true });
+    f.wrap.classList.add('mfa-code');
+    return f;
+  }
+  function mfaVerify(factorId, f, btn, msg) {
+    var code = (f.input.value || '').replace(/\D/g, '');
+    f.error(code.length !== 6 ? t('err_code') : '');
+    if (code.length !== 6) { f.input.focus(); return; }
+    busy(btn, true);
+    sb.auth.mfa.challengeAndVerify({ factorId: factorId, code: code }).then(function (res) {
+      if (res.error) { busy(btn, false); f.error(t('err_code_wrong')); f.input.focus(); return; }
+      adminInfoP = null;
+      adminPanel();
+    }).catch(function () { busy(btn, false); msg.replaceChildren(notice(t('error_generic'), 'error')); });
+  }
+  // The QR code comes as an SVG; encode it so any character in it is safe in the address.
+  function qrSrc(q) {
+    var svg = String(q || '').replace(/^data:image\/svg\+xml;[^,]*,/, '');
+    return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+  }
+
+  function mfaEnroll() {
+    mount(h('h1', { class: 'page-title', text: t('mfa_title') }), h('p', { class: 'lead', text: t('loading') }));
+    sb.auth.mfa.listFactors().then(function (lf) {
+      // A set-up left half done would block a new one: clear it first.
+      var stale = ((lf && lf.data && lf.data.all) || []).filter(function (f) { return f.factor_type === 'totp' && f.status !== 'verified'; });
+      return Promise.all(stale.map(function (f) { return sb.auth.mfa.unenroll({ factorId: f.id }); }));
+    }).then(function () {
+      return sb.auth.mfa.enroll({ factorType: 'totp', friendlyName: 'BeProject Lab', issuer: 'BeProject Lab' });
+    }).then(function (res) {
+      if (!res || res.error || !res.data || !res.data.totp) {
+        mount(h('h1', { class: 'page-title', text: t('mfa_title') }), notice(t('mfa_enroll_error'), 'error'));
+        return;
+      }
+      var factorId = res.data.id;
+      var f = codeField();
+      var msg = h('div');
+      var btn = h('button', { class: 'btn btn-primary', type: 'submit', text: t('mfa_activate') });
+      var secret = h('p', { class: 'mfa-secret', hidden: true }, [h('span', { class: 'small muted', text: t('mfa_secret_label') + ' ' }), h('code', { text: res.data.totp.secret || '' })]);
+      var show = h('button', { class: 'linkish', type: 'button', text: t('mfa_show_secret'), 'aria-expanded': 'false', onclick: function () {
+        secret.hidden = !secret.hidden; show.setAttribute('aria-expanded', String(!secret.hidden));
+      } });
+      var form = h('form', { class: 'form', novalidate: true, onsubmit: function (e) { e.preventDefault(); msg.replaceChildren(); mfaVerify(factorId, f, btn, msg); } },
+        [f.wrap, msg, h('div', { class: 'actions', style: 'margin-top:4px' }, [btn])]);
+      mount(
+        h('span', { class: 'badge', text: t('mfa_kicker') }),
+        h('h1', { class: 'page-title mfa-title', text: t('mfa_title') }),
+        h('p', { class: 'lead', text: t('mfa_lead') }),
+        h('ol', { class: 'mfa-steps' }, [
+          h('li', null, [h('p', { text: t('mfa_step1') })]),
+          h('li', null, [h('p', { text: t('mfa_step2') }), h('img', { class: 'mfa-qr', src: qrSrc(res.data.totp.qr_code), alt: t('mfa_qr_alt'), width: '200', height: '200' }), show, secret]),
+          h('li', null, [h('p', { text: t('mfa_step3') }), form])
+        ]),
+        h('p', { class: 'small muted', style: 'margin-top:32px', text: t('mfa_note') })
+      );
+    }).catch(function () { mount(h('h1', { class: 'page-title', text: t('mfa_title') }), notice(t('mfa_enroll_error'), 'error')); });
+  }
+
+  function mfaChallenge() {
+    sb.auth.mfa.listFactors().then(function (lf) {
+      var fac = ((lf && lf.data && lf.data.totp) || [])[0];
+      if (!fac) { mfaEnroll(); return; }
+      var f = codeField();
+      var msg = h('div');
+      var btn = h('button', { class: 'btn btn-primary', type: 'submit', text: t('mfa_enter_btn') });
+      var form = h('form', { class: 'form', novalidate: true, onsubmit: function (e) { e.preventDefault(); msg.replaceChildren(); mfaVerify(fac.id, f, btn, msg); } },
+        [f.wrap, msg, h('div', { class: 'actions', style: 'margin-top:4px' }, [btn])]);
+      mount(
+        h('h1', { class: 'page-title', text: t('adm_title') }),
+        h('p', { class: 'lead', text: t('mfa_enter_lead') }),
+        form,
+        h('p', { class: 'small muted', style: 'margin-top:24px', text: t('mfa_enter_note') })
+      );
+      f.input.focus();
+    }).catch(function () { mount(h('h1', { class: 'page-title', text: t('adm_title') }), notice(t('error_generic'), 'error')); });
+  }
+
+  // ---------------------------------------------------------------- panel
+  function adminPanel() {
+    ADM.navEl = h('nav', { class: 'adm-nav', 'aria-label': t('adm_sections') });
+    ADM.mainEl = h('div', { class: 'adm-main', id: 'adm-main' });
+    mount(
+      h('div', { class: 'userbar' }, [
+        h('span', { class: 'status-pill approved hello', text: t('adm_session_ok') }),
+        h('a', { class: 'linkish', href: PATHS.profile, text: t('adm_exit') }),
+        h('button', { class: 'linkish', type: 'button', text: t('signout'), onclick: function () { sb.auth.signOut().finally(function () { window.location.reload(); }); } })
+      ]),
+      h('h1', { class: 'page-title', text: t('adm_title') }),
+      h('div', { class: 'adm' }, [ADM.navEl, ADM.mainEl])
+    );
+    setupAdminLink();
+    loadMyProfile(ADM.me).then(function (r) { ADM.myName = r && r.data ? r.data.full_name : ''; });
+    if (!ADM.routing) { ADM.routing = true; window.addEventListener('hashchange', function () { ADM.flash = null; admRoute(true); }); }
+    admRoute(false);
+    admCounts();
+  }
+
+  function admRoute(focus) {
+    var x = (window.location.hash || '').replace('#', '');
+    ADM.tab = ADM_TABS.indexOf(x) !== -1 ? x : 'resumen';
+    admNav();
+    if (ADM.tab === 'cuentas') admMembers();
+    else if (ADM.tab === 'recursos') admResources();
+    else if (ADM.tab === 'registro') admLog(50);
+    else admSummary();
+    if (focus) { var hd = ADM.mainEl.querySelector('h2, .adm-filters button, p'); window.scrollTo(0, 0); if (hd) { hd.setAttribute('tabindex', '-1'); hd.focus({ preventScroll: true }); } }
+  }
+
+  function admNav() {
+    var o = ADM.overview || {};
+    var counts = { cuentas: (o.members_pending || 0) + (o.members_unconfirmed || 0), recursos: o.resources_pending || 0 };
+    put(ADM.navEl, ADM_TABS.map(function (k) {
+      var n = counts[k];
+      return h('a', { class: 'adm-tab', href: '#' + k, 'aria-current': k === ADM.tab ? 'page' : null }, [
+        h('span', { text: t('adm_tab_' + k) }),
+        n ? h('span', { class: 'adm-count', 'aria-hidden': 'true', text: String(n) }) : null,
+        n ? h('span', { class: 'sr', text: ' ' + t('adm_pending_sr', { n: n }) }) : null
+      ]);
+    }));
+  }
+
+  function admCounts() {
+    return sb.rpc('admin_overview').then(function (res) {
+      if (admDenied(res) || res.error) return;
+      ADM.overview = res.data || {};
+      admNav();
+      if (ADM.tab === 'resumen') admSummary();
+    });
+  }
+
+  // The session lost its second factor (or the rights): back to the gate.
+  function admDenied(res) {
+    if (res && res.error && /not_admin/.test(res.error.message || '')) { adminInfoP = null; adminGate(); return true; }
+    return false;
+  }
+  function admFlash() { return ADM.flash ? notice(ADM.flash, 'ok') : null; }
+  function admLoading() { return h('p', { class: 'lead', text: t('loading') }); }
+  function admEmpty(key) { return h('p', { class: 'adm-empty', text: t(key) }); }
+  function admFilters(label, keys, current, counts, prefix, onpick) {
+    return h('div', { class: 'adm-filters', role: 'group', 'aria-label': label }, keys.map(function (k) {
+      return h('button', { class: 'adm-f', type: 'button', 'aria-pressed': String(k === current), text: t(prefix + k, { n: counts[k] }), onclick: function () { ADM.flash = null; onpick(k); } });
+    }));
+  }
+  function newTab(href, label) {
+    return h('a', { class: 'linkish', href: href, target: '_blank', rel: 'noopener noreferrer nofollow' }, [label, h('span', { class: 'small muted new-tab', text: t('res_new_tab') })]);
+  }
+
+  // ---- overview
+  function admSummary() {
+    var o = ADM.overview;
+    if (!o) { put(ADM.mainEl, [admLoading()]); return; }
+    var m = (o.members_pending || 0) + (o.members_unconfirmed || 0), r = o.resources_pending || 0;
+    var latest = h('ul', { class: 'adm-latest' }, [h('li', { class: 'muted', text: t('loading') })]);
+    function card(n, href, one, many) {
+      return h('a', { class: 'adm-card' + (n ? ' hot' : ''), href: href }, [h('span', { class: 'num', text: String(n) }), h('span', { text: n === 1 ? t(one) : t(many) })]);
+    }
+    function stat(key, n) { return h('div', null, [h('dt', { text: t(key) }), h('dd', { text: String(n || 0) })]); }
+    put(ADM.mainEl, [
+      h('h2', { class: 'adm-h', text: t('adm_to_review') }),
+      h('div', { class: 'adm-cards' }, [card(m, '#cuentas', 'adm_card_member_1', 'adm_card_member'), card(r, '#recursos', 'adm_card_res_1', 'adm_card_res')]),
+      h('h2', { class: 'adm-h', text: t('adm_community') }),
+      h('dl', { class: 'adm-stats' }, [
+        stat('adm_st_members', o.members_approved), stat('adm_st_unconfirmed', o.members_unconfirmed), stat('adm_st_open', o.requests_open),
+        stat('adm_st_connections', o.connections), stat('adm_st_published', o.resources_published), stat('adm_st_inactive', o.members_rejected)
+      ]),
+      h('h2', { class: 'adm-h', text: t('adm_latest') }),
+      latest,
+      h('p', { class: 'small', style: 'margin:8px 0 0' }, [h('a', { class: 'linkish', href: '#registro', text: t('adm_view_log') })])
+    ]);
+    sb.rpc('admin_log_recent', { p_limit: 3 }).then(function (res) {
+      if (admDenied(res)) return;
+      if (res.error) { put(latest, [h('li', null, [notice(t('error_generic'), 'error')])]); return; }
+      var rows = res.data || [];
+      put(latest, rows.length ? rows.map(function (l) { return h('li', null, [logText(l), h('span', { class: 'muted', text: ' · ' + ago(l.created_at) })]); })
+        : [h('li', { class: 'muted', text: t('adm_log_empty') })]);
+    });
+  }
+
+  // ---- accounts
+  function admMembers() {
+    if (!ADM.members) {
+      put(ADM.mainEl, [admFlash(), admLoading()]);
+      sb.rpc('admin_members').then(function (res) {
+        if (admDenied(res)) return;
+        if (res.error) { put(ADM.mainEl, [notice(t('error_generic'), 'error')]); return; }
+        ADM.members = res.data || [];
+        if (ADM.tab === 'cuentas') admMembers();
+      });
+      return;
+    }
+    var groups = { pending: [], approved: [], rejected: [] };
+    ADM.members.forEach(function (p) { (groups[p.status] || groups.pending).push(p); });
+    var counts = { pending: groups.pending.length, approved: groups.approved.length, rejected: groups.rejected.length };
+    var filters = admFilters(t('adm_filter'), ['pending', 'approved', 'rejected'], ADM.mfilter, counts, 'adm_mf_', function (k) { ADM.mfilter = k; ADM.q = ''; admMembers(); });
+    var list = groups[ADM.mfilter];
+    if (ADM.mfilter === 'pending') {
+      put(ADM.mainEl, [admFlash(), filters,
+        list.length ? h('div', { class: 'adm-items' }, list.map(memberCard)) : admEmpty('adm_empty_pending'),
+        list.length ? h('p', { class: 'small muted', style: 'margin:16px 0 0', text: t('adm_members_note') }) : null]);
+      return;
+    }
+    var rows = h('ul', { class: 'adm-rows' });
+    var search = h('input', { id: 'adm-q', class: 'input', type: 'search', autocomplete: 'off', value: ADM.q, oninput: function () { ADM.q = search.value; fill(); } });
+    function fill() {
+      var q = fold(ADM.q.trim());
+      var shown = list.filter(function (p) { return !q || fold(p.full_name + ' ' + p.email).indexOf(q) !== -1; });
+      if (!list.length) put(rows, [h('li', { class: 'adm-empty-row', text: t(ADM.mfilter === 'approved' ? 'adm_empty_approved' : 'adm_empty_rejected') })]);
+      else if (!shown.length) put(rows, [h('li', { class: 'adm-empty-row', text: t('adm_no_match') })]);
+      else put(rows, shown.map(memberRow));
+    }
+    fill();
+    put(ADM.mainEl, [admFlash(), filters,
+      h('div', { class: 'field adm-search' }, [h('label', { for: 'adm-q', text: t('adm_search') }), search]),
+      rows,
+      ADM.mfilter === 'approved' && list.length ? h('p', { class: 'small muted', style: 'margin:16px 0 0', text: t('adm_suspend_hint') }) : null]);
+  }
+
+  function setMember(p, status, btn, errBox, okMsg) {
+    busy(btn, true);
+    sb.rpc('admin_set_member_status', { p_id: p.id, p_status: status }).then(function (res) {
+      if (admDenied(res)) return;
+      if (res.error) { busy(btn, false); errBox.replaceChildren(notice(t('error_generic'), 'error')); return; }
+      ADM.flash = okMsg; ADM.members = null;
+      admCounts();
+      admMembers();
+      window.scrollTo(0, 0);
+    });
+  }
+
+  function memberCard(p) {
+    var confirmed = !!p.email_confirmed;
+    var err = h('div');
+    var approve = h('button', { class: 'btn ' + (confirmed ? 'btn-primary' : 'btn-ghost'), type: 'button', text: t('adm_approve'), onclick: function () {
+      setMember(p, 'approved', approve, err, t('adm_approved_msg', { name: p.full_name }));
+    } });
+    var reject = h('button', { class: 'btn btn-ghost', type: 'button', text: t('adm_reject') });
+    reject.addEventListener('click', armed(reject, t('adm_reject'), t('adm_reject_sure'), function () {
+      setMember(p, 'rejected', reject, err, t('adm_rejected_msg', { name: p.full_name }));
+    }));
+    var li = p.linkedin_url && /^https:\/\//i.test(p.linkedin_url) ? newTab(p.linkedin_url, t('adm_linkedin')) : h('span', { class: 'muted', text: t('adm_no_linkedin') });
+    return h('article', { class: 'adm-item', 'aria-label': p.full_name }, [
+      h('div', null, [h('h3', { text: p.full_name }), h('p', { class: 'adm-roles', text: rolesLabel(p.roles) })]),
+      p.headline ? h('p', { class: 'adm-text', text: p.headline }) : null,
+      h('ul', { class: 'adm-meta' }, [
+        h('li', null, [p.email + ' · ', h('span', { class: confirmed ? 'ok-text' : 'warn-text', text: confirmed ? t('adm_email_ok') : t('adm_email_no') })]),
+        h('li', { text: t('adm_joined', { when: ago(p.created_at) }) + (p.country ? ' · ' + p.country : '') }),
+        h('li', null, [li])
+      ]),
+      confirmed ? null : h('p', { class: 'small muted', text: t('adm_wait_email') }),
+      err,
+      h('div', { class: 'adm-acts' }, [approve, reject])
+    ]);
+  }
+
+  function memberRow(p) {
+    var self = ADM.me && p.id === ADM.me.id;
+    var err = h('div', { class: 'adm-row-msg' });
+    var meta = [rolesLabel(p.roles)];
+    if (p.is_admin) meta.push(t('adm_admin_tag'));
+    if (p.status === 'approved') meta.push(t('adm_since', { date: fmtDate(p.approved_at || p.created_at) }));
+    else meta.push(p.approved_at ? t('adm_suspended_row') : t('adm_rejected_row'));
+    var act;
+    if (self) act = h('span', { class: 'small muted', text: t('adm_your_account') });
+    else if (p.status === 'approved') {
+      act = h('button', { class: 'btn btn-ghost btn-sm', type: 'button', text: t('adm_suspend') });
+      act.addEventListener('click', armed(act, t('adm_suspend'), t('adm_suspend_sure'), function () {
+        setMember(p, 'rejected', act, err, t('adm_suspended_msg', { name: p.full_name }));
+      }));
+    } else {
+      var again = !!p.approved_at;
+      act = h('button', { class: 'btn btn-ghost btn-sm', type: 'button', text: again ? t('adm_reactivate') : t('adm_approve'), onclick: function () {
+        setMember(p, 'approved', act, err, again ? t('adm_reactivated_msg', { name: p.full_name }) : t('adm_approved_msg', { name: p.full_name }));
+      } });
+    }
+    return h('li', { class: 'adm-row' }, [
+      h('div', { class: 'who' }, [h('b', { text: p.full_name }), h('div', { class: 'small muted', text: meta.join(' · ') }), h('div', { class: 'small muted', text: p.email })]),
+      act,
+      err
+    ]);
+  }
+
+  // ---- resources
+  function admResources() {
+    if (!ADM.resources) {
+      put(ADM.mainEl, [admFlash(), admLoading()]);
+      sb.rpc('admin_resources').then(function (res) {
+        if (admDenied(res)) return;
+        if (res.error) { put(ADM.mainEl, [notice(t('error_generic'), 'error')]); return; }
+        ADM.resources = res.data || [];
+        if (ADM.tab === 'recursos') admResources();
+      });
+      return;
+    }
+    var groups = { pending: [], published: [], rejected: [] };
+    ADM.resources.forEach(function (r) { (groups[r.status] || groups.pending).push(r); });
+    var counts = { pending: groups.pending.length, published: groups.published.length, rejected: groups.rejected.length };
+    var filters = admFilters(t('adm_filter'), ['pending', 'published', 'rejected'], ADM.rfilter, counts, 'adm_rf_', function (k) { ADM.rfilter = k; admResources(); });
+    var list = groups[ADM.rfilter];
+    var body;
+    if (ADM.rfilter === 'pending') {
+      body = list.length ? [h('div', { class: 'adm-items' }, list.map(resCard)), h('p', { class: 'small muted', style: 'margin:16px 0 0', text: t('adm_res_note') })] : [admEmpty('adm_empty_res_pending')];
+    } else {
+      body = list.length ? [h('ul', { class: 'adm-rows' }, list.map(resRow))] : [admEmpty(ADM.rfilter === 'published' ? 'adm_empty_res_published' : 'adm_empty_res_rejected')];
+    }
+    put(ADM.mainEl, [admFlash(), filters].concat(body));
+  }
+
+  function setRes(r, status, btn, errBox, okMsg) {
+    busy(btn, true);
+    sb.rpc('admin_set_resource_status', { p_id: r.id, p_status: status }).then(function (res) {
+      if (admDenied(res)) return;
+      if (res.error) { busy(btn, false); errBox.replaceChildren(notice(t('error_generic'), 'error')); return; }
+      ADM.flash = okMsg; ADM.resources = null;
+      admCounts();
+      admResources();
+      window.scrollTo(0, 0);
+    });
+  }
+  function resKindLine(r) { return t('kind_' + r.kind) + ' · ' + t('adm_section', { s: t('sec_' + r.section) }); }
+  function hostOf(u) { try { return new URL(u).hostname.replace(/^www\./, ''); } catch (e) { return ''; } }
+
+  function resCard(r) {
+    var err = h('div');
+    var pub = h('button', { class: 'btn btn-primary', type: 'button', text: t('adm_publish'), onclick: function () {
+      setRes(r, 'published', pub, err, t('adm_published_msg', { title: r.title, name: r.author_name || t('member') }));
+    } });
+    var no = h('button', { class: 'btn btn-ghost', type: 'button', text: t('adm_unpublish') });
+    no.addEventListener('click', armed(no, t('adm_unpublish'), t('adm_unpublish_sure'), function () {
+      setRes(r, 'rejected', no, err, t('adm_unpublished_msg', { title: r.title }));
+    }));
+    var safe = /^https:\/\//i.test(r.url || '');
+    return h('article', { class: 'adm-item', 'aria-label': r.title }, [
+      h('span', { class: 'badge', text: resKindLine(r) }),
+      h('h3', { text: r.title }),
+      h('p', { class: 'adm-text', text: r.description }),
+      h('p', { class: 'adm-roles', text: (r.author_name || t('member')) + ' · ' + rolesLabel(r.author_roles) + ' · ' + t('adm_sent', { when: ago(r.created_at) }) }),
+      safe ? h('p', { class: 'adm-meta' }, [newTab(r.url, t('adm_open_link')), h('span', { class: 'small muted', text: ' · ' + hostOf(r.url) })]) : null,
+      err,
+      h('div', { class: 'adm-acts' }, [pub, no])
+    ]);
+  }
+
+  function resRow(r) {
+    var err = h('div', { class: 'adm-row-msg' });
+    var act;
+    if (r.status === 'published') {
+      act = h('button', { class: 'btn btn-ghost btn-sm', type: 'button', text: t('adm_withdraw') });
+      act.addEventListener('click', armed(act, t('adm_withdraw'), t('adm_withdraw_sure'), function () {
+        setRes(r, 'rejected', act, err, t('adm_withdrawn_msg', { title: r.title }));
+      }));
+    } else {
+      act = h('button', { class: 'btn btn-ghost btn-sm', type: 'button', text: t('adm_publish'), onclick: function () {
+        setRes(r, 'published', act, err, t('adm_published_msg', { title: r.title, name: r.author_name || t('member') }));
+      } });
+    }
+    var when = r.status === 'published' ? t('adm_published_on', { date: fmtDate(r.published_at || r.created_at) }) : t('adm_sent', { when: fmtDate(r.created_at) });
+    return h('li', { class: 'adm-row' }, [
+      h('div', { class: 'who' }, [
+        /^https:\/\//i.test(r.url || '') ? h('a', { class: 'adm-row-title', href: r.url, target: '_blank', rel: 'noopener noreferrer nofollow', text: r.title }) : h('b', { text: r.title }),
+        h('div', { class: 'small muted', text: resKindLine(r) + ' · ' + (r.author_name || t('member')) + ' · ' + when })
+      ]),
+      act,
+      err
+    ]);
+  }
+
+  // ---- log
+  function admLog(limit) {
+    var box = h('div', null, [admLoading()]);
+    put(ADM.mainEl, [h('p', { class: 'small muted', style: 'margin:0', text: t('adm_log_lead') }), box]);
+    sb.rpc('admin_log_recent', { p_limit: limit }).then(function (res) {
+      if (admDenied(res)) return;
+      if (res.error) { put(box, [notice(t('error_generic'), 'error')]); return; }
+      var rows = res.data || [];
+      if (!rows.length) { put(box, [admEmpty('adm_log_empty')]); return; }
+      var days = [], byDay = {};
+      rows.forEach(function (l) {
+        var k = dayLabel(l.created_at);
+        if (!byDay[k]) { byDay[k] = []; days.push(k); }
+        byDay[k].push(l);
+      });
+      put(box, days.map(function (k) {
+        return h('section', { class: 'adm-day' }, [
+          h('h3', { text: k }),
+          h('ol', { class: 'adm-log' }, byDay[k].map(function (l) {
+            return h('li', null, [h('span', { class: 'time', text: TIME.format(new Date(l.created_at)) }), h('span', { text: logText(l) })]);
+          }))
+        ]);
+      }).concat(rows.length === limit && limit < 200 ? [h('div', { class: 'actions', style: 'margin-top:20px' }, [h('button', { class: 'btn btn-ghost btn-sm', type: 'button', text: t('adm_more'), onclick: function () { admLog(200); } })])] : []));
+    });
+  }
+  function dayLabel(iso) {
+    var d = new Date(iso), now = new Date();
+    var start = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+    if (d.getTime() >= start) return t('adm_today');
+    if (d.getTime() >= start - 86400000) return t('adm_yesterday');
+    return fmtDate(iso);
+  }
+  function shortText(s) { s = (s || '').replace(/\s+/g, ' ').trim(); return s.length > 80 ? s.slice(0, 77).trimEnd() + '…' : s; }
+  // The log keeps "before>after: name" (older lines: "after: name").
+  function logText(l) {
+    var d = l.detail || '';
+    var who = l.admin_name && ADM.myName && l.admin_name !== ADM.myName ? l.admin_name + ': ' : '';
+    var m, key;
+    if (l.action === 'member_status' || l.action === 'resource_status') {
+      m = /^(?:(\w+)>)?(\w+): ([\s\S]*)$/.exec(d) || [];
+      var from = m[1], to = m[2], what = m[3] || d;
+      if (l.action === 'member_status') {
+        key = to === 'approved' ? (from === 'rejected' ? 'log_reactivated' : 'log_approved') : to === 'rejected' ? (from === 'approved' ? 'log_suspended' : 'log_rejected') : 'log_member_other';
+        return who + t(key, { name: what, status: t('status_' + to) });
+      }
+      key = to === 'published' ? 'log_published' : to === 'rejected' ? (from === 'published' ? 'log_withdrawn' : 'log_unpublished') : 'log_res_other';
+      return who + t(key, { title: what, status: t('rs_' + to) });
+    }
+    if (l.action === 'delete_request') return who + t('log_del_request', { title: d });
+    if (l.action === 'delete_reply') {
+      var i = d.indexOf('\n');
+      return who + (i >= 0 ? t('log_del_reply', { title: d.slice(0, i), body: shortText(d.slice(i + 1)) }) : t('log_del_reply_short', { body: shortText(d) }));
+    }
+    return who + l.action + (d ? ': ' + d : '');
   }
 
   start();

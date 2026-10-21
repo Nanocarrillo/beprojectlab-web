@@ -20,9 +20,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;800&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=9">
+<link rel="stylesheet" href="/assets/site.css?v=10">
+<script src="/assets/vendor/supabase-2.117.2.js" defer></script>
+<script src="/assets/app.js?v=5" defer></script>
 </head>
-<body>
+<body data-page="resources">
 <header class="site-header">
 <a class="brand" href="/en/" aria-label="BeProject Lab, home">
 <svg viewBox="0 0 100 100" aria-hidden="true"><path d="M14,90 L14,46 A36,36 0 0 1 50.5,10 L50.5,32 A14,14 0 0 0 36,46 L36,90 Z" fill="#FFFFFF"/><path d="M50,10 A36,36 0 0 1 86,46 L86,90 L64,90 L64,46 A14,14 0 0 0 50,32 Z" fill="#F2541B"/></svg>
@@ -39,35 +41,16 @@
 </div>
 </nav>
 </header>
-<main class="app-wrap fade">
+<main id="app" class="app-wrap fade">
 <h1 class="page-title">Resources</h1>
 <p class="lead">Templates, guides and tools from the community's project managers, coaches and mentors, to take your project from A to B.</p>
-<nav class="chips" style="margin-top:28px" aria-label="Go to">
-<a class="chip" href="#project-managers">Project managers</a>
-<a class="chip" href="#coaches">Coaches</a>
-<a class="chip" href="#mentors">Mentors</a>
-</nav>
-<!-- To add a resource, replace the empty paragraph of its section with this list:
-<ul class="res-list">
-<li><a class="res-item" href="LINK" target="_blank" rel="noopener"><span class="badge">TYPE · AUTHOR</span><h3>TITLE</h3><p>ONE-LINE DESCRIPTION</p></a></li>
-</ul>
--->
-<section class="res-section" id="project-managers" aria-labelledby="project-managers-h">
-<h2 id="project-managers-h">Project managers</h2>
-<p class="res-intro">Structure: plan, prioritise and follow up.</p>
-<p class="res-empty">No resources from project managers yet.</p>
-</section>
-<section class="res-section" id="coaches" aria-labelledby="coaches-h">
-<h2 id="coaches-h">Coaches</h2>
-<p class="res-intro">Energy: keep the project going over time.</p>
-<p class="res-empty">No resources from coaches yet.</p>
-</section>
-<section class="res-section" id="mentors" aria-labelledby="mentors-h">
-<h2 id="mentors-h">Mentors</h2>
-<p class="res-intro">Direction: choose the path with someone who has walked it.</p>
-<p class="res-empty">No resources from mentors yet.</p>
-</section>
-<p class="small muted" style="margin-top:48px">Are you a project manager, coach or mentor with a resource to share? Write to us at <a class="linkish" href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#105;&#110;&#102;&#111;&#64;&#98;&#101;&#112;&#114;&#111;&#106;&#101;&#99;&#116;&#108;&#97;&#98;&#46;&#99;&#111;&#109;">&#105;&#110;&#102;&#111;&#64;&#98;&#101;&#112;&#114;&#111;&#106;&#101;&#99;&#116;&#108;&#97;&#98;&#46;&#99;&#111;&#109;</a>.</p>
+<div class="res-locked">
+<div class="lockbox"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span><p>Resources are for community members. Create your account or sign in to see them.</p></div>
+<div class="actions">
+<a class="btn btn-primary" href="/en/account/?registro">Create account</a>
+<a class="btn btn-ghost" href="/en/account/">Sign in</a>
+</div>
+</div>
 </main>
 <footer class="site-foot"><a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#105;&#110;&#102;&#111;&#64;&#98;&#101;&#112;&#114;&#111;&#106;&#101;&#99;&#116;&#108;&#97;&#98;&#46;&#99;&#111;&#109;">&#105;&#110;&#102;&#111;&#64;&#98;&#101;&#112;&#114;&#111;&#106;&#101;&#99;&#116;&#108;&#97;&#98;&#46;&#99;&#111;&#109;</a><span class="dot" aria-hidden="true">·</span><a href="/en/privacy/">Privacy</a><span class="dot" aria-hidden="true">·</span><a href="/en/terms/">Terms</a></footer>
 </body>

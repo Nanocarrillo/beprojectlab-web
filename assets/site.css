@@ -463,3 +463,22 @@ dialog.profile-dialog::backdrop { background: rgba(0, 0, 0, 0.6); }
   .nav:has(.bell) .lang { padding-left: 4px; }
   .nav:has(.bell) .lang a[aria-current="true"], .nav:has(.bell) .lang .sep { display: none; }
 }
+
+/* Several profile types (checkbox cards) */
+.role-option.disabled { cursor: default; }
+.role-option.disabled .card { opacity: .7; }
+.role-option.disabled input { cursor: default; }
+.who-line { margin: 12px 0 0; font-size: 16px; color: var(--soft); }
+
+/* Mis recursos */
+.my-res { list-style: none; margin: 14px 0 0; padding: 0; border-top: 1px solid var(--line); }
+.my-res-item { display: flex; flex-direction: column; gap: 6px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.my-res-item b { font-size: 17px; letter-spacing: -0.01em; line-height: 1.3; overflow-wrap: anywhere; }
+.status-pill.off::before { background: var(--dim); }
+.panel-title { margin: 0; font-size: 20px; font-weight: 800; letter-spacing: -0.02em; }
+
+/* Resources list */
+.res-item h3 .icon { width: 16px; height: 16px; margin-left: 8px; vertical-align: 0.05em; color: var(--soft); }
+.res-item .res-meta { font-size: 14px; color: var(--muted); }
+.res-locked { margin-top: 32px; padding: clamp(18px, 3vw, 24px); border-radius: 12px; background: var(--panel); border: 1px solid var(--line); }
+.res-locked .actions { margin-top: 18px; }

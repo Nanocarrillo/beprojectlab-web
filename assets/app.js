@@ -16,8 +16,8 @@
   var CONTACT = 'info@beprojectlab.com';
 
   var PATHS = {
-    es: { home: '/', community: '/comunidad/', account: '/cuenta/', profile: '/perfil/', notifications: '/notificaciones/', privacy: '/privacidad/', terms: '/condiciones/' },
-    en: { home: '/en/', community: '/en/community/', account: '/en/account/', profile: '/en/profile/', notifications: '/en/notifications/', privacy: '/en/privacy/', terms: '/en/terms/' }
+    es: { home: '/', community: '/comunidad/', account: '/cuenta/', profile: '/perfil/', notifications: '/notificaciones/', resources: '/recursos/', privacy: '/privacidad/', terms: '/condiciones/' },
+    en: { home: '/en/', community: '/en/community/', account: '/en/account/', profile: '/en/profile/', notifications: '/en/notifications/', resources: '/en/resources/', privacy: '/en/privacy/', terms: '/en/terms/' }
   }[LANG];
 
   var STR = {
@@ -52,6 +52,8 @@
       signup_lead: 'Elige cómo participas. Revisamos cada cuenta a mano antes de abrirle la comunidad.',
       full_name: 'Nombre y apellido',
       role_legend: 'Me registro como',
+      role_multi_hint: 'Puedes marcar más de uno.',
+      and: ' y ',
       linkedin: 'Perfil de LinkedIn',
       linkedin_hint: 'Lo usamos para verificar tu cuenta. Ejemplo: https://www.linkedin.com/in/tu-nombre',
       password_hint: 'Mínimo 8 caracteres.',
@@ -85,7 +87,7 @@
       err_email: 'Escribe un email válido.',
       err_name: 'Escribe tu nombre y apellido.',
       err_pw_short: 'La contraseña es demasiado corta.',
-      err_role: 'Elige cómo te registras.',
+      err_role: 'Elige al menos un tipo de perfil.',
       err_terms: 'Para crear tu cuenta tienes que aceptar las condiciones.',
       err_linkedin: 'Pega el enlace de tu perfil de LinkedIn. Empieza por https://www.linkedin.com/',
       err_instagram: 'El enlace tiene que ser de instagram.com.',
@@ -97,8 +99,8 @@
       status_pending: 'En revisión', status_approved: 'Cuenta verificada', status_rejected: 'No verificada',
       pending_notice: 'Tu cuenta está en revisión. Un perfil completo nos ayuda a verificarla antes.',
       rejected_notice: 'No hemos podido verificar tu cuenta. Si crees que es un error, escríbenos a ' + CONTACT + '.',
-      role_field: 'Perfil',
-      role_locked_hint: 'El perfil solo se puede cambiar mientras la cuenta está en revisión. Si necesitas cambiarlo, escríbenos.',
+      role_field: 'Tipo de perfil',
+      role_locked_hint: 'Los tipos de perfil solo se pueden cambiar mientras la cuenta está en revisión. Si necesitas cambiarlos, escríbenos.',
       headline: 'Una línea sobre ti',
       headline_hint: 'Por ejemplo: project manager en proyectos de tecnología.',
       bio: 'Sobre ti',
@@ -204,6 +206,47 @@
       notif_view_interested: 'Ver interesados',
       notif_view_caja: 'Ver caja',
       someone: 'Un miembro',
+      notif_resource: 'Tu recurso «{title}» ya está publicado en Recursos.',
+      notif_view_resources: 'Ver en Recursos',
+      // resources
+      res_title: 'Recursos',
+      res_lead: 'Plantillas, guías y herramientas de project managers, coaches y mentores de la comunidad, para llevar tu proyecto de A a B.',
+      res_jump: 'Ir a',
+      res_pending: 'Recursos es para miembros verificados. Cuando aprobemos tu cuenta, los verás aquí.',
+      sec_pm: 'Project managers', sec_coach: 'Coaches', sec_mentor: 'Mentores',
+      sec_id_pm: 'project-managers', sec_id_coach: 'coaches', sec_id_mentor: 'mentores',
+      sec_intro_pm: 'Estructura: planificar, priorizar y hacer seguimiento.',
+      sec_intro_coach: 'Energía: sostener el proyecto en el tiempo.',
+      sec_intro_mentor: 'Dirección: decidir el camino con la experiencia de quien ya lo recorrió.',
+      sec_empty_pm: 'Todavía no hay recursos de project managers.',
+      sec_empty_coach: 'Todavía no hay recursos de coaches.',
+      sec_empty_mentor: 'Todavía no hay recursos de mentores.',
+      kind_template: 'Plantilla', kind_guide: 'Guía', kind_tool: 'Herramienta', kind_video: 'Vídeo', kind_other: 'Otro',
+      res_share_1: '¿Eres project manager, coach o mentor? Comparte un recurso desde ',
+      res_share_2: '.',
+      res_new_tab: '(se abre en otra pestaña)',
+      my_resources: 'Mis recursos',
+      my_resources_empty: 'Todavía no has compartido recursos. Comparte plantillas, guías o herramientas que ayuden a otros a llevar su proyecto de A a B.',
+      share_resource: 'Compartir un recurso',
+      share_another: 'Compartir otro recurso',
+      share_lead: 'Se publica en Recursos, en la sección que elijas, cuando lo revisemos.',
+      f_section: 'Sección', f_section_hint: 'Eliges entre tus tipos de perfil.',
+      f_kind: 'Tipo',
+      f_res_title: 'Título',
+      f_res_desc: 'Para qué sirve',
+      f_res_url: 'Enlace',
+      f_res_url_hint: 'Donde tengas el recurso: Google Drive, Notion, Canva, tu web o YouTube. Comprueba que se abre sin pedir permiso (en Drive: «Cualquier persona con el enlace»).',
+      share_note: 'Lo revisamos antes de publicarlo. Tu nombre aparece junto al recurso solo para los miembros de la comunidad.',
+      err_res_title: 'Entre 5 y 120 caracteres.',
+      err_res_desc: 'Entre 20 y 300 caracteres.',
+      err_res_url: 'Pega un enlace completo que empiece por https://',
+      err_section: 'Elige la sección.', err_kind: 'Elige el tipo.',
+      res_sent: 'Recurso enviado. Te avisamos con una notificación cuando esté publicado.',
+      rs_pending: 'En revisión', rs_published: 'Publicado', rs_rejected: 'No publicado',
+      rs_meta_pending: '{kind} · en {section} · enviado el {date}',
+      rs_meta_published: '{kind} · en {section} · publicado el {date}',
+      rs_meta_rejected: '{kind} · {date}. Si tienes dudas, escríbenos a ' + CONTACT + '.',
+      view_in_resources: 'Ver en Recursos',
       t_now: 'Hace un momento', t_min: 'Hace {n} min', t_h: 'Hace {n} h', t_yesterday: 'Ayer'
     },
     en: {
@@ -236,6 +279,8 @@
       signup_lead: 'Choose how you take part. We review every account by hand before opening the community to it.',
       full_name: 'Full name',
       role_legend: 'I am joining as',
+      role_multi_hint: 'You can choose more than one.',
+      and: ' and ',
       linkedin: 'LinkedIn profile',
       linkedin_hint: 'We use it to verify your account. Example: https://www.linkedin.com/in/your-name',
       password_hint: 'At least 8 characters.',
@@ -269,7 +314,7 @@
       err_email: 'Enter a valid email.',
       err_name: 'Enter your full name.',
       err_pw_short: 'That password is too short.',
-      err_role: 'Choose how you are joining.',
+      err_role: 'Choose at least one profile type.',
       err_terms: 'You need to accept the terms to create your account.',
       err_linkedin: 'Paste the link to your LinkedIn profile. It starts with https://www.linkedin.com/',
       err_instagram: 'The link must be from instagram.com.',
@@ -281,7 +326,7 @@
       pending_notice: 'Your account is under review. A complete profile helps us verify it sooner.',
       rejected_notice: 'We could not verify your account. If you think this is a mistake, write to us at ' + CONTACT + '.',
       role_field: 'Profile type',
-      role_locked_hint: 'The profile type can only change while the account is under review. If you need to change it, write to us.',
+      role_locked_hint: 'Profile types can only change while the account is under review. If you need to change them, write to us.',
       headline: 'One line about you',
       headline_hint: 'For example: project manager on technology projects.',
       bio: 'About you',
@@ -383,6 +428,46 @@
       notif_view_interested: 'See who is interested',
       notif_view_caja: 'View post',
       someone: 'A member',
+      notif_resource: 'Your resource “{title}” is now published in Resources.',
+      notif_view_resources: 'View in Resources',
+      res_title: 'Resources',
+      res_lead: "Templates, guides and tools from the community's project managers, coaches and mentors, to take your project from A to B.",
+      res_jump: 'Go to',
+      res_pending: 'Resources are for verified members. Once we approve your account, you will see them here.',
+      sec_pm: 'Project managers', sec_coach: 'Coaches', sec_mentor: 'Mentors',
+      sec_id_pm: 'project-managers', sec_id_coach: 'coaches', sec_id_mentor: 'mentors',
+      sec_intro_pm: 'Structure: plan, prioritise and follow up.',
+      sec_intro_coach: 'Energy: keep the project going over time.',
+      sec_intro_mentor: 'Direction: choose the path with someone who has walked it.',
+      sec_empty_pm: 'No resources from project managers yet.',
+      sec_empty_coach: 'No resources from coaches yet.',
+      sec_empty_mentor: 'No resources from mentors yet.',
+      kind_template: 'Template', kind_guide: 'Guide', kind_tool: 'Tool', kind_video: 'Video', kind_other: 'Other',
+      res_share_1: 'Are you a project manager, coach or mentor? Share a resource from ',
+      res_share_2: '.',
+      res_new_tab: '(opens in a new tab)',
+      my_resources: 'My resources',
+      my_resources_empty: 'You have not shared any resources yet. Share templates, guides or tools that help others take their project from A to B.',
+      share_resource: 'Share a resource',
+      share_another: 'Share another resource',
+      share_lead: 'It is published in Resources, in the section you choose, once we have reviewed it.',
+      f_section: 'Section', f_section_hint: 'Choose one of your profile types.',
+      f_kind: 'Type',
+      f_res_title: 'Title',
+      f_res_desc: 'What it is for',
+      f_res_url: 'Link',
+      f_res_url_hint: 'Wherever you keep it: Google Drive, Notion, Canva, your website or YouTube. Check that it opens without asking for access (in Drive: “Anyone with the link”).',
+      share_note: 'We review it before publishing. Your name appears next to the resource only for community members.',
+      err_res_title: 'Between 5 and 120 characters.',
+      err_res_desc: 'Between 20 and 300 characters.',
+      err_res_url: 'Paste a full link starting with https://',
+      err_section: 'Choose the section.', err_kind: 'Choose the type.',
+      res_sent: 'Resource sent. We will send you a notification when it is published.',
+      rs_pending: 'Under review', rs_published: 'Published', rs_rejected: 'Not published',
+      rs_meta_pending: '{kind} · in {section} · sent on {date}',
+      rs_meta_published: '{kind} · in {section} · published on {date}',
+      rs_meta_rejected: '{kind} · {date}. If you have questions, write to us at ' + CONTACT + '.',
+      view_in_resources: 'View in Resources',
       t_now: 'Just now', t_min: '{n} min ago', t_h: '{n} h ago', t_yesterday: 'Yesterday'
     }
   }[LANG];
@@ -448,6 +533,18 @@
       }
     };
   }
+  // Checkbox cards for the profile types (one or more).
+  function rolesPicker(selected, disabled) {
+    return h('div', { class: 'roles' }, ['owner', 'pm', 'coach', 'mentor'].map(function (r) {
+      return h('label', { class: 'role-option' + (disabled ? ' disabled' : '') }, [
+        h('input', { type: 'checkbox', name: 'roles', value: r, checked: selected.indexOf(r) !== -1, disabled: !!disabled }),
+        h('span', { class: 'card' }, [h('b', { text: roleLabel(r) }), h('span', { text: t('role_desc_' + r) })])
+      ]);
+    }));
+  }
+  function pickedRoles(box) {
+    return [].map.call(box.querySelectorAll('input[name=roles]:checked'), function (i) { return i.value; });
+  }
   function firstInvalid(form) { var f = form.querySelector('[aria-invalid="true"]'); if (f) f.focus(); }
   function fold(s) { return (s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); }
   var DATE = new Intl.DateTimeFormat(LANG === 'en' ? 'en-GB' : 'es-ES', { day: 'numeric', month: 'short', year: 'numeric' });
@@ -464,8 +561,19 @@
   // Fixed icon markup (no user data), drawn with stroke so it follows the text colour.
   var ICONS = {
     bell: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>',
-    lock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>'
+    lock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>',
+    external: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>',
+    info: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 8v5"/><path d="M12 16h.01"/></svg>'
   };
+  // One-choice chip group (section, type…). Returns the element and a getter.
+  function chipChoice(label, options, selected) {
+    var el = h('div', { class: 'chips', role: 'radiogroup', 'aria-label': label }, options.map(function (o) {
+      return h('button', { class: 'chip', type: 'button', role: 'radio', 'aria-checked': o[0] === selected ? 'true' : 'false', 'data-value': o[0], text: o[1], onclick: function (e) {
+        [].forEach.call(el.children, function (c) { c.setAttribute('aria-checked', c === e.currentTarget ? 'true' : 'false'); });
+      } });
+    }));
+    return { el: el, value: function () { var c = el.querySelector('[aria-checked="true"]'); return c ? c.getAttribute('data-value') : ''; } };
+  }
   function icon(name) { var s = document.createElement('span'); s.className = 'icon'; s.innerHTML = ICONS[name]; return s; }
   function lockbox(text) { return h('div', { class: 'lockbox' }, [icon('lock'), h('p', { text: text })]); }
   function armed(btn, label, sure, action) {
@@ -475,6 +583,14 @@
     };
   }
   function roleLabel(r) { return t('role_' + (r || 'owner')); }
+  // A member can have several profile types (roles). Older data had one (role).
+  function rolesOf(x) { return x && x.roles && x.roles.length ? x.roles : x && x.role ? [x.role] : ['owner']; }
+  function rolesLabel(roles) { return (roles && roles.length ? roles : ['owner']).map(roleLabel).join(' · '); }
+  function rolesSentence(roles) {
+    var l = (roles && roles.length ? roles : ['owner']).map(function (r) { return roleLabel(r).toLowerCase(); });
+    return l.length < 2 ? l[0] : l.slice(0, -1).join(', ') + t('and') + l[l.length - 1];
+  }
+  var SHARE_ROLES = ['pm', 'coach', 'mentor'];
   function firstName(name) { return (name || '').trim().split(/\s+/)[0] || t('member'); }
   function isEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v); }
   function normUrl(v) {
@@ -538,12 +654,13 @@
       else if (PAGE === 'profile') profilePage(session);
       else if (PAGE === 'community') communityPage(session);
       else if (PAGE === 'notifications') notificationsPage(session);
+      else if (PAGE === 'resources') resourcesPage(session);
     }).catch(function () { mount(notice(t('error_generic'), 'error')); });
   }
 
   // Your own full profile. Other members' profiles are private (see get_profile).
   function loadMyProfile(user) {
-    return sb.rpc('get_profile', { p_id: user.id }).maybeSingle();
+    return sb.rpc('member_profile', { p_id: user.id }).maybeSingle();
   }
 
   // ---------------------------------------------------------------- bell
@@ -612,13 +729,9 @@
     var pw = field({ label: t('password'), type: 'password', name: 'password', autocomplete: 'new-password', required: true, hint: t('password_hint') });
     var li = field({ label: t('linkedin'), type: 'url', name: 'linkedin', autocomplete: 'url', required: true, max: 200, hint: t('linkedin_hint'), inputmode: 'url' });
     var roleErr = h('div', { class: 'field-error', hidden: true });
-    var roles = h('div', { class: 'roles', role: 'radiogroup' }, ['owner', 'pm', 'coach', 'mentor'].map(function (r) {
-      return h('label', { class: 'role-option' }, [
-        h('input', { type: 'radio', name: 'role', value: r }),
-        h('span', { class: 'card' }, [h('b', { text: roleLabel(r) }), h('span', { text: t('role_desc_' + r) })])
-      ]);
-    }));
-    var roleSet = h('fieldset', { class: 'field' }, [h('legend', { text: t('role_legend') }), roles, roleErr]);
+    var roles = rolesPicker([]);
+    roles.addEventListener('change', function () { if (pickedRoles(roles).length) roleErr.hidden = true; });
+    var roleSet = h('fieldset', { class: 'field' }, [h('legend', { text: t('role_legend') }), h('p', { class: 'hint', style: 'margin:0', text: t('role_multi_hint') }), roles, roleErr]);
     var terms = h('input', { type: 'checkbox', name: 'terms', id: 'terms' });
     var termsErr = h('div', { class: 'field-error', hidden: true });
     var termsRow = h('div', { class: 'field' }, [
@@ -635,7 +748,8 @@
       msg.replaceChildren();
       var nv = name.input.value.trim(), ev = email.input.value.trim(), pv = pw.input.value;
       var lv = normUrl(li.input.value); li.input.value = lv;
-      var rv = (form.querySelector('input[name=role]:checked') || {}).value;
+      var picked = pickedRoles(roles);
+      var rv = picked.length ? picked[0] : '';
       var ok = true;
       name.error(nv.length < 2 ? t('err_name') : ''); ok = ok && nv.length >= 2;
       email.error(!ev ? t('err_required') : !isEmail(ev) ? t('err_email') : ''); ok = ok && isEmail(ev);
@@ -649,7 +763,7 @@
         email: ev, password: pv,
         options: {
           emailRedirectTo: window.location.origin + PATHS.community,
-          data: { full_name: nv, role: rv, linkedin_url: lv, terms_accepted: 'true', lang: LANG }
+          data: { full_name: nv, roles: picked, linkedin_url: lv, terms_accepted: 'true', lang: LANG }
         }
       }).then(function (res) {
         busy(btn, false);
@@ -735,9 +849,10 @@
   function renderProfile(user, p) {
     var pending = p.status === 'pending';
     var name = field({ label: t('full_name'), name: 'name', autocomplete: 'name', required: true, max: 80, value: p.full_name });
-    var roleSel = h('select', { id: 'role', class: 'select', name: 'role', disabled: !pending, 'aria-describedby': pending ? null : 'role-hint' },
-      ['owner', 'pm', 'coach', 'mentor'].map(function (r) { var o = h('option', { value: r, text: roleLabel(r) }); if (r === p.role) o.selected = true; return o; }));
-    var roleWrap = h('div', { class: 'field' }, [h('label', { for: 'role', text: t('role_field') }), roleSel,
+    var rolePick = rolesPicker(rolesOf(p), !pending);
+    var roleErr = h('div', { class: 'field-error', hidden: true });
+    var roleWrap = h('fieldset', { class: 'field', 'aria-describedby': pending ? null : 'role-hint' }, [h('legend', { text: t('role_field') }),
+      pending ? h('p', { class: 'hint', style: 'margin:0', text: t('role_multi_hint') }) : null, rolePick, roleErr,
       pending ? null : h('div', { id: 'role-hint', class: 'hint', text: t('role_locked_hint') })]);
     var headline = field({ label: t('headline'), name: 'headline', max: 120, optional: true, hint: t('headline_hint'), value: p.headline });
     var bio = field({ label: t('bio'), name: 'bio', textarea: true, rows: 5, max: 600, optional: true, hint: t('bio_hint'), value: p.bio });
@@ -774,7 +889,12 @@
         tiktok_url: tk.input.value || null,
         website_url: web.input.value || null
       };
-      if (pending) update.role = roleSel.value;
+      if (pending) {
+        var chosen = pickedRoles(rolePick);
+        roleErr.hidden = chosen.length > 0; roleErr.textContent = chosen.length ? '' : t('err_role');
+        if (!chosen.length) { rolePick.querySelector('input').focus(); return; }
+        update.roles = chosen;
+      }
       busy(btn, true);
       sb.from('profiles').update(update).eq('id', user.id).then(function (res) {
         busy(btn, false);
@@ -810,8 +930,10 @@
         h('button', { class: 'linkish', type: 'button', text: t('signout'), onclick: signOut })
       ]),
       h('h1', { class: 'page-title', text: t('profile_title') }),
+      h('p', { class: 'who-line', text: p.full_name + ' · ' + rolesLabel(rolesOf(p)) }),
       pending ? notice(t('pending_notice')) : p.status === 'rejected' ? notice(t('rejected_notice'), 'error') : null,
       p.status === 'approved' ? connectionsSection(user) : null,
+      p.status === 'approved' ? myResourcesSection(user, p) : null,
       h('h2', { class: 'section-title', text: t('my_data') }),
       h('p', { class: 'small muted', style: 'margin:10px 0 0', text: t('privacy_note') }),
       form,
@@ -819,11 +941,155 @@
     );
   }
 
+  // ---------------------------------------------------------------- my resources
+  // Project managers, coaches and mentors share links; each waits for review.
+  function myResourcesSection(user, me) {
+    var mine = rolesOf(me).filter(function (r) { return SHARE_ROLES.indexOf(r) !== -1; });
+    if (!mine.length) return null;
+    var list = h('div', null, [h('p', { class: 'small muted', style: 'margin-top:12px', text: t('loading') })]);
+    var msg = h('div');
+    var formBox = h('div', { hidden: true });
+    var shareBtn = h('button', { class: 'btn btn-primary', type: 'button', text: t('share_resource'), 'aria-expanded': 'false', onclick: function () {
+      if (!formBox.hidden) { closeForm(); return; }
+      msg.replaceChildren();
+      formBox.hidden = false; shareBtn.setAttribute('aria-expanded', 'true');
+      formBox.replaceChildren(shareForm());
+      formBox.querySelector('.chip, input').focus();
+    } });
+    function closeForm() { formBox.hidden = true; formBox.replaceChildren(); shareBtn.setAttribute('aria-expanded', 'false'); }
+
+    function load() {
+      sb.from('resources').select('id,section,kind,title,status,created_at,published_at').eq('author_id', user.id).order('created_at', { ascending: false }).then(function (res) {
+        if (res.error) { list.replaceChildren(notice(t('error_generic'), 'error')); return; }
+        var rows = res.data || [];
+        shareBtn.textContent = rows.length ? t('share_another') : t('share_resource');
+        put(list, [rows.length ? h('ul', { class: 'my-res' }, rows.map(item)) : h('p', { class: 'small muted', style: 'margin:12px 0 0', text: t('my_resources_empty') })]);
+      });
+    }
+    function item(r) {
+      var del = h('button', { class: 'linkish', type: 'button', text: t('delete') });
+      del.addEventListener('click', armed(del, t('delete'), t('delete_sure'), function () {
+        busy(del, true);
+        sb.from('resources').delete().eq('id', r.id).then(function (res) {
+          if (res.error) { busy(del, false); msg.replaceChildren(notice(t('error_generic'), 'error')); return; }
+          msg.replaceChildren(); load();
+        });
+      }));
+      var when = r.status === 'published' ? (r.published_at || r.created_at) : r.created_at;
+      return h('li', { class: 'my-res-item' }, [
+        h('span', { class: 'status-pill ' + ({ pending: '', published: 'approved', rejected: 'off' }[r.status] || ''), text: t('rs_' + r.status) }),
+        h('b', { text: r.title }),
+        h('span', { class: 'small muted', text: t('rs_meta_' + r.status, { kind: t('kind_' + r.kind), section: t('sec_' + r.section), date: fmtDate(when) }) }),
+        h('div', { class: 'int-links' }, [
+          r.status === 'published' ? h('a', { class: 'linkish', href: PATHS.resources + '#' + t('sec_id_' + r.section), text: t('view_in_resources') }) : null,
+          del
+        ])
+      ]);
+    }
+    function shareForm() {
+      var section = chipChoice(t('f_section'), mine.map(function (s) { return [s, t('sec_' + s)]; }), mine.length === 1 ? mine[0] : null);
+      var kind = chipChoice(t('f_kind'), ['template', 'guide', 'tool', 'video', 'other'].map(function (k) { return [k, t('kind_' + k)]; }), null);
+      var secErr = h('div', { class: 'field-error', hidden: true }), kindErr = h('div', { class: 'field-error', hidden: true });
+      var title = field({ label: t('f_res_title'), name: 'res_title', max: 120, required: true });
+      var desc = field({ label: t('f_res_desc'), name: 'res_desc', textarea: true, rows: 3, max: 300, required: true });
+      var url = field({ label: t('f_res_url'), name: 'res_url', type: 'url', inputmode: 'url', max: 500, required: true, hint: t('f_res_url_hint'), placeholder: 'https://…' });
+      var fmsg = h('div');
+      var btn = h('button', { class: 'btn btn-primary', type: 'submit', text: t('send') });
+      var form = h('form', { class: 'form', style: 'margin-top:20px', novalidate: true, onsubmit: function (e) {
+        e.preventDefault();
+        var sv = section.value(), kv = kind.value();
+        var tv = title.input.value.trim(), dv = desc.input.value.trim();
+        var uv = normUrl(url.input.value); url.input.value = uv;
+        var ok = true;
+        secErr.hidden = !!sv; secErr.textContent = sv ? '' : t('err_section'); ok = ok && !!sv;
+        kindErr.hidden = !!kv; kindErr.textContent = kv ? '' : t('err_kind'); ok = ok && !!kv;
+        title.error(tv.length < 5 || tv.length > 120 ? t('err_res_title') : ''); ok = ok && tv.length >= 5 && tv.length <= 120;
+        desc.error(dv.length < 20 || dv.length > 300 ? t('err_res_desc') : ''); ok = ok && dv.length >= 20 && dv.length <= 300;
+        var ue = !uv || uv.length > 500 || checkUrl(uv) ? t('err_res_url') : ''; url.error(ue); ok = ok && !ue;
+        if (!ok) { var bad = !sv ? section.el.firstChild : !kv ? kind.el.firstChild : form.querySelector('[aria-invalid="true"]'); if (bad) bad.focus(); return; }
+        busy(btn, true);
+        sb.from('resources').insert({ section: sv, kind: kv, title: tv, description: dv, url: uv }).then(function (res) {
+          busy(btn, false);
+          if (res.error) { fmsg.replaceChildren(notice(t('error_generic'), 'error')); return; }
+          closeForm();
+          msg.replaceChildren(notice(t('res_sent'), 'ok'));
+          load();
+        });
+      } }, [
+        h('div', { class: 'field' }, [h('span', { class: 'label', text: t('f_section') }), section.el, h('div', { class: 'hint', text: t('f_section_hint') }), secErr]),
+        h('div', { class: 'field' }, [h('span', { class: 'label', text: t('f_kind') }), kind.el, kindErr]),
+        title.wrap, desc.wrap, url.wrap,
+        h('div', { class: 'lockbox' }, [icon('info'), h('p', { text: t('share_note') })]),
+        fmsg,
+        h('div', { class: 'actions', style: 'margin-top:4px' }, [btn, h('button', { class: 'btn btn-ghost', type: 'button', text: t('cancel'), onclick: closeForm })])
+      ]);
+      return h('div', { class: 'panel' }, [h('h3', { class: 'panel-title', text: t('share_resource') }), h('p', { class: 'small muted', style: 'margin:8px 0 0', text: t('share_lead') }), form]);
+    }
+    load();
+    return h('section', { id: 'mis-recursos', 'aria-labelledby': 'res-title' }, [
+      h('h2', { id: 'res-title', class: 'section-title', text: t('my_resources') }),
+      msg, list,
+      h('div', { class: 'actions', style: 'margin-top:20px' }, [shareBtn]),
+      formBox
+    ]);
+  }
+
+  // ================================================================ RESOURCES
+  // Members only: published resources by section. Visitors keep the page's own intro.
+  function resourcesPage(session) {
+    if (!session) return;
+    ROOT.setAttribute('aria-busy', 'true');
+    loadMyProfile(session.user).then(function (res) {
+      var me = res && !res.error ? res.data : null;
+      var head = [h('h1', { class: 'page-title', text: t('res_title') }), h('p', { class: 'lead', text: t('res_lead') })];
+      if (!me || me.status !== 'approved') { mount.apply(null, head.concat([notice(t('res_pending'))])); return; }
+      sb.from('resources')
+        .select('id,section,kind,title,description,url,published_at,author:profiles!resources_author_id_fkey(id,full_name,roles)')
+        .eq('status', 'published')
+        .order('published_at', { ascending: false })
+        .then(function (r) {
+          if (r.error) { mount.apply(null, head.concat([notice(t('error_generic'), 'error')])); return; }
+          var rows = r.data || [];
+          var canShare = rolesOf(me).some(function (x) { return SHARE_ROLES.indexOf(x) !== -1; });
+          mount.apply(null, head.concat(
+            [h('nav', { class: 'chips', style: 'margin-top:28px', 'aria-label': t('res_jump') }, SHARE_ROLES.map(function (s) { return h('a', { class: 'chip', href: '#' + t('sec_id_' + s), text: t('sec_' + s) }); }))],
+            SHARE_ROLES.map(function (s) { return resSection(s, rows.filter(function (x) { return x.section === s; })); }),
+            [canShare ? h('p', { class: 'small muted', style: 'margin-top:48px' }, [t('res_share_1'), h('a', { class: 'linkish', href: PATHS.profile + '#mis-recursos', text: t('my_profile') }), t('res_share_2')]) : null]
+          ));
+          if (window.location.hash) { var el = document.getElementById(window.location.hash.slice(1)); if (el) el.scrollIntoView({ block: 'start' }); }
+        });
+    });
+  }
+
+  function resSection(s, items) {
+    var id = t('sec_id_' + s);
+    return h('section', { class: 'res-section', id: id, 'aria-labelledby': id + '-h' }, [
+      h('h2', { id: id + '-h', text: t('sec_' + s) }),
+      h('p', { class: 'res-intro', text: t('sec_intro_' + s) }),
+      items.length ? h('ul', { class: 'res-list' }, items.map(resItem)) : h('p', { class: 'res-empty', text: t('sec_empty_' + s) })
+    ]);
+  }
+
+  function resItem(r) {
+    var a = r.author;
+    var safe = /^https:\/\/[^\s]+$/i.test(r.url || '');
+    var who = (a ? a.full_name + ' · ' + rolesLabel(a.roles) : t('someone')) + ' · ' + fmtDate(r.published_at);
+    var kids = [
+      h('span', { class: 'badge', text: t('kind_' + r.kind) }),
+      h('h3', null, [r.title, safe ? icon('external') : null, safe ? h('span', { class: 'sr', text: ' ' + t('res_new_tab') }) : null]),
+      h('p', { text: r.description }),
+      h('p', { class: 'res-meta', text: who })
+    ];
+    return h('li', null, [safe
+      ? h('a', { class: 'res-item', href: r.url, target: '_blank', rel: 'noopener noreferrer nofollow' }, kids)
+      : h('div', { class: 'res-item' }, kids)]);
+  }
+
   function connectionsSection(user) {
     var list = h('div', null, [h('p', { class: 'small muted', style: 'margin-top:12px', text: t('loading') })]);
     Promise.all([
       sb.from('connections')
-        .select('id,owner_id,helper_id,request_title,created_at,owner:profiles!connections_owner_id_fkey(id,full_name,role),helper:profiles!connections_helper_id_fkey(id,full_name,role)')
+        .select('id,owner_id,helper_id,request_title,created_at,owner:profiles!connections_owner_id_fkey(id,full_name,roles),helper:profiles!connections_helper_id_fkey(id,full_name,roles)')
         .order('created_at', { ascending: false }),
       sb.from('interests').select('id', { count: 'exact', head: true }).eq('helper_id', user.id).is('connected_at', null)
     ]).then(function (r) {
@@ -834,7 +1100,7 @@
         if (!other) return null;
         return h('li', { class: 'conn' }, [
           h('div', { class: 'who' }, [
-            h('div', null, [h('b', { text: other.full_name }), h('span', { class: 'muted', text: ' · ' + roleLabel(other.role) })]),
+            h('div', null, [h('b', { text: other.full_name }), h('span', { class: 'muted', text: ' · ' + rolesLabel(other.roles) })]),
             h('div', { class: 'small muted', text: c.request_title + ' · ' + fmtDate(c.created_at) })
           ]),
           h('button', { class: 'btn btn-ghost btn-sm', type: 'button', text: t('view_profile_btn'), 'aria-label': t('view_profile', { name: other.full_name }), onclick: function () { openProfile(other.id); } })
@@ -922,7 +1188,7 @@
   // author, only their own for anyone else (the database decides).
   function loadCajas(openId, scroll) {
     return sb.from('requests')
-      .select('id,title,body,seeking,is_open,created_at,author_id,author:profiles!requests_author_id_fkey(id,full_name,role),replies(count),interests(id,helper_id,connected_at)')
+      .select('id,title,body,seeking,is_open,created_at,author_id,author:profiles!requests_author_id_fkey(id,full_name,roles),replies(count),interests(id,helper_id,connected_at)')
       .order('created_at', { ascending: false })
       .limit(200)
       .then(function (res) {
@@ -978,7 +1244,7 @@
     var kids = [
       h('div', { class: 'caja-top' }, [h('span', { class: 'badge', text: t('seek_' + c.seeking) }), c.is_open ? null : h('span', { class: 'badge closed', text: t('closed') })]),
       h('h2', null, [h('button', { type: 'button', 'aria-expanded': String(open), 'aria-controls': detailId, text: c.title, onclick: toggle })]),
-      h('div', { class: 'meta-line' }, [authorButton(c.author), h('span', { 'aria-hidden': 'true', text: '·' }), h('span', { text: roleLabel(c.author && c.author.role) }), h('span', { 'aria-hidden': 'true', text: '·' }), h('span', { text: fmtDate(c.created_at) })])
+      h('div', { class: 'meta-line' }, [authorButton(c.author), h('span', { 'aria-hidden': 'true', text: '·' }), h('span', { text: rolesLabel(c.author && c.author.roles) }), h('span', { 'aria-hidden': 'true', text: '·' }), h('span', { text: fmtDate(c.created_at) })])
     ];
     if (!open) {
       kids.push(h('p', { class: 'excerpt', text: c.body.length > 220 ? c.body.slice(0, 217).trimEnd() + '…' : c.body }));
@@ -1017,7 +1283,7 @@
   // ---------------------------------------------------------------- interests
   function loadInterests(id) {
     return sb.from('interests')
-      .select('id,request_id,helper_id,message,connected_at,created_at,helper:profiles!interests_helper_id_fkey(id,full_name,role)')
+      .select('id,request_id,helper_id,message,connected_at,created_at,helper:profiles!interests_helper_id_fkey(id,full_name,roles)')
       .eq('request_id', id)
       .order('created_at', { ascending: true })
       .then(function (res) {
@@ -1118,7 +1384,7 @@
         tail = h('button', { class: 'btn btn-primary btn-sm', type: 'button', text: t('connect'), 'aria-label': t('connect_q', { name: name }), onclick: function () { confirmConnect(c, it, name); } });
       }
       return h('li', { class: 'int-card' }, [
-        h('div', { class: 'meta-line' }, [authorButton(p), h('span', { 'aria-hidden': 'true', text: '·' }), h('span', { text: roleLabel(p && p.role) }), h('span', { 'aria-hidden': 'true', text: '·' }), h('span', { text: fmtDate(it.created_at) })]),
+        h('div', { class: 'meta-line' }, [authorButton(p), h('span', { 'aria-hidden': 'true', text: '·' }), h('span', { text: rolesLabel(p && p.roles) }), h('span', { 'aria-hidden': 'true', text: '·' }), h('span', { text: fmtDate(it.created_at) })]),
         h('p', { text: it.message }),
         tail
       ]);
@@ -1156,7 +1422,7 @@
 
   function loadReplies(id) {
     return sb.from('replies')
-      .select('id,body,created_at,author_id,author:profiles!replies_author_id_fkey(id,full_name,role)')
+      .select('id,body,created_at,author_id,author:profiles!replies_author_id_fkey(id,full_name,roles)')
       .eq('request_id', id)
       .order('created_at', { ascending: true })
       .then(function (res) {
@@ -1179,7 +1445,7 @@
         sb.from('replies').delete().eq('id', r.id).then(function (res) { if (!res.error) refreshAfterReply(c.id); });
       } }) : null;
       return h('li', { class: 'reply' }, [
-        h('div', { class: 'meta-line' }, [authorButton(r.author), h('span', { 'aria-hidden': 'true', text: '·' }), h('span', { text: roleLabel(r.author && r.author.role) }), h('span', { 'aria-hidden': 'true', text: '·' }), h('span', { text: fmtDate(r.created_at) }), del ? h('span', { 'aria-hidden': 'true', text: '·' }) : null, del]),
+        h('div', { class: 'meta-line' }, [authorButton(r.author), h('span', { 'aria-hidden': 'true', text: '·' }), h('span', { text: rolesLabel(r.author && r.author.roles) }), h('span', { 'aria-hidden': 'true', text: '·' }), h('span', { text: fmtDate(r.created_at) }), del ? h('span', { 'aria-hidden': 'true', text: '·' }) : null, del]),
         h('p', { text: r.body })
       ]);
     })) : null;
@@ -1265,8 +1531,8 @@
     d.replaceChildren(close, h('p', { class: 'small muted', text: t('loading') }));
     if (!d.open) d.showModal();
     Promise.all([
-      sb.rpc('get_profile', { p_id: id }).maybeSingle(),
-      sb.from('profiles').select('id,full_name,role').eq('id', id).maybeSingle()
+      sb.rpc('member_profile', { p_id: id }).maybeSingle(),
+      sb.from('profiles').select('id,full_name,roles').eq('id', id).maybeSingle()
     ]).then(function (r) {
       var full = r[0] && !r[0].error ? r[0].data : null;
       var basic = r[1] && !r[1].error ? r[1].data : null;
@@ -1274,7 +1540,7 @@
       if (!full) {
         put(d, [
           close,
-          h('span', { class: 'badge', text: roleLabel(basic.role) }),
+          h('span', { class: 'badge', text: rolesLabel(basic.roles) }),
           h('h2', { id: 'pd-name', text: basic.full_name }),
           h('div', { class: 'lockbox', style: 'margin-top:20px' }, [icon('lock'), h('div', null, [h('p', { text: t('locked_text') }), h('p', { class: 'muted', text: t('locked_hint') })])])
         ]);
@@ -1288,7 +1554,7 @@
       put(d, [
         close,
         h('div', { class: 'pd-top' }, [
-          h('span', { class: 'badge', text: roleLabel(p.role) }),
+          h('span', { class: 'badge', text: rolesLabel(p.roles) }),
           p.connected_at && !p.is_self ? h('span', { class: 'status-pill connected', text: t('connected_pill', { date: fmtDate(p.connected_at) }) }) : null
         ]),
         h('h2', { id: 'pd-name', text: p.full_name }),
@@ -1312,7 +1578,7 @@
     if (!session) { window.location.replace(PATHS.account); return; }
     var user = session.user;
     sb.from('notifications')
-      .select('id,kind,actor_id,request_id,request_title,read_at,created_at,actor:profiles!notifications_actor_id_fkey(id,full_name,role)')
+      .select('id,kind,actor_id,request_id,request_title,read_at,created_at,actor:profiles!notifications_actor_id_fkey(id,full_name,roles)')
       .order('created_at', { ascending: false })
       .limit(100)
       .then(function (res) {
@@ -1351,12 +1617,15 @@
     } else if (n.kind === 'reply') {
       key = 'notif_reply';
       acts.push(h('a', { class: 'linkish', href: cajaLink, text: t('notif_view_caja') }));
+    } else if (n.kind === 'resource_published') {
+      key = 'notif_resource';
+      acts.push(h('a', { class: 'linkish', href: PATHS.resources, text: t('notif_view_resources') }));
     } else {
       key = 'notif_approved';
       acts.push(h('a', { class: 'linkish', href: PATHS.community, text: t('go_community') }));
     }
     // The member's name in bold: fill the other values, then split on {name}.
-    var parts = t(key, { role: roleLabel(actor && actor.role).toLowerCase(), title: title }).split('{name}');
+    var parts = t(key, { role: rolesSentence(actor && actor.roles), title: title }).split('{name}');
     var text = [];
     parts.forEach(function (part, i) { if (i) text.push(h('b', { text: name })); if (part) text.push(part); });
     var unread = !n.read_at;

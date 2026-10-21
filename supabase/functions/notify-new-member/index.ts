@@ -43,13 +43,15 @@ Deno.serve(async (req) => {
   const { data: p, error } = await db.from('profiles')
     .update({ admin_notified_at: new Date().toISOString() })
     .eq('id', id).eq('status', 'pending').is('admin_notified_at', null)
-    .select('id, full_name, role, linkedin_url, created_at')
+    .select('*')
     .maybeSingle();
   if (error) { console.error('profiles update', error.message); return reply(500, 'db error'); }
   if (!p) return reply(200, 'nothing to do');
 
   const name = p.full_name || 'Miembro';
-  const role = ROLES[p.role] ?? p.role;
+  // Profile types: a list since 21 Oct 2026 (roles); older rows had a single role.
+  const types: string[] = Array.isArray(p.roles) ? p.roles : p.role ? [p.role] : [];
+  const role = types.map((r) => ROLES[r] ?? r).join(', ') || '-';
   const linkedin = p.linkedin_url || 'no indicado';
   const when = new Intl.DateTimeFormat('es-ES', { dateStyle: 'long', timeStyle: 'short', timeZone: 'Europe/Madrid' }).format(new Date(p.created_at));
   const lines = [

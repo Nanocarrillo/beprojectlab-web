@@ -25,6 +25,8 @@
       loading: 'Cargando…',
       wait: 'Un momento…',
       error_generic: 'Algo no ha funcionado. Vuelve a intentarlo en unos segundos.',
+      error_slow: 'La conexión ha fallado o está tardando demasiado. Comprueba tu conexión y vuelve a intentarlo.',
+      retry: 'Reintentar',
       not_ready: 'La comunidad abre muy pronto. Vuelve en unos días.',
       back_home: 'Volver al inicio',
       optional: '(opcional)',
@@ -351,6 +353,8 @@
       loading: 'Loading…',
       wait: 'One moment…',
       error_generic: 'Something went wrong. Please try again in a few seconds.',
+      error_slow: 'The connection failed or is taking too long. Check your connection and try again.',
+      retry: 'Try again',
       not_ready: 'The community opens very soon. Come back in a few days.',
       back_home: 'Back to home',
       optional: '(optional)',
@@ -830,10 +834,45 @@
 
   // ---------------------------------------------------------------- client
   if (!ROOT || !PAGE) return;
+  // On weak connections (mobile data) a request can hang with no answer, and
+  // the page would wait for ever. Every request gets a time limit; reads are
+  // tried a second time; anything that still fails shows "Reintentar".
+  var READ_RPC = /\/rest\/v1\/rpc\/(member_profile|admin_status|admin_overview|admin_members|admin_resources|admin_log_recent)(\?|$)/;
+  function patientFetch(input, init) {
+    init = init || {};
+    var url = typeof input === 'string' ? input : (input && input.url) || String(input);
+    var method = String(init.method || (input && input.method) || 'GET').toUpperCase();
+    var tries = method === 'GET' || method === 'HEAD' || READ_RPC.test(url) ? 2 : 1;
+    var outer = init.signal;
+    function attempt(n) {
+      var ctl = new AbortController();
+      var onAbort = function () { ctl.abort(); };
+      if (outer) { if (outer.aborted) ctl.abort(); else outer.addEventListener('abort', onAbort); }
+      var timer = setTimeout(function () { ctl.abort(); }, tries === 2 && n === 1 ? 8000 : 15000);
+      var opts = {};
+      for (var k in init) opts[k] = init[k];
+      opts.signal = ctl.signal;
+      function done() { clearTimeout(timer); if (outer) outer.removeEventListener('abort', onAbort); }
+      return window.fetch(input, opts).then(function (r) { done(); return r; }, function (e) {
+        done();
+        if (n < tries && !(outer && outer.aborted)) return attempt(n + 1);
+        throw e;
+      });
+    }
+    return attempt(1);
+  }
+  function retryBox(text) {
+    return h('div', { class: 'retry-box' }, [
+      notice(text || t('error_slow'), 'error'),
+      h('div', { class: 'actions' }, [h('button', { class: 'btn btn-ghost', type: 'button', text: t('retry'), onclick: function () { window.location.reload(); } })])
+    ]);
+  }
+
   var sb = null;
   if (SUPABASE_KEY && window.supabase && window.supabase.createClient) {
     sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
-      auth: { flowType: 'implicit', detectSessionInUrl: true, persistSession: true, autoRefreshToken: true }
+      auth: { flowType: 'implicit', detectSessionInUrl: true, persistSession: true, autoRefreshToken: true },
+      global: { fetch: patientFetch }
     });
   }
   var recovering = /type=recovery/.test(INITIAL_HASH);
@@ -858,7 +897,7 @@
       else if (PAGE === 'notifications') notificationsPage(session);
       else if (PAGE === 'resources') resourcesPage(session);
       else if (PAGE === 'admin') adminPage(session);
-    }).catch(function () { mount(notice(t('error_generic'), 'error')); });
+    }).catch(function () { mount(retryBox()); });
   }
 
   // Is the signed-in member an administrator, and is the session confirmed
@@ -868,8 +907,8 @@
   function adminInfo() {
     if (!adminInfoP) {
       adminInfoP = sb.rpc('admin_status').then(function (r) {
-        return r && !r.error && r.data ? r.data : { admin: false, aal: 'aal1' };
-      }, function () { return { admin: false, aal: 'aal1' }; });
+        return r && !r.error && r.data ? r.data : { admin: false, aal: 'aal1', failed: true };
+      }, function () { return { admin: false, aal: 'aal1', failed: true }; });
     }
     return adminInfoP;
   }
@@ -1063,7 +1102,7 @@
     if (!session) { window.location.replace(PATHS.account); return; }
     var user = session.user;
     loadMyProfile(user).then(function (res) {
-      if (res.error || !res.data) { mount(h('h1', { class: 'page-title', text: t('profile_title') }), notice(t('error_generic'), 'error')); return; }
+      if (res.error || !res.data) { mount(h('h1', { class: 'page-title', text: t('profile_title') }), retryBox()); return; }
       renderProfile(user, res.data);
     });
   }
@@ -1304,7 +1343,7 @@
         .eq('status', 'published')
         .order('published_at', { ascending: false })
         .then(function (r) {
-          if (r.error) { mount.apply(null, head.concat([notice(t('error_generic'), 'error')])); return; }
+          if (r.error) { mount.apply(null, head.concat([retryBox()])); return; }
           var rows = r.data || [];
           var canShare = rolesOf(me).some(function (x) { return SHARE_ROLES.indexOf(x) !== -1; });
           mount.apply(null, head.concat(
@@ -1384,11 +1423,19 @@
     var wanted = new URLSearchParams(window.location.search).get('caja');
     if (wanted && !/^[0-9a-f-]{36}$/i.test(wanted)) wanted = null;
     loadMyProfile(session.user).then(function (res) {
-      if (res.error || !res.data) { mount(h('h1', { class: 'page-title', text: t('comm_title') }), notice(t('error_generic'), 'error')); return; }
+      if (res.error || !res.data) { mount(h('h1', { class: 'page-title', text: t('comm_title') }), retryBox()); return; }
       state.me = res.data;
       if (res.data.status !== 'approved') { renderWaiting(res.data); return; }
-      // Administrators with a confirmed session can remove other members' boxes and replies.
-      adminInfo().then(function (a) { state.mod = !!(a.admin && a.aal === 'aal2'); renderBoard(wanted); });
+      state.mod = false;
+      renderBoard(wanted);
+      // Administrators with a confirmed session can remove other members' boxes
+      // and replies. The page does not wait for this answer.
+      adminInfo().then(function (a) {
+        if (!(a.admin && a.aal === 'aal2')) return;
+        state.mod = true;
+        var typing = listEl && [].some.call(listEl.querySelectorAll('textarea'), function (x) { return x.value; });
+        if (state.cajas.length && !typing) renderList();
+      });
     });
   }
 
@@ -1449,7 +1496,7 @@
       .order('created_at', { ascending: false })
       .limit(200)
       .then(function (res) {
-        if (res.error) { listEl.replaceChildren(h('li', null, [notice(t('error_generic'), 'error')])); return; }
+        if (res.error) { listEl.replaceChildren(h('li', null, [retryBox()])); return; }
         state.cajas = res.data || [];
         var known = openId && state.cajas.some(function (c) { return c.id === openId; });
         if (known) state.open[openId] = true;
@@ -1867,7 +1914,7 @@
       .order('created_at', { ascending: false })
       .limit(100)
       .then(function (res) {
-        if (res.error) { mount(h('h1', { class: 'page-title', text: t('notif_title') }), notice(t('error_generic'), 'error')); return; }
+        if (res.error) { mount(h('h1', { class: 'page-title', text: t('notif_title') }), retryBox()); return; }
         var rows = res.data || [];
         mount(
           h('div', { class: 'userbar' }, [
@@ -1941,6 +1988,7 @@
     if (!session) return adminSignin();
     ADM.me = session.user;
     adminInfo().then(function (a) {
+      if (a.failed) { adminInfoP = null; mount(h('h1', { class: 'page-title', text: t('adm_title') }), retryBox()); return; }
       if (!a.admin) {
         mount(h('h1', { class: 'page-title', text: t('adm_title') }), h('p', { class: 'lead', text: t('adm_only') }),
           h('div', { class: 'actions' }, [h('a', { class: 'btn btn-ghost', href: PATHS.profile, text: t('my_profile') })]));
@@ -1978,7 +2026,7 @@
       if (d.currentLevel === 'aal2') adminPanel();
       else if (d.nextLevel === 'aal2') mfaChallenge();
       else mfaEnroll();
-    }).catch(function () { mount(h('h1', { class: 'page-title', text: t('adm_title') }), notice(t('error_generic'), 'error')); });
+    }).catch(function () { mount(h('h1', { class: 'page-title', text: t('adm_title') }), retryBox()); });
   }
 
   function codeField() {
@@ -1986,16 +2034,46 @@
     f.wrap.classList.add('mfa-code');
     return f;
   }
-  function mfaVerify(factorId, f, btn, msg) {
+  // A failed request (no answer, cut connection) is not a wrong code.
+  function netError(err) {
+    return !!err && (err.status === 0 || err.name === 'AuthRetryableFetchError' || /abort|failed to fetch|network|load failed/i.test(err.message || ''));
+  }
+  function mfaVerify(factorId, f, btn, msg, setup) {
     var code = (f.input.value || '').replace(/\D/g, '');
     f.error(code.length !== 6 ? t('err_code') : '');
     if (code.length !== 6) { f.input.focus(); return; }
     busy(btn, true);
     sb.auth.mfa.challengeAndVerify({ factorId: factorId, code: code }).then(function (res) {
-      if (res.error) { busy(btn, false); f.error(t('err_code_wrong')); f.input.focus(); return; }
+      if (res.error) {
+        busy(btn, false);
+        if (netError(res.error)) { msg.replaceChildren(notice(t('error_slow'), 'error')); return; }
+        // The set-up on screen no longer exists (removed from another tab): start a new one.
+        if (setup && (res.error.status === 404 || /not found/i.test(res.error.message || ''))) { mfaSave(null); mfaEnroll(); return; }
+        f.error(t('err_code_wrong')); f.input.focus(); return;
+      }
+      if (setup) { mfaSave(null); mfaTidy(null); }
       adminInfoP = null;
       adminPanel();
-    }).catch(function () { busy(btn, false); msg.replaceChildren(notice(t('error_generic'), 'error')); });
+    }).catch(function () { busy(btn, false); msg.replaceChildren(notice(t('error_slow'), 'error')); });
+  }
+
+  // The set-up in progress is kept for this tab only, so reloading the page
+  // shows the same QR code (the one already scanned keeps working). It is
+  // removed as soon as the code is confirmed.
+  var MFA_KEY = 'bpl-mfa-setup';
+  function mfaSaved() {
+    try { var s = JSON.parse(window.sessionStorage.getItem(MFA_KEY) || 'null'); return s && ADM.me && s.uid === ADM.me.id && s.id && s.qr ? s : null; } catch (e) { return null; }
+  }
+  function mfaSave(s) {
+    try { if (s) window.sessionStorage.setItem(MFA_KEY, JSON.stringify(s)); else window.sessionStorage.removeItem(MFA_KEY); } catch (e) { /* private mode: fine */ }
+  }
+  // Unfinished set-ups other than the one on screen are removed in the background.
+  function mfaTidy(keepId) {
+    sb.auth.mfa.listFactors().then(function (lf) {
+      ((lf && lf.data && lf.data.all) || []).forEach(function (fac) {
+        if (fac.factor_type === 'totp' && fac.status !== 'verified' && fac.id !== keepId) sb.auth.mfa.unenroll({ factorId: fac.id });
+      });
+    }).catch(function () {});
   }
   // The QR code comes as an SVG; encode it so any character in it is safe in the address.
   function qrSrc(q) {
@@ -2003,51 +2081,62 @@
     return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
   }
 
+  // First time: one request to create the set-up, then the QR code. Older
+  // unfinished set-ups are cleared afterwards, without making anyone wait.
   function mfaEnroll() {
+    var saved = mfaSaved();
+    if (saved) { mfaSetupScreen(saved); return; }
     mount(h('h1', { class: 'page-title', text: t('mfa_title') }), h('p', { class: 'lead', text: t('loading') }));
-    sb.auth.mfa.listFactors().then(function (lf) {
-      // A set-up left half done would block a new one: clear it first.
-      var stale = ((lf && lf.data && lf.data.all) || []).filter(function (f) { return f.factor_type === 'totp' && f.status !== 'verified'; });
-      return Promise.all(stale.map(function (f) { return sb.auth.mfa.unenroll({ factorId: f.id }); }));
-    }).then(function () {
-      return sb.auth.mfa.enroll({ factorType: 'totp', friendlyName: 'BeProject Lab', issuer: 'BeProject Lab' });
-    }).then(function (res) {
+    // A unique internal name, so an unfinished set-up never blocks a new one.
+    sb.auth.mfa.enroll({ factorType: 'totp', friendlyName: 'BeProject Lab ' + Date.now().toString(36), issuer: 'BeProject Lab' }).then(function (res) {
       if (!res || res.error || !res.data || !res.data.totp) {
-        mount(h('h1', { class: 'page-title', text: t('mfa_title') }), notice(t('mfa_enroll_error'), 'error'));
+        mount(h('h1', { class: 'page-title', text: t('mfa_title') }), retryBox(res && res.error && !netError(res.error) ? t('mfa_enroll_error') : t('error_slow')));
         return;
       }
-      var factorId = res.data.id;
-      var f = codeField();
-      var msg = h('div');
-      var btn = h('button', { class: 'btn btn-primary', type: 'submit', text: t('mfa_activate') });
-      var secret = h('p', { class: 'mfa-secret', hidden: true }, [h('span', { class: 'small muted', text: t('mfa_secret_label') + ' ' }), h('code', { text: res.data.totp.secret || '' })]);
-      var show = h('button', { class: 'linkish', type: 'button', text: t('mfa_show_secret'), 'aria-expanded': 'false', onclick: function () {
-        secret.hidden = !secret.hidden; show.setAttribute('aria-expanded', String(!secret.hidden));
-      } });
-      var form = h('form', { class: 'form', novalidate: true, onsubmit: function (e) { e.preventDefault(); msg.replaceChildren(); mfaVerify(factorId, f, btn, msg); } },
-        [f.wrap, msg, h('div', { class: 'actions', style: 'margin-top:4px' }, [btn])]);
-      mount(
-        h('span', { class: 'badge', text: t('mfa_kicker') }),
-        h('h1', { class: 'page-title mfa-title', text: t('mfa_title') }),
-        h('p', { class: 'lead', text: t('mfa_lead') }),
-        h('ol', { class: 'mfa-steps' }, [
-          h('li', null, [h('p', { text: t('mfa_step1') })]),
-          h('li', null, [h('p', { text: t('mfa_step2') }), h('img', { class: 'mfa-qr', src: qrSrc(res.data.totp.qr_code), alt: t('mfa_qr_alt'), width: '200', height: '200' }), show, secret]),
-          h('li', null, [h('p', { text: t('mfa_step3') }), form])
-        ]),
-        h('p', { class: 'small muted', style: 'margin-top:32px', text: t('mfa_note') })
-      );
-    }).catch(function () { mount(h('h1', { class: 'page-title', text: t('mfa_title') }), notice(t('mfa_enroll_error'), 'error')); });
+      var s = { uid: ADM.me.id, id: res.data.id, qr: res.data.totp.qr_code, secret: res.data.totp.secret || '' };
+      mfaSave(s);
+      mfaSetupScreen(s);
+      mfaTidy(s.id);
+    }).catch(function () { mount(h('h1', { class: 'page-title', text: t('mfa_title') }), retryBox()); });
   }
 
+  function mfaSetupScreen(s) {
+    var f = codeField();
+    var msg = h('div');
+    var btn = h('button', { class: 'btn btn-primary', type: 'submit', text: t('mfa_activate') });
+    var secret = h('p', { class: 'mfa-secret', hidden: true }, [h('span', { class: 'small muted', text: t('mfa_secret_label') + ' ' }), h('code', { text: s.secret })]);
+    var show = h('button', { class: 'linkish', type: 'button', text: t('mfa_show_secret'), 'aria-expanded': 'false', onclick: function () {
+      secret.hidden = !secret.hidden; show.setAttribute('aria-expanded', String(!secret.hidden));
+    } });
+    var form = h('form', { class: 'form', novalidate: true, onsubmit: function (e) { e.preventDefault(); msg.replaceChildren(); mfaVerify(s.id, f, btn, msg, true); } },
+      [f.wrap, msg, h('div', { class: 'actions', style: 'margin-top:4px' }, [btn])]);
+    mount(
+      h('span', { class: 'badge', text: t('mfa_kicker') }),
+      h('h1', { class: 'page-title mfa-title', text: t('mfa_title') }),
+      h('p', { class: 'lead', text: t('mfa_lead') }),
+      h('ol', { class: 'mfa-steps' }, [
+        h('li', null, [h('p', { text: t('mfa_step1') })]),
+        h('li', null, [h('p', { text: t('mfa_step2') }), h('img', { class: 'mfa-qr', src: qrSrc(s.qr), alt: t('mfa_qr_alt'), width: '200', height: '200' }), show, secret]),
+        h('li', null, [h('p', { text: t('mfa_step3') }), form])
+      ]),
+      h('p', { class: 'small muted', style: 'margin-top:32px', text: t('mfa_note') })
+    );
+  }
+
+  // Later sign-ins: the factor is already in the session, so no request is
+  // needed before asking for the code.
   function mfaChallenge() {
-    sb.auth.mfa.listFactors().then(function (lf) {
-      var fac = ((lf && lf.data && lf.data.totp) || [])[0];
+    sb.auth.getSession().then(function (r) {
+      var u = r && r.data && r.data.session ? r.data.session.user : null;
+      var fac = ((u && u.factors) || []).filter(function (x) { return x.factor_type === 'totp' && x.status === 'verified'; })[0];
+      if (fac) return fac;
+      return sb.auth.mfa.listFactors().then(function (lf) { return ((lf && lf.data && lf.data.totp) || [])[0]; });
+    }).then(function (fac) {
       if (!fac) { mfaEnroll(); return; }
       var f = codeField();
       var msg = h('div');
       var btn = h('button', { class: 'btn btn-primary', type: 'submit', text: t('mfa_enter_btn') });
-      var form = h('form', { class: 'form', novalidate: true, onsubmit: function (e) { e.preventDefault(); msg.replaceChildren(); mfaVerify(fac.id, f, btn, msg); } },
+      var form = h('form', { class: 'form', novalidate: true, onsubmit: function (e) { e.preventDefault(); msg.replaceChildren(); mfaVerify(fac.id, f, btn, msg, false); } },
         [f.wrap, msg, h('div', { class: 'actions', style: 'margin-top:4px' }, [btn])]);
       mount(
         h('h1', { class: 'page-title', text: t('adm_title') }),
@@ -2056,7 +2145,7 @@
         h('p', { class: 'small muted', style: 'margin-top:24px', text: t('mfa_enter_note') })
       );
       f.input.focus();
-    }).catch(function () { mount(h('h1', { class: 'page-title', text: t('adm_title') }), notice(t('error_generic'), 'error')); });
+    }).catch(function () { mount(h('h1', { class: 'page-title', text: t('adm_title') }), retryBox()); });
   }
 
   // ---------------------------------------------------------------- panel
@@ -2166,7 +2255,7 @@
       put(ADM.mainEl, [admFlash(), admLoading()]);
       sb.rpc('admin_members').then(function (res) {
         if (admDenied(res)) return;
-        if (res.error) { put(ADM.mainEl, [notice(t('error_generic'), 'error')]); return; }
+        if (res.error) { put(ADM.mainEl, [retryBox()]); return; }
         ADM.members = res.data || [];
         if (ADM.tab === 'cuentas') admMembers();
       });
@@ -2269,7 +2358,7 @@
       put(ADM.mainEl, [admFlash(), admLoading()]);
       sb.rpc('admin_resources').then(function (res) {
         if (admDenied(res)) return;
-        if (res.error) { put(ADM.mainEl, [notice(t('error_generic'), 'error')]); return; }
+        if (res.error) { put(ADM.mainEl, [retryBox()]); return; }
         ADM.resources = res.data || [];
         if (ADM.tab === 'recursos') admResources();
       });
@@ -2354,7 +2443,7 @@
     put(ADM.mainEl, [h('p', { class: 'small muted', style: 'margin:0', text: t('adm_log_lead') }), box]);
     sb.rpc('admin_log_recent', { p_limit: limit }).then(function (res) {
       if (admDenied(res)) return;
-      if (res.error) { put(box, [notice(t('error_generic'), 'error')]); return; }
+      if (res.error) { put(box, [retryBox()]); return; }
       var rows = res.data || [];
       if (!rows.length) { put(box, [admEmpty('adm_log_empty')]); return; }
       var days = [], byDay = {};

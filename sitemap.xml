@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- BeProject Lab: public pages for search engines. Private pages (account, profile,
+     notifications, admin) are left out on purpose. Update it when pages are added. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://beprojectlab.com/</loc>
+    <lastmod>2026-10-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beprojectlab.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beprojectlab.com/en/"/>
+  </url>
+  <url>
+    <loc>https://beprojectlab.com/en/</loc>
+    <lastmod>2026-10-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beprojectlab.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beprojectlab.com/en/"/>
+  </url>
+  <url>
+    <loc>https://beprojectlab.com/comunidad/</loc>
+    <lastmod>2026-10-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beprojectlab.com/comunidad/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beprojectlab.com/en/community/"/>
+  </url>
+  <url>
+    <loc>https://beprojectlab.com/en/community/</loc>
+    <lastmod>2026-10-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beprojectlab.com/comunidad/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beprojectlab.com/en/community/"/>
+  </url>
+  <url>
+    <loc>https://beprojectlab.com/recursos/</loc>
+    <lastmod>2026-10-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beprojectlab.com/recursos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beprojectlab.com/en/resources/"/>
+  </url>
+  <url>
+    <loc>https://beprojectlab.com/en/resources/</loc>
+    <lastmod>2026-10-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beprojectlab.com/recursos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beprojectlab.com/en/resources/"/>
+  </url>
+  <url>
+    <loc>https://beprojectlab.com/blog/</loc>
+    <lastmod>2026-10-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beprojectlab.com/blog/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beprojectlab.com/en/blog/"/>
+  </url>
+  <url>
+    <loc>https://beprojectlab.com/en/blog/</loc>
+    <lastmod>2026-10-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beprojectlab.com/blog/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beprojectlab.com/en/blog/"/>
+  </url>
+  <url>
+    <loc>https://beprojectlab.com/blog/articulo-1.html</loc>
+    <lastmod>2026-10-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beprojectlab.com/blog/articulo-1.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beprojectlab.com/en/blog/article-1.html"/>
+  </url>
+  <url>
+    <loc>https://beprojectlab.com/en/blog/article-1.html</loc>
+    <lastmod>2026-10-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beprojectlab.com/blog/articulo-1.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beprojectlab.com/en/blog/article-1.html"/>
+  </url>
+  <url>
+    <loc>https://beprojectlab.com/blog/articulo-2.html</loc>
+    <lastmod>2026-10-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beprojectlab.com/blog/articulo-2.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beprojectlab.com/en/blog/article-2.html"/>
+  </url>
+  <url>
+    <loc>https://beprojectlab.com/en/blog/article-2.html</loc>
+    <lastmod>2026-10-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beprojectlab.com/blog/articulo-2.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beprojectlab.com/en/blog/article-2.html"/>
+  </url>
+  <url>
+    <loc>https://beprojectlab.com/blog/articulo-3.html</loc>
+    <lastmod>2026-10-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beprojectlab.com/blog/articulo-3.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beprojectlab.com/en/blog/article-3.html"/>
+  </url>
+  <url>
+    <loc>https://beprojectlab.com/en/blog/article-3.html</loc>
+    <lastmod>2026-10-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beprojectlab.com/blog/articulo-3.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beprojectlab.com/en/blog/article-3.html"/>
+  </url>
+  <url>
+    <loc>https://beprojectlab.com/privacidad/</loc>
+    <lastmod>2026-10-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beprojectlab.com/privacidad/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beprojectlab.com/en/privacy/"/>
+  </url>
+  <url>
+    <loc>https://beprojectlab.com/en/privacy/</loc>
+    <lastmod>2026-10-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beprojectlab.com/privacidad/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beprojectlab.com/en/privacy/"/>
+  </url>
+  <url>
+    <loc>https://beprojectlab.com/condiciones/</loc>
+    <lastmod>2026-10-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beprojectlab.com/condiciones/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beprojectlab.com/en/terms/"/>
+  </url>
+  <url>
+    <loc>https://beprojectlab.com/en/terms/</loc>
+    <lastmod>2026-10-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://beprojectlab.com/condiciones/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://beprojectlab.com/en/terms/"/>
+  </url>
+</urlset>

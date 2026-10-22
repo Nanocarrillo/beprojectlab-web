@@ -1,0 +1,5 @@
+# BeProject Lab
+User-agent: *
+Allow: /
+
+Sitemap: https://beprojectlab.com/sitemap.xml

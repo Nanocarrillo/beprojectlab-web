@@ -142,6 +142,19 @@
       filter_prefix: 'Buscan:',
       empty_all: 'Todavía no hay cajas. Abre la primera.',
       empty_filter: 'No hay cajas que coincidan con tu búsqueda.',
+      ex_section: 'Ejemplo para inspirarte',
+      ex_intro: 'Una caja de muestra, escrita por BeProject Lab, para enseñarte a contar tu proyecto. No es un proyecto real.',
+      ex_tag: 'Ejemplo',
+      ex_title: 'Abrir un estudio de cerámica en Valencia',
+      ex_body: 'Tengo el local alquilado en Ruzafa y doce alumnas en lista de espera. Quiero abrir en marzo con dos turnos de clases y una pequeña tienda online. Me atasco en el orden: las obras, los permisos del ayuntamiento, la compra del horno y la web se me mezclan y no sé qué va primero. Busco un project manager que me ayude a montar el plan y el calendario, unas horas al mes.',
+      ex_who: 'BeProject Lab', ex_kind: 'Caja de ejemplo',
+      ex_why: 'Por qué funciona esta caja',
+      ex_a_k: 'Dónde está hoy (A)', ex_a: 'Local alquilado y doce alumnas esperando.',
+      ex_b_k: 'Adónde quiere llegar (B)', ex_b: 'Abrir en marzo, con clases y tienda online.',
+      ex_stuck_k: 'Dónde se atasca', ex_stuck: 'No sabe qué va primero.',
+      ex_help_k: 'Qué ayuda pide', ex_help: 'Un project manager, unas horas al mes.',
+      ex_note: 'Es una caja de ejemplo: en ella no se puede decir «Me interesa» ni responder.',
+      ex_cta: 'Abrir mi caja', ex_view: 'Ver ejemplo',
       replies_0: 'Sin respuestas', replies_1: '1 respuesta', replies_n: '{n} respuestas',
       view: 'Ver caja', hide: 'Ocultar',
       closed: 'Cerrada',
@@ -467,6 +480,19 @@
       filter_prefix: 'Looking for:',
       empty_all: 'No posts yet. Write the first one.',
       empty_filter: 'No posts match your search.',
+      ex_section: 'An example to inspire you',
+      ex_intro: 'A sample post, written by BeProject Lab, to show you how to describe your project. It is not a real project.',
+      ex_tag: 'Example',
+      ex_title: 'Open a ceramics studio in Valencia',
+      ex_body: 'I have rented a space in Ruzafa and twelve students are on the waiting list. I want to open in March with two class times and a small online shop. I get stuck on the order: the building work, the council permits, buying the kiln and the website all blur together and I don’t know what comes first. I’m looking for a project manager to help me build the plan and the schedule, a few hours a month.',
+      ex_who: 'BeProject Lab', ex_kind: 'Example post',
+      ex_why: 'Why this post works',
+      ex_a_k: 'Where they are today (A)', ex_a: 'A rented space and twelve students waiting.',
+      ex_b_k: 'Where they want to go (B)', ex_b: 'Open in March, with classes and an online shop.',
+      ex_stuck_k: 'Where they get stuck', ex_stuck: 'Not knowing what comes first.',
+      ex_help_k: 'What help they ask for', ex_help: 'A project manager, a few hours a month.',
+      ex_note: 'This is an example post: you can’t say “I’m interested” or reply to it.',
+      ex_cta: 'Write my post', ex_view: 'View example',
       replies_0: 'No replies yet', replies_1: '1 reply', replies_n: '{n} replies',
       view: 'View post', hide: 'Hide',
       closed: 'Closed',
@@ -1457,7 +1483,7 @@
     );
   }
 
-  var listEl, countEl, dialog;
+  var listEl, countEl, dialog, exampleEl, newCajaBtn;
   function renderBoard(wanted) {
     var formPanel = h('div', { hidden: true });
     var newBtn = h('button', { class: 'btn btn-primary', type: 'button', text: t('new_caja'), 'aria-expanded': 'false', onclick: function () {
@@ -1476,6 +1502,8 @@
     }));
     listEl = h('ul', { class: 'cajas' });
     countEl = h('p', { class: 'sr', 'aria-live': 'polite' });
+    exampleEl = h('section', { class: 'example-zone', 'aria-labelledby': 'ex-title' });
+    newCajaBtn = newBtn;
     mount(
       userbar(),
       h('div', { class: 'head-row' }, [h('h1', { class: 'page-title', text: t('comm_title') }), newBtn]),
@@ -1483,9 +1511,50 @@
       h('div', { class: 'toolbar' }, [h('label', { class: 'sr', for: 'q', text: t('search_label') }), search,
         h('div', { class: 'filter-row' }, [h('span', { class: 'filter-label', 'aria-hidden': 'true', text: t('filter_prefix') }), chips])]),
       countEl,
-      listEl
+      listEl,
+      exampleEl
     );
+    renderExample();
     loadCajas(wanted, true);
+  }
+
+  // One example box, written in the code (not in the database): it shows how to
+  // describe a project and always sits below the real boxes. Nobody can say
+  // "Me interesa" or reply to it; its button opens the form for a new box.
+  function renderExample() {
+    if (!exampleEl) return;
+    var show = !state.q.trim() && (state.filter === 'all' || state.filter === 'pm');
+    exampleEl.hidden = !show;
+    if (!show) return;
+    var open = !!state.exOpen;
+    var toggle = function () { state.exOpen = !open; renderExample(); };
+    var body = t('ex_body');
+    var kids = [
+      h('div', { class: 'caja-top' }, [h('span', { class: 'badge', text: t('seek_pm') }), h('span', { class: 'ex-tag', text: t('ex_tag') })]),
+      h('h3', null, [h('button', { type: 'button', 'aria-expanded': String(open), 'aria-controls': 'ex-detail', text: t('ex_title'), onclick: toggle })]),
+      h('div', { class: 'meta-line' }, [h('span', { class: 'ex-who', text: t('ex_who') }), h('span', { 'aria-hidden': 'true', text: '·' }), h('span', { text: t('ex_kind') })])
+    ];
+    if (!open) {
+      kids.push(h('p', { class: 'excerpt', text: body.length > 160 ? body.slice(0, 157).trimEnd() + '…' : body }));
+    } else {
+      var pairs = [];
+      ['a', 'b', 'stuck', 'help'].forEach(function (k) { pairs.push(h('div', null, [h('dt', { text: t('ex_' + k + '_k') }), h('dd', { text: t('ex_' + k) })])); });
+      kids.push(h('div', { id: 'ex-detail' }, [
+        h('p', { class: 'fulltext', text: body }),
+        h('section', { class: 'ex-why', 'aria-labelledby': 'ex-why-t' }, [h('h4', { id: 'ex-why-t', text: t('ex_why') }), h('dl', null, pairs)]),
+        h('p', { class: 'small muted ex-note', text: t('ex_note') }),
+        h('div', { class: 'actions ex-actions' }, [h('button', { class: 'btn btn-primary', type: 'button', text: t('ex_cta'), onclick: function () {
+          if (newCajaBtn.getAttribute('aria-expanded') !== 'true') newCajaBtn.click();
+          else { var f = document.querySelector('.panel input'); if (f) f.focus(); }
+        } })])
+      ]));
+    }
+    kids.push(h('div', { class: 'caja-foot' }, [h('button', { class: 'linkish', type: 'button', text: open ? t('hide') : t('ex_view'), onclick: toggle })]));
+    exampleEl.replaceChildren(
+      h('h2', { class: 'section-title', id: 'ex-title', text: t('ex_section') }),
+      h('p', { class: 'small muted ex-intro', text: t('ex_intro') }),
+      h('article', { class: 'caja example' }, kids)
+    );
   }
 
   // Each caja carries the interests the reader may see: all of them for its
@@ -1524,6 +1593,7 @@
   }
 
   function renderList() {
+    renderExample();
     var items = visibleCajas();
     if (!state.cajas.length) { listEl.replaceChildren(h('li', { class: 'empty', text: t('empty_all') })); countEl.textContent = ''; return; }
     if (!items.length) { listEl.replaceChildren(h('li', { class: 'empty', text: t('empty_filter') })); countEl.textContent = t('empty_filter'); return; }

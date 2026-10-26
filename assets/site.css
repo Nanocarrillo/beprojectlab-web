@@ -335,6 +335,26 @@ a.chip { text-decoration: none; }
 .reply-form .textarea { min-height: 96px; }
 .empty { margin-top: 32px; font-size: 17px; line-height: 1.6; color: var(--soft); }
 
+/* Example box: written in the code, always below the real boxes */
+.example-zone { margin-top: 56px; }
+.example-zone[hidden] { display: none; }
+.example-zone .section-title { margin: 0; }
+.ex-intro { margin: 8px 0 0; }
+.caja.example { margin-top: 20px; padding: clamp(18px, 3vw, 26px); border: 1px dashed rgba(255, 255, 255, 0.34); border-radius: 12px; }
+.ex-tag { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--white); border: 1px solid rgba(255, 255, 255, 0.45); border-radius: 999px; padding: 3px 10px; }
+.caja.example h3 { margin: 10px 0 0; font-size: clamp(20px, 2.2vw, 24px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.2; }
+.caja.example h3 button { all: unset; cursor: pointer; transition: color .2s; }
+.caja.example h3 button:hover { color: var(--accent); }
+.caja.example h3 button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.ex-who { color: var(--soft); }
+.ex-why { margin-top: 20px; padding: 16px 18px; border: 1px solid var(--line); border-radius: 10px; }
+.ex-why h4 { margin: 0; font-size: 16px; font-weight: 800; letter-spacing: -0.01em; }
+.ex-why dl { margin: 12px 0 0; display: grid; gap: 12px; }
+.ex-why dt { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
+.ex-why dd { margin: 2px 0 0; font-size: 15px; line-height: 1.5; color: var(--text); }
+.ex-note { margin: 18px 0 0; }
+.ex-actions { margin-top: 14px; }
+
 /* Profile dialog */
 dialog.profile-dialog {
   width: min(520px, calc(100vw - 32px)); max-height: calc(100dvh - 48px); padding: 28px; border-radius: 12px;

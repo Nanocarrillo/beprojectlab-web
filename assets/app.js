@@ -16,8 +16,8 @@
   var CONTACT = 'info@beprojectlab.com';
 
   var PATHS = {
-    es: { home: '/', community: '/comunidad/', account: '/cuenta/', profile: '/perfil/', notifications: '/notificaciones/', resources: '/recursos/', admin: '/admin/', privacy: '/privacidad/', terms: '/condiciones/' },
-    en: { home: '/en/', community: '/en/community/', account: '/en/account/', profile: '/en/profile/', notifications: '/en/notifications/', resources: '/en/resources/', admin: '/en/admin/', privacy: '/en/privacy/', terms: '/en/terms/' }
+    es: { home: '/', blog: '/blog/', article: '/blog/comunidad/', community: '/comunidad/', account: '/cuenta/', profile: '/perfil/', notifications: '/notificaciones/', resources: '/recursos/', admin: '/admin/', privacy: '/privacidad/', terms: '/condiciones/' },
+    en: { home: '/en/', blog: '/en/blog/', article: '/en/blog/community/', community: '/en/community/', account: '/en/account/', profile: '/en/profile/', notifications: '/en/notifications/', resources: '/en/resources/', admin: '/en/admin/', privacy: '/en/privacy/', terms: '/en/terms/' }
   }[LANG];
 
   var STR = {
@@ -262,6 +262,51 @@
       rs_meta_published: '{kind} · en {section} · publicado el {date}',
       rs_meta_rejected: '{kind} · {date}. Si tienes dudas, escríbenos a ' + CONTACT + '.',
       view_in_resources: 'Ver en Recursos',
+      // ---- member articles
+      my_articles: 'Mis artículos',
+      my_articles_lead: 'Escribe sobre lo que has aprendido con tu proyecto. Lo revisamos antes de publicarlo en el blog.',
+      my_articles_empty: 'Todavía no has propuesto ningún artículo.',
+      art_propose: 'Proponer un artículo', art_propose_another: 'Proponer otro artículo',
+      art_edit_title: 'Editar el artículo',
+      art_form_lead: 'Se publica en el blog, con tu nombre, cuando lo aprobemos.',
+      art_edit_lead: 'Al guardar, vuelve a revisión.',
+      art_edit_warn: 'Está publicado: si guardas cambios, sale del blog hasta que lo aprobemos de nuevo.',
+      f_art_title: 'Título',
+      f_art_summary: 'Resumen', f_art_summary_hint: 'Una o dos frases. Es lo que se ve en la lista del blog.',
+      f_art_body: 'Texto', f_art_body_hint: 'Separa los párrafos con una línea en blanco. Entre 300 y 12.000 caracteres.',
+      f_art_lang: 'Idioma del artículo', f_art_lang_hint: 'Sale en el blog de ese idioma.',
+      art_lang_es: 'Español', art_lang_en: 'English',
+      art_consent_own: 'El texto es mío y doy permiso a BeProject Lab para publicarlo en su blog.',
+      art_consent_name: 'Acepto que mi nombre y mis tipos de perfil aparezcan públicamente junto al artículo.',
+      art_note: 'Lo revisamos antes de publicarlo. Mientras está en revisión, puedes editarlo o borrarlo.',
+      err_art_title: 'Entre 5 y 120 caracteres.',
+      err_art_summary: 'Entre 20 y 240 caracteres.',
+      err_art_body: 'Entre 300 y 12.000 caracteres.',
+      err_art_lang: 'Elige el idioma.',
+      err_art_consent: 'Marca las dos casillas para enviarlo.',
+      art_send: 'Enviar a revisión', art_save: 'Guardar y enviar a revisión',
+      art_sent: 'Artículo enviado. Te avisamos con una notificación cuando lo revisemos.',
+      art_saved: 'Cambios guardados. El artículo está otra vez en revisión.',
+      art_chars: '{n} caracteres',
+      as_pending: 'En revisión', as_published: 'Publicado', as_rejected: 'No publicado',
+      as_meta_pending: 'Enviado el {date} · {lang}',
+      as_meta_published: 'Publicado el {date} · {lang}',
+      as_meta_rejected: '{lang} · Puedes editarlo y volver a enviarlo.',
+      art_edit: 'Editar', art_edit_resend: 'Editar y reenviar', art_view: 'Ver en el blog',
+      // ---- blog
+      blog_comm_kicker: 'Escrito por miembros', blog_comm_title: 'De la comunidad',
+      blog_n_1: '1 artículo', blog_n: '{n} artículos',
+      blog_by: 'Por {name}, {roles}',
+      blog_comm_note: 'Los miembros de la comunidad pueden proponer artículos desde Mi perfil. Los revisamos antes de publicarlos.',
+      read_min: '{n} min de lectura',
+      art_kicker: 'De la comunidad', art_back: '← Blog',
+      art_footer: 'Este artículo lo ha escrito un miembro de la comunidad BeProject Lab. Lo revisamos antes de publicarlo; las opiniones son de quien lo firma.',
+      art_join: 'Únete a la comunidad',
+      art_member_q: '¿Ya eres miembro?', art_member_link: 'Propón tu artículo',
+      art_propose_link: 'Proponer un artículo',
+      art_not_found_title: 'Este artículo no está disponible',
+      art_not_found: 'Puede que ya no esté publicado o que el enlace no sea correcto.',
+      art_to_blog: 'Ir al blog',
       // administration
       adm_title: 'Administración',
       adm_nav: 'Admin',
@@ -343,6 +388,26 @@
       adm_empty_res_pending: 'No hay recursos por revisar.',
       adm_empty_res_published: 'Todavía no hay recursos publicados.',
       adm_empty_res_rejected: 'No hay recursos sin publicar.',
+      adm_tab_articulos: 'Artículos',
+      adm_n_art: '{n} artículos', adm_n_art_1: '1 artículo',
+      adm_card_art: 'artículos por revisar', adm_card_art_1: 'artículo por revisar',
+      adm_st_articles: 'Artículos publicados',
+      adm_af_pending: 'Por revisar ({n})', adm_af_published: 'Publicados ({n})', adm_af_rejected: 'No publicados ({n})',
+      adm_art_read: 'Leer el artículo completo', adm_art_hide: 'Ocultar el texto',
+      adm_art_again: 'Edición de un artículo que ya estuvo publicado',
+      adm_art_note: 'Al publicarlo, aparece en el blog de su idioma con el nombre de quien lo escribe y le llega un aviso. Si no lo publicas, lo ve como «No publicado» y puede editarlo y reenviarlo.',
+      adm_art_published_msg: '«{title}» está publicado en el blog. {name} ha recibido un aviso.',
+      adm_art_unpublished_msg: '«{title}» queda sin publicar. {name} ha recibido un aviso.',
+      adm_art_withdrawn_msg: '«{title}» ya no está en el blog. {name} ha recibido un aviso.',
+      adm_empty_art_pending: 'No hay artículos por revisar.',
+      adm_empty_art_published: 'Todavía no hay artículos publicados.',
+      adm_empty_art_rejected: 'No hay artículos sin publicar.',
+      log_art_published: 'Publicaste el artículo «{title}»', log_art_unpublished: 'Dejaste sin publicar el artículo «{title}»',
+      log_art_withdrawn: 'Retiraste del blog «{title}»', log_art_other: 'Cambiaste el artículo «{title}» a «{status}»',
+      notif_article_published: 'Tu artículo «{title}» ya está publicado en el blog.',
+      notif_article_rejected: 'Tu artículo «{title}» no está publicado. Puedes editarlo y volver a enviarlo.',
+      notif_admin_article: 'Artículo para revisar: «{title}», de {name}.',
+      notif_view_article: 'Ver el artículo', notif_view_my_articles: 'Ir a Mis artículos',
       adm_log_lead: 'Todo lo que se hace desde el panel queda aquí, con la hora. Desde la web no se puede borrar.',
       adm_log_empty: 'Todavía no hay acciones registradas.',
       adm_today: 'Hoy', adm_yesterday: 'Ayer',
@@ -596,6 +661,51 @@
       rs_meta_published: '{kind} · in {section} · published on {date}',
       rs_meta_rejected: '{kind} · {date}. If you have questions, write to us at ' + CONTACT + '.',
       view_in_resources: 'View in Resources',
+      // ---- member articles
+      my_articles: 'My articles',
+      my_articles_lead: 'Write about what you have learned with your project. We review it before publishing it in the blog.',
+      my_articles_empty: 'You have not proposed any articles yet.',
+      art_propose: 'Propose an article', art_propose_another: 'Propose another article',
+      art_edit_title: 'Edit the article',
+      art_form_lead: 'It is published in the blog, with your name, once we approve it.',
+      art_edit_lead: 'When you save, it goes back to review.',
+      art_edit_warn: 'It is published: if you save changes, it leaves the blog until we approve it again.',
+      f_art_title: 'Title',
+      f_art_summary: 'Summary', f_art_summary_hint: 'One or two sentences. This is what shows in the blog list.',
+      f_art_body: 'Text', f_art_body_hint: 'Leave a blank line between paragraphs. Between 300 and 12,000 characters.',
+      f_art_lang: 'Article language', f_art_lang_hint: 'It appears in the blog in that language.',
+      art_lang_es: 'Español', art_lang_en: 'English',
+      art_consent_own: 'The text is mine and I allow BeProject Lab to publish it in its blog.',
+      art_consent_name: 'I agree that my name and profile types appear publicly with the article.',
+      art_note: 'We review it before publishing. While it is under review, you can edit or delete it.',
+      err_art_title: 'Between 5 and 120 characters.',
+      err_art_summary: 'Between 20 and 240 characters.',
+      err_art_body: 'Between 300 and 12,000 characters.',
+      err_art_lang: 'Choose the language.',
+      err_art_consent: 'Tick both boxes to send it.',
+      art_send: 'Send for review', art_save: 'Save and send for review',
+      art_sent: 'Article sent. We will send you a notification once we have reviewed it.',
+      art_saved: 'Changes saved. The article is under review again.',
+      art_chars: '{n} characters',
+      as_pending: 'Under review', as_published: 'Published', as_rejected: 'Not published',
+      as_meta_pending: 'Sent on {date} · {lang}',
+      as_meta_published: 'Published on {date} · {lang}',
+      as_meta_rejected: '{lang} · You can edit it and send it again.',
+      art_edit: 'Edit', art_edit_resend: 'Edit and send again', art_view: 'View in the blog',
+      // ---- blog
+      blog_comm_kicker: 'Written by members', blog_comm_title: 'From the community',
+      blog_n_1: '1 article', blog_n: '{n} articles',
+      blog_by: 'By {name}, {roles}',
+      blog_comm_note: 'Community members can propose articles from My profile. We review them before publishing.',
+      read_min: '{n} min read',
+      art_kicker: 'From the community', art_back: '← Blog',
+      art_footer: 'This article was written by a member of the BeProject Lab community. We reviewed it before publishing; the views are its author’s.',
+      art_join: 'Join the community',
+      art_member_q: 'Already a member?', art_member_link: 'Propose your article',
+      art_propose_link: 'Propose an article',
+      art_not_found_title: 'This article is not available',
+      art_not_found: 'It may no longer be published, or the link may be wrong.',
+      art_to_blog: 'Go to the blog',
       // administration
       adm_title: 'Administration',
       adm_nav: 'Admin',
@@ -677,6 +787,26 @@
       adm_empty_res_pending: 'No resources to review.',
       adm_empty_res_published: 'No published resources yet.',
       adm_empty_res_rejected: 'No unpublished resources.',
+      adm_tab_articulos: 'Articles',
+      adm_n_art: '{n} articles', adm_n_art_1: '1 article',
+      adm_card_art: 'articles to review', adm_card_art_1: 'article to review',
+      adm_st_articles: 'Published articles',
+      adm_af_pending: 'To review ({n})', adm_af_published: 'Published ({n})', adm_af_rejected: 'Not published ({n})',
+      adm_art_read: 'Read the full article', adm_art_hide: 'Hide the text',
+      adm_art_again: 'Edit of an article that was already published',
+      adm_art_note: 'Once published, it appears in the blog of its language with the writer’s name and they get a notice. If you don’t publish it, they see it as “Not published” and can edit it and send it again.',
+      adm_art_published_msg: '“{title}” is published in the blog. {name} got a notice.',
+      adm_art_unpublished_msg: '“{title}” stays unpublished. {name} got a notice.',
+      adm_art_withdrawn_msg: '“{title}” is no longer in the blog. {name} got a notice.',
+      adm_empty_art_pending: 'No articles to review.',
+      adm_empty_art_published: 'No published articles yet.',
+      adm_empty_art_rejected: 'No unpublished articles.',
+      log_art_published: 'You published the article “{title}”', log_art_unpublished: 'You left the article “{title}” unpublished',
+      log_art_withdrawn: 'You withdrew “{title}” from the blog', log_art_other: 'You set the article “{title}” to “{status}”',
+      notif_article_published: 'Your article “{title}” is now published in the blog.',
+      notif_article_rejected: 'Your article “{title}” is not published. You can edit it and send it again.',
+      notif_admin_article: 'Article to review: “{title}”, from {name}.',
+      notif_view_article: 'View the article', notif_view_my_articles: 'Go to My articles',
       adm_log_lead: 'Everything done from the panel is kept here, with the time. It can’t be deleted from the site.',
       adm_log_empty: 'No actions logged yet.',
       adm_today: 'Today', adm_yesterday: 'Yesterday',
@@ -863,7 +993,7 @@
   // On weak connections (mobile data) a request can hang with no answer, and
   // the page would wait for ever. Every request gets a time limit; reads are
   // tried a second time; anything that still fails shows "Reintentar".
-  var READ_RPC = /\/rest\/v1\/rpc\/(member_profile|admin_status|admin_overview|admin_members|admin_resources|admin_log_recent)(\?|$)/;
+  var READ_RPC = /\/rest\/v1\/rpc\/(member_profile|admin_status|admin_overview|admin_members|admin_resources|admin_articles|admin_log_recent|blog_articles|blog_article)(\?|$)/;
   function patientFetch(input, init) {
     init = init || {};
     var url = typeof input === 'string' ? input : (input && input.url) || String(input);
@@ -910,7 +1040,12 @@
   }
 
   function start() {
-    if (!sb) { if (PAGE !== 'community') notReady(); return; }
+    if (!sb) {
+      if (PAGE === 'blog') return;
+      if (PAGE === 'blog-article') { mount(retryBox()); return; }
+      if (PAGE !== 'community') notReady();
+      return;
+    }
     sb.auth.onAuthStateChange(function (event) {
       if (event === 'PASSWORD_RECOVERY' && !recovering) { recovering = true; if (PAGE === 'account') renderRecovery(); }
     });
@@ -923,6 +1058,8 @@
       else if (PAGE === 'notifications') notificationsPage(session);
       else if (PAGE === 'resources') resourcesPage(session);
       else if (PAGE === 'admin') adminPage(session);
+      else if (PAGE === 'blog') blogPage();
+      else if (PAGE === 'blog-article') articlePage(session);
     }).catch(function () { mount(retryBox()); });
   }
 
@@ -1226,6 +1363,7 @@
       adminBox(),
       p.status === 'approved' ? connectionsSection(user) : null,
       p.status === 'approved' ? myResourcesSection(user, p) : null,
+      p.status === 'approved' ? myArticlesSection(user) : null,
       h('h2', { class: 'section-title', text: t('my_data') }),
       h('p', { class: 'small muted', style: 'margin:10px 0 0', text: t('privacy_note') }),
       form,
@@ -1254,11 +1392,12 @@
     return box;
   }
   function pendingSentence(o) {
-    var m = (o.members_pending || 0) + (o.members_unconfirmed || 0), r = o.resources_pending || 0;
-    if (!m && !r) return t('adm_nothing');
+    var m = (o.members_pending || 0) + (o.members_unconfirmed || 0), r = o.resources_pending || 0, a = o.articles_pending || 0;
+    if (!m && !r && !a) return t('adm_nothing');
     var parts = [];
     if (m) parts.push(m === 1 ? t('adm_n_member_1') : t('adm_n_member', { n: m }));
     if (r) parts.push(r === 1 ? t('adm_n_res_1') : t('adm_n_res', { n: r }));
+    if (a) parts.push(a === 1 ? t('adm_n_art_1') : t('adm_n_art', { n: a }));
     return t('adm_waiting', { what: parts.join(t('and')) });
   }
 
@@ -1353,6 +1492,122 @@
       h('div', { class: 'actions', style: 'margin-top:20px' }, [shareBtn]),
       formBox
     ]);
+  }
+
+  // ---------------------------------------------------------------- my articles
+  // Any approved member proposes blog articles. Each waits for an administrator,
+  // and every edit sends it back to review (the database makes sure of both).
+  var ART_PATH = { es: '/blog/comunidad/', en: '/en/blog/community/' };
+  function articleHref(a) { return (ART_PATH[a.lang] || PATHS.article) + '?a=' + encodeURIComponent(a.id); }
+  function readMinutes(words) { return Math.max(1, Math.round((words || 0) / 200)); }
+  function paragraphs(text) {
+    return String(text || '').trim().split(/\n[ \t]*\n+/).filter(function (x) { return x.trim(); }).map(function (x) { return h('p', { text: x.trim() }); });
+  }
+  function checkBox(label) {
+    var input = h('input', { type: 'checkbox' });
+    return { input: input, wrap: h('label', { class: 'check' }, [input, h('span', { text: label })]) };
+  }
+  function myArticlesSection(user) {
+    var list = h('div', null, [h('p', { class: 'small muted', style: 'margin-top:12px', text: t('loading') })]);
+    var msg = h('div');
+    var formBox = h('div', { hidden: true });
+    var newBtn = h('button', { class: 'btn btn-primary', type: 'button', text: t('art_propose'), 'aria-expanded': 'false', onclick: function () {
+      if (!formBox.hidden && !formBox.dataset.edit) { closeForm(); return; }
+      openForm(null);
+    } });
+    function openForm(a) {
+      msg.replaceChildren();
+      formBox.hidden = false; formBox.dataset.edit = a ? a.id : '';
+      newBtn.setAttribute('aria-expanded', a ? 'false' : 'true');
+      formBox.replaceChildren(articleForm(a));
+      var first = formBox.querySelector('input'); if (first) first.focus();
+    }
+    function closeForm() { formBox.hidden = true; formBox.dataset.edit = ''; formBox.replaceChildren(); newBtn.setAttribute('aria-expanded', 'false'); }
+    function load() {
+      sb.from('articles').select('id,lang,title,summary,body,status,submitted_at,published_at,first_published_at').eq('author_id', user.id).order('submitted_at', { ascending: false }).then(function (res) {
+        if (res.error) { list.replaceChildren(notice(t('error_generic'), 'error')); return; }
+        var rows = res.data || [];
+        newBtn.textContent = rows.length ? t('art_propose_another') : t('art_propose');
+        put(list, [rows.length ? h('ul', { class: 'my-res' }, rows.map(item)) : h('p', { class: 'small muted', style: 'margin:12px 0 0', text: t('my_articles_empty') })]);
+      });
+    }
+    function item(a) {
+      var del = h('button', { class: 'linkish', type: 'button', text: t('delete') });
+      del.addEventListener('click', armed(del, t('delete'), t('delete_sure'), function () {
+        busy(del, true);
+        sb.from('articles').delete().eq('id', a.id).then(function (res) {
+          if (res.error) { busy(del, false); msg.replaceChildren(notice(t('error_generic'), 'error')); return; }
+          if (formBox.dataset.edit === a.id) closeForm();
+          msg.replaceChildren(); load();
+        });
+      }));
+      var when = a.status === 'published' ? (a.first_published_at || a.published_at) : a.submitted_at;
+      return h('li', { class: 'my-res-item' }, [
+        h('span', { class: 'status-pill ' + ({ pending: '', published: 'approved', rejected: 'off' }[a.status] || ''), text: t('as_' + a.status) }),
+        h('b', { text: a.title }),
+        h('span', { class: 'small muted', text: t('as_meta_' + a.status, { date: fmtDate(when), lang: t('art_lang_' + a.lang) }) }),
+        h('div', { class: 'int-links' }, [
+          a.status === 'published' ? h('a', { class: 'linkish', href: articleHref(a), text: t('art_view') }) : null,
+          h('button', { class: 'linkish', type: 'button', text: a.status === 'rejected' ? t('art_edit_resend') : t('art_edit'), onclick: function () { openForm(a); } }),
+          del
+        ])
+      ]);
+    }
+    function articleForm(a) {
+      var editing = !!a;
+      var title = field({ label: t('f_art_title'), name: 'art_title', max: 120, required: true, value: a ? a.title : null });
+      var summary = field({ label: t('f_art_summary'), name: 'art_summary', textarea: true, rows: 2, max: 240, required: true, hint: t('f_art_summary_hint'), value: a ? a.summary : null });
+      var body = field({ label: t('f_art_body'), name: 'art_body', textarea: true, rows: 14, max: 12000, required: true, hint: t('f_art_body_hint'), value: a ? a.body : null });
+      var count = h('div', { class: 'char-count' });
+      function recount() { count.textContent = t('art_chars', { n: body.input.value.trim().length.toLocaleString(LANG === 'en' ? 'en-GB' : 'es-ES') }); }
+      body.input.addEventListener('input', recount); recount();
+      body.wrap.insertBefore(count, body.wrap.querySelector('.field-error'));
+      var lang = chipChoice(t('f_art_lang'), [['es', t('art_lang_es')], ['en', t('art_lang_en')]], a ? a.lang : LANG);
+      var own = checkBox(t('art_consent_own')), named = checkBox(t('art_consent_name'));
+      var consentErr = h('div', { class: 'field-error', hidden: true });
+      var fmsg = h('div');
+      var btn = h('button', { class: 'btn btn-primary', type: 'submit', text: editing ? t('art_save') : t('art_send') });
+      var form = h('form', { class: 'form', style: 'margin-top:20px', novalidate: true, onsubmit: function (e) {
+        e.preventDefault();
+        var tv = title.input.value.trim(), sv = summary.input.value.trim(), bv = body.input.value.trim(), lv = lang.value();
+        var ok = true;
+        title.error(tv.length < 5 || tv.length > 120 ? t('err_art_title') : ''); ok = ok && tv.length >= 5 && tv.length <= 120;
+        summary.error(sv.length < 20 || sv.length > 240 ? t('err_art_summary') : ''); ok = ok && sv.length >= 20 && sv.length <= 240;
+        body.error(bv.length < 300 || bv.length > 12000 ? t('err_art_body') : ''); ok = ok && bv.length >= 300 && bv.length <= 12000;
+        var consents = own.input.checked && named.input.checked;
+        consentErr.hidden = consents; consentErr.textContent = consents ? '' : t('err_art_consent'); ok = ok && consents;
+        if (!ok) { var bad = form.querySelector('[aria-invalid="true"]') || (!own.input.checked ? own.input : named.input); bad.focus(); return; }
+        busy(btn, true);
+        var row = { lang: lv || LANG, title: tv, summary: sv, body: bv, consent_own: true, consent_name: true };
+        var q = editing ? sb.from('articles').update(row).eq('id', a.id) : sb.from('articles').insert(row);
+        q.then(function (res) {
+          busy(btn, false);
+          if (res.error) { fmsg.replaceChildren(notice(t('error_generic'), 'error')); return; }
+          closeForm();
+          msg.replaceChildren(notice(editing ? t('art_saved') : t('art_sent'), 'ok'));
+          load();
+        });
+      } }, [
+        title.wrap, summary.wrap, body.wrap,
+        h('div', { class: 'field' }, [h('span', { class: 'label', text: t('f_art_lang') }), lang.el, h('div', { class: 'hint', text: t('f_art_lang_hint') })]),
+        h('div', { class: 'field checks' }, [own.wrap, named.wrap, consentErr]),
+        h('div', { class: 'lockbox' }, [icon('info'), h('p', { text: t('art_note') })]),
+        fmsg,
+        h('div', { class: 'actions', style: 'margin-top:4px' }, [btn, h('button', { class: 'btn btn-ghost', type: 'button', text: t('cancel'), onclick: closeForm })])
+      ]);
+      var lead = !editing ? t('art_form_lead') : a.status === 'published' ? t('art_edit_warn') : t('art_edit_lead');
+      return h('div', { class: 'panel' }, [h('h3', { class: 'panel-title', text: editing ? t('art_edit_title') : t('art_propose') }), h('p', { class: 'small muted', style: 'margin:8px 0 0', text: lead }), form]);
+    }
+    load();
+    var section = h('section', { id: 'mis-articulos', 'aria-labelledby': 'art-title' }, [
+      h('h2', { id: 'art-title', class: 'section-title', text: t('my_articles') }),
+      h('p', { class: 'small muted', style: 'margin:10px 0 0', text: t('my_articles_lead') }),
+      msg, list,
+      h('div', { class: 'actions', style: 'margin-top:20px' }, [newBtn]),
+      formBox
+    ]);
+    if (window.location.hash === '#mis-articulos') setTimeout(function () { section.scrollIntoView({ block: 'start' }); }, 0);
+    return section;
   }
 
   // ================================================================ RESOURCES
@@ -1980,7 +2235,7 @@
     if (!session) { window.location.replace(PATHS.account); return; }
     var user = session.user;
     sb.from('notifications')
-      .select('id,kind,actor_id,request_id,request_title,read_at,created_at,actor:profiles!notifications_actor_id_fkey(id,full_name,roles)')
+      .select('id,kind,actor_id,request_id,article_id,request_title,read_at,created_at,actor:profiles!notifications_actor_id_fkey(id,full_name,roles)')
       .order('created_at', { ascending: false })
       .limit(100)
       .then(function (res) {
@@ -2022,6 +2277,15 @@
     } else if (n.kind === 'resource_published') {
       key = 'notif_resource';
       acts.push(h('a', { class: 'linkish', href: PATHS.resources, text: t('notif_view_resources') }));
+    } else if (n.kind === 'article_published') {
+      key = 'notif_article_published';
+      if (n.article_id) acts.push(h('a', { class: 'linkish', href: PATHS.article + '?a=' + encodeURIComponent(n.article_id), text: t('notif_view_article') }));
+    } else if (n.kind === 'article_rejected') {
+      key = 'notif_article_rejected';
+      acts.push(h('a', { class: 'linkish', href: PATHS.profile + '#mis-articulos', text: t('notif_view_my_articles') }));
+    } else if (n.kind === 'admin_new_article') {
+      key = 'notif_admin_article'; admin = true;
+      acts.push(h('a', { class: 'linkish', href: PATHS.admin + '#articulos', text: t('notif_view_panel') }));
     } else if (n.kind === 'admin_new_member') {
       // The new member's profile is not readable yet: the name travels in the notice.
       key = 'notif_admin_member'; name = n.request_title || t('someone'); admin = true;
@@ -2046,12 +2310,91 @@
     ]);
   }
 
+  // ================================================================ BLOG
+  // Members' published articles, below the blog's own series. No account needed.
+  function blogPage() {
+    ROOT.hidden = true;
+    sb.rpc('blog_articles', { p_lang: LANG }).then(function (res) {
+      var rows = !res.error && res.data ? res.data : [];
+      if (!rows.length) return;
+      mount(h('section', { class: 'comm-posts', 'aria-labelledby': 'comm-h' }, [
+        h('div', { class: 'series-head' }, [
+          h('div', { class: 'left' }, [h('span', { class: 'kicker', text: t('blog_comm_kicker') }), h('h2', { id: 'comm-h', class: 'series-name', text: t('blog_comm_title') })]),
+          h('span', { class: 'count', text: rows.length === 1 ? t('blog_n_1') : t('blog_n', { n: rows.length }) })
+        ]),
+        h('ul', { class: 'posts' }, rows.map(function (a) {
+          return h('li', null, [h('a', { class: 'row no-num', href: articleHref(a) }, [
+            h('div', { class: 'body' }, [
+              h('span', { class: 'meta', text: fmtDate(a.published_at) + ' · ' + t('read_min', { n: readMinutes(a.words) }) }),
+              h('h2', { text: a.title }),
+              h('span', { class: 'byline', text: t('blog_by', { name: a.author_name || t('member'), roles: rolesSentence(a.author_roles) }) }),
+              h('p', { text: a.summary })
+            ])
+          ])]);
+        })),
+        h('p', { class: 'comm-note', text: t('blog_comm_note') })
+      ]));
+      ROOT.hidden = false;
+    }, function () {});
+  }
+
+  // One member article: /blog/comunidad/?a=<id> (or /en/blog/community/).
+  function setHead(sel, attr, value, make) {
+    var el = document.head.querySelector(sel);
+    if (!el && make) { el = document.createElement(make[0]); el.setAttribute(make[1], make[2]); document.head.appendChild(el); }
+    if (el) el.setAttribute(attr, value);
+  }
+  function articlePage(session) {
+    var id = new URLSearchParams(window.location.search).get('a');
+    if (!id || !/^[0-9a-f-]{36}$/i.test(id)) { articleMissing(); return; }
+    ROOT.setAttribute('aria-busy', 'true');
+    sb.rpc('blog_article', { p_id: id }).maybeSingle().then(function (res) {
+      if (res.error) { mount(retryBox()); return; }
+      if (!res.data) { articleMissing(); return; }
+      renderArticle(res.data, session);
+    }, function () { mount(retryBox()); });
+  }
+  function articleMissing() {
+    setHead('meta[name="robots"]', 'content', 'noindex', ['meta', 'name', 'robots']);
+    mount(
+      h('a', { class: 'back', href: PATHS.blog, text: t('art_back') }),
+      h('h1', { class: 'article-title', style: 'margin-top:32px', text: t('art_not_found_title') }),
+      h('p', { class: 'lead', text: t('art_not_found') }),
+      h('div', { class: 'actions' }, [h('a', { class: 'btn btn-ghost', href: PATHS.blog, text: t('art_to_blog') })])
+    );
+  }
+  function renderArticle(a, session) {
+    var url = window.location.origin + articleHref(a);
+    document.title = a.title + ' · BeProject Lab';
+    setHead('meta[name="description"]', 'content', a.summary);
+    setHead('meta[property="og:title"]', 'content', a.title);
+    setHead('meta[property="og:description"]', 'content', a.summary);
+    setHead('meta[property="og:url"]', 'content', url);
+    setHead('link[rel="canonical"]', 'href', url, ['link', 'rel', 'canonical']);
+    var propose = PATHS.profile + '#mis-articulos';
+    mount(
+      h('a', { class: 'back', href: PATHS.blog, text: t('art_back') }),
+      h('article', { lang: a.lang }, [
+        h('p', { class: 'kicker article-kicker', text: t('art_kicker') }),
+        h('h1', { class: 'article-title', text: a.title }),
+        h('p', { class: 'article-meta' }, [h('b', { class: 'author', text: a.author_name || t('member') }), ' · ' + rolesLabel(a.author_roles)]),
+        h('p', { class: 'article-meta tight', text: fmtDate(a.published_at) + ' · ' + t('read_min', { n: readMinutes(a.words) }) }),
+        h('div', { class: 'prose member-prose' }, paragraphs(a.body))
+      ]),
+      h('aside', { class: 'comm-footer' }, [
+        h('p', { text: t('art_footer') }),
+        h('div', { class: 'actions' }, [h('a', { class: 'btn btn-primary', href: session ? propose : PATHS.community, text: session ? t('art_propose_link') : t('art_join') })]),
+        session ? null : h('p', { class: 'small muted' }, [t('art_member_q') + ' ', h('a', { class: 'linkish', href: propose, text: t('art_member_link') })])
+      ])
+    );
+  }
+
   // ================================================================ ADMIN
   // Only for administrators (private.admins in the database), and only with a
   // session confirmed by a second factor: a code from an authenticator app.
   // The database checks both on every call; this page guides the way in.
-  var ADM = { me: null, myName: '', tab: 'resumen', overview: null, members: null, resources: null, mfilter: 'pending', rfilter: 'pending', q: '', flash: null, navEl: null, mainEl: null };
-  var ADM_TABS = ['resumen', 'cuentas', 'recursos', 'registro'];
+  var ADM = { me: null, myName: '', tab: 'resumen', overview: null, members: null, resources: null, articles: null, mfilter: 'pending', rfilter: 'pending', afilter: 'pending', q: '', flash: null, navEl: null, mainEl: null };
+  var ADM_TABS = ['resumen', 'cuentas', 'recursos', 'articulos', 'registro'];
   var TIME = new Intl.DateTimeFormat(LANG === 'en' ? 'en-GB' : 'es-ES', { hour: '2-digit', minute: '2-digit' });
 
   function adminPage(session) {
@@ -2244,6 +2587,7 @@
     admNav();
     if (ADM.tab === 'cuentas') admMembers();
     else if (ADM.tab === 'recursos') admResources();
+    else if (ADM.tab === 'articulos') admArticles();
     else if (ADM.tab === 'registro') admLog(50);
     else admSummary();
     if (focus) { var hd = ADM.mainEl.querySelector('h2, .adm-filters button, p'); window.scrollTo(0, 0); if (hd) { hd.setAttribute('tabindex', '-1'); hd.focus({ preventScroll: true }); } }
@@ -2251,7 +2595,7 @@
 
   function admNav() {
     var o = ADM.overview || {};
-    var counts = { cuentas: (o.members_pending || 0) + (o.members_unconfirmed || 0), recursos: o.resources_pending || 0 };
+    var counts = { cuentas: (o.members_pending || 0) + (o.members_unconfirmed || 0), recursos: o.resources_pending || 0, articulos: o.articles_pending || 0 };
     put(ADM.navEl, ADM_TABS.map(function (k) {
       var n = counts[k];
       return h('a', { class: 'adm-tab', href: '#' + k, 'aria-current': k === ADM.tab ? 'page' : null }, [
@@ -2292,7 +2636,7 @@
   function admSummary() {
     var o = ADM.overview;
     if (!o) { put(ADM.mainEl, [admLoading()]); return; }
-    var m = (o.members_pending || 0) + (o.members_unconfirmed || 0), r = o.resources_pending || 0;
+    var m = (o.members_pending || 0) + (o.members_unconfirmed || 0), r = o.resources_pending || 0, a = o.articles_pending || 0;
     var latest = h('ul', { class: 'adm-latest' }, [h('li', { class: 'muted', text: t('loading') })]);
     function card(n, href, one, many) {
       return h('a', { class: 'adm-card' + (n ? ' hot' : ''), href: href }, [h('span', { class: 'num', text: String(n) }), h('span', { text: n === 1 ? t(one) : t(many) })]);
@@ -2300,11 +2644,11 @@
     function stat(key, n) { return h('div', null, [h('dt', { text: t(key) }), h('dd', { text: String(n || 0) })]); }
     put(ADM.mainEl, [
       h('h2', { class: 'adm-h', text: t('adm_to_review') }),
-      h('div', { class: 'adm-cards' }, [card(m, '#cuentas', 'adm_card_member_1', 'adm_card_member'), card(r, '#recursos', 'adm_card_res_1', 'adm_card_res')]),
+      h('div', { class: 'adm-cards' }, [card(m, '#cuentas', 'adm_card_member_1', 'adm_card_member'), card(r, '#recursos', 'adm_card_res_1', 'adm_card_res'), card(a, '#articulos', 'adm_card_art_1', 'adm_card_art')]),
       h('h2', { class: 'adm-h', text: t('adm_community') }),
       h('dl', { class: 'adm-stats' }, [
         stat('adm_st_members', o.members_approved), stat('adm_st_unconfirmed', o.members_unconfirmed), stat('adm_st_open', o.requests_open),
-        stat('adm_st_connections', o.connections), stat('adm_st_published', o.resources_published), stat('adm_st_inactive', o.members_rejected)
+        stat('adm_st_connections', o.connections), stat('adm_st_published', o.resources_published), stat('adm_st_articles', o.articles_published), stat('adm_st_inactive', o.members_rejected)
       ]),
       h('h2', { class: 'adm-h', text: t('adm_latest') }),
       latest,
@@ -2507,6 +2851,100 @@
     ]);
   }
 
+  // ---- articles
+  function admArticles() {
+    if (!ADM.articles) {
+      put(ADM.mainEl, [admFlash(), admLoading()]);
+      sb.rpc('admin_articles').then(function (res) {
+        if (admDenied(res)) return;
+        if (res.error) { put(ADM.mainEl, [retryBox()]); return; }
+        ADM.articles = res.data || [];
+        if (ADM.tab === 'articulos') admArticles();
+      });
+      return;
+    }
+    var groups = { pending: [], published: [], rejected: [] };
+    ADM.articles.forEach(function (a) { (groups[a.status] || groups.pending).push(a); });
+    var counts = { pending: groups.pending.length, published: groups.published.length, rejected: groups.rejected.length };
+    var filters = admFilters(t('adm_filter'), ['pending', 'published', 'rejected'], ADM.afilter, counts, 'adm_af_', function (k) { ADM.afilter = k; admArticles(); });
+    var list = groups[ADM.afilter];
+    var body;
+    if (ADM.afilter === 'pending') {
+      body = list.length ? [h('div', { class: 'adm-items' }, list.map(artCard)), h('p', { class: 'small muted', style: 'margin:16px 0 0', text: t('adm_art_note') })] : [admEmpty('adm_empty_art_pending')];
+    } else {
+      body = list.length ? [h('ul', { class: 'adm-rows' }, list.map(artRow))] : [admEmpty(ADM.afilter === 'published' ? 'adm_empty_art_published' : 'adm_empty_art_rejected')];
+    }
+    put(ADM.mainEl, [admFlash(), filters].concat(body));
+  }
+
+  function setArt(a, status, btn, errBox, okMsg) {
+    busy(btn, true);
+    sb.rpc('admin_set_article_status', { p_id: a.id, p_status: status }).then(function (res) {
+      if (admDenied(res)) return;
+      if (res.error) { busy(btn, false); errBox.replaceChildren(notice(t('error_generic'), 'error')); return; }
+      ADM.flash = okMsg; ADM.articles = null;
+      admCounts();
+      admArticles();
+      window.scrollTo(0, 0);
+    });
+  }
+
+  function artCard(a) {
+    var err = h('div');
+    var name = a.author_name || t('member');
+    var pub = h('button', { class: 'btn btn-primary', type: 'button', text: t('adm_publish'), onclick: function () {
+      setArt(a, 'published', pub, err, t('adm_art_published_msg', { title: a.title, name: name }));
+    } });
+    var no = h('button', { class: 'btn btn-ghost', type: 'button', text: t('adm_unpublish') });
+    no.addEventListener('click', armed(no, t('adm_unpublish'), t('adm_unpublish_sure'), function () {
+      setArt(a, 'rejected', no, err, t('adm_art_unpublished_msg', { title: a.title, name: name }));
+    }));
+    var textId = 'art-' + a.id;
+    var full = h('div', { id: textId, class: 'adm-fulltext', hidden: true }, paragraphs(a.body));
+    var toggle = h('button', { class: 'linkish', type: 'button', 'aria-expanded': 'false', 'aria-controls': textId, text: t('adm_art_read'), onclick: function () {
+      var open = full.hidden;
+      full.hidden = !open;
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.textContent = open ? t('adm_art_hide') : t('adm_art_read');
+    } });
+    return h('article', { class: 'adm-item', 'aria-label': a.title }, [
+      h('span', { class: 'badge', text: t('art_lang_' + a.lang) + ' · ' + t('adm_sent', { when: ago(a.submitted_at) }) }),
+      a.first_published_at ? h('p', { class: 'small muted', style: 'margin:0', text: t('adm_art_again') }) : null,
+      h('h3', { text: a.title }),
+      h('p', { class: 'adm-text', text: a.summary }),
+      h('p', { class: 'adm-roles', text: name + ' · ' + rolesLabel(a.author_roles) + ' · ' + t('read_min', { n: readMinutes(a.words) }) }),
+      h('div', null, [toggle]),
+      full,
+      err,
+      h('div', { class: 'adm-acts' }, [pub, no])
+    ]);
+  }
+
+  function artRow(a) {
+    var err = h('div', { class: 'adm-row-msg' });
+    var name = a.author_name || t('member');
+    var act;
+    if (a.status === 'published') {
+      act = h('button', { class: 'btn btn-ghost btn-sm', type: 'button', text: t('adm_withdraw') });
+      act.addEventListener('click', armed(act, t('adm_withdraw'), t('adm_withdraw_sure'), function () {
+        setArt(a, 'rejected', act, err, t('adm_art_withdrawn_msg', { title: a.title, name: name }));
+      }));
+    } else {
+      act = h('button', { class: 'btn btn-ghost btn-sm', type: 'button', text: t('adm_publish'), onclick: function () {
+        setArt(a, 'published', act, err, t('adm_art_published_msg', { title: a.title, name: name }));
+      } });
+    }
+    var when = a.status === 'published' ? t('adm_published_on', { date: fmtDate(a.first_published_at || a.published_at) }) : t('adm_sent', { when: fmtDate(a.submitted_at) });
+    return h('li', { class: 'adm-row' }, [
+      h('div', { class: 'who' }, [
+        a.status === 'published' ? h('a', { class: 'adm-row-title', href: articleHref(a), text: a.title }) : h('b', { text: a.title }),
+        h('div', { class: 'small muted', text: t('art_lang_' + a.lang) + ' · ' + name + ' · ' + when })
+      ]),
+      act,
+      err
+    ]);
+  }
+
   // ---- log
   function admLog(limit) {
     var box = h('div', null, [admLoading()]);
@@ -2554,6 +2992,12 @@
       }
       key = to === 'published' ? 'log_published' : to === 'rejected' ? (from === 'published' ? 'log_withdrawn' : 'log_unpublished') : 'log_res_other';
       return who + t(key, { title: what, status: t('rs_' + to) });
+    }
+    if (l.action === 'article_status') {
+      m = /^(?:(\w+)>)?(\w+): ([\s\S]*)$/.exec(d) || [];
+      var af = m[1], at = m[2], aw = m[3] || d;
+      key = at === 'published' ? 'log_art_published' : at === 'rejected' ? (af === 'published' ? 'log_art_withdrawn' : 'log_art_unpublished') : 'log_art_other';
+      return who + t(key, { title: aw, status: t('as_' + at) });
     }
     if (l.action === 'delete_request') return who + t('log_del_request', { title: d });
     if (l.action === 'delete_reply') {

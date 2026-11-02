@@ -561,7 +561,7 @@ dialog.profile-dialog::backdrop { background: rgba(0, 0, 0, 0.6); }
 .adm-main > .notice:first-child { margin-top: 0; margin-bottom: 16px; }
 
 /* Overview */
-.adm-cards { margin-top: 14px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.adm-cards { margin-top: 14px; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
 .adm-card {
   display: flex; flex-direction: column; gap: 8px; padding: 18px; border-radius: 12px; border: 1px solid var(--line);
   background: var(--panel); color: var(--white); text-decoration: none; font-size: 15px; line-height: 1.35; transition: border-color .2s;
@@ -632,3 +632,21 @@ p.adm-meta { display: block; }
 /* A request failed or took too long: message and a button to try again */
 .retry-box .actions { margin-top: 16px; }
 li > .retry-box { list-style: none; }
+
+/* ---------- Member articles: blog, article page, Mi perfil, panel ---------- */
+.comm-posts .series-name { margin: 0; }
+.row.no-num { grid-template-columns: minmax(0, 1fr); }
+.byline { font-size: 14px; color: var(--soft); }
+.comm-note { margin: 24px 0 0; font-size: 14px; line-height: 1.55; color: var(--muted); }
+.article-meta.tight { margin-top: 6px; }
+.article-meta .author { color: var(--white); }
+.member-prose p { white-space: pre-line; overflow-wrap: anywhere; }
+.comm-footer { margin-top: 64px; padding: 24px; border: 1px solid var(--line); border-radius: 12px; display: flex; flex-direction: column; gap: 16px; }
+.comm-footer > p { margin: 0; font-size: 16px; line-height: 1.6; color: var(--text); }
+.comm-footer .actions { margin-top: 0; }
+.char-count { margin-top: 6px; font-size: 13px; color: var(--muted); text-align: right; }
+.field.checks { display: flex; flex-direction: column; gap: 12px; }
+.adm-fulltext { padding: 14px 16px; border-radius: 10px; background: rgba(255, 255, 255, 0.04); font-size: 15px; line-height: 1.6; color: var(--text); max-height: 60vh; overflow: auto; }
+.adm-fulltext[hidden] { display: none; }
+.adm-fulltext p { margin: 0 0 0.9em; white-space: pre-line; overflow-wrap: anywhere; }
+.adm-fulltext p:last-child { margin-bottom: 0; }

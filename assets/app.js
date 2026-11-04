@@ -228,6 +228,7 @@
       res_lead: 'Plantillas, guías y herramientas de project managers, coaches y mentores de la comunidad, para llevar tu proyecto de A a B.',
       res_jump: 'Ir a',
       res_pending: 'Recursos es para miembros verificados. Cuando aprobemos tu cuenta, los verás aquí.',
+      free_kicker: 'Recurso gratis, sin cuenta', free_title: 'Tu proyecto en una página', free_desc: 'Objetivo, alcance, hitos y ritmo, en una plantilla para descargar.',
       sec_pm: 'Project managers', sec_coach: 'Coaches', sec_mentor: 'Mentores',
       sec_id_pm: 'project-managers', sec_id_coach: 'coaches', sec_id_mentor: 'mentores',
       sec_intro_pm: 'Estructura: planificar, priorizar y hacer seguimiento.',
@@ -627,6 +628,7 @@
       res_lead: "Templates, guides and tools from the community's project managers, coaches and mentors, to take your project from A to B.",
       res_jump: 'Go to',
       res_pending: 'Resources are for verified members. Once we approve your account, you will see them here.',
+      free_kicker: 'Free resource, no account needed', free_title: 'Your project on one page', free_desc: 'Goal, scope, milestones and rhythm, in a template to download.',
       sec_pm: 'Project managers', sec_coach: 'Coaches', sec_mentor: 'Mentors',
       sec_id_pm: 'project-managers', sec_id_coach: 'coaches', sec_id_mentor: 'mentors',
       sec_intro_pm: 'Structure: plan, prioritise and follow up.',
@@ -1617,7 +1619,7 @@
     ROOT.setAttribute('aria-busy', 'true');
     loadMyProfile(session.user).then(function (res) {
       var me = res && !res.error ? res.data : null;
-      var head = [h('h1', { class: 'page-title', text: t('res_title') }), h('p', { class: 'lead', text: t('res_lead') })];
+      var head = [h('h1', { class: 'page-title', text: t('res_title') }), h('p', { class: 'lead', text: t('res_lead') }), freeCard()];
       if (!me || me.status !== 'approved') { mount.apply(null, head.concat([notice(t('res_pending'))])); return; }
       sb.from('resources')
         .select('id,section,kind,title,description,url,published_at,author:profiles!resources_author_id_fkey(id,full_name,roles)')
@@ -1635,6 +1637,15 @@
           if (window.location.hash) { var el = document.getElementById(window.location.hash.slice(1)); if (el) el.scrollIntoView({ block: 'start' }); }
         });
     });
+  }
+
+  // The free template, public at its own page; shown at the top of Resources to everyone.
+  var FREE_PATH = { es: '/recursos/tu-proyecto-en-una-pagina/', en: '/en/resources/your-project-on-one-page/' };
+  function freeCard() {
+    var sheet = h('span', { class: 'sheet-mini', 'aria-hidden': 'true' }, [0, 1, 2, 3, 4, 5].map(function () { return h('span'); }));
+    return h('a', { class: 'free-card', href: FREE_PATH[LANG] }, [sheet, h('span', null, [
+      h('span', { class: 'kicker', text: t('free_kicker') }), h('span', { class: 't', text: t('free_title') }), h('span', { class: 'd', text: t('free_desc') })
+    ])]);
   }
 
   function resSection(s, items) {

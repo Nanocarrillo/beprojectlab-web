@@ -650,3 +650,84 @@ li > .retry-box { list-style: none; }
 .adm-fulltext[hidden] { display: none; }
 .adm-fulltext p { margin: 0 0 0.9em; white-space: pre-line; overflow-wrap: anywhere; }
 .adm-fulltext p:last-child { margin-bottom: 0; }
+
+/* ======================================================================
+   Home (4 Nov 2026): what the site does first, then how it works, trust,
+   who helps, a free resource and the blog. Also the About and free
+   resource pages.
+   ====================================================================== */
+.hm { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+.hm-hero { display: grid; grid-template-columns: minmax(0, 1fr); gap: 40px; align-items: center; padding: clamp(32px, 7vw, 96px) 0 clamp(48px, 7vw, 88px); }
+.hm-hero h1 { margin: 16px 0 0; max-width: 13em; font-size: clamp(38px, 6.2vw, 76px); font-weight: 800; letter-spacing: -0.04em; line-height: 1.02; }
+.hm-hero h1 .accent, .hm-h2 .accent { color: var(--accent); }
+.hm-hero .lead { margin-top: 24px; font-size: clamp(18px, 2vw, 21px); }
+.hm-hero .actions { margin-top: 32px; }
+.hm-art { display: none; }
+.hm-trust { list-style: none; margin: 28px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px 28px; }
+.hm-trust li { display: flex; align-items: center; gap: 10px; font-size: 15px; line-height: 1.4; color: var(--soft); }
+.hm-trust svg, .ticks svg { flex: none; width: 18px; height: 18px; color: var(--accent); }
+.hm-sec { padding: clamp(48px, 6vw, 80px) 0; border-top: 1px solid var(--line); }
+.hm-sec .kicker, .hm-card .kicker { display: block; margin-bottom: 14px; }
+.hm-h2 { margin: 0; font-size: clamp(26px, 3.2vw, 38px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; }
+.hm-steps { margin-top: 32px; }
+.hm-example { margin-top: 28px; max-width: 640px; padding: 24px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.18); background: var(--panel); display: flex; flex-direction: column; gap: 12px; }
+.hm-example .tag { align-self: flex-start; padding: 4px 10px; border-radius: 999px; border: 1px solid rgba(242, 84, 27, 0.6); color: var(--accent); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }
+.hm-example h3 { margin: 0; font-size: 21px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.2; }
+.hm-example p { margin: 0; font-size: 16px; line-height: 1.6; color: var(--soft); }
+.hm-example .facts { display: flex; flex-wrap: wrap; gap: 8px; }
+.hm-example .facts span { padding: 6px 10px; border-radius: 8px; background: var(--field); font-size: 13px; color: var(--soft); }
+.hm-note { margin: 14px 0 0; font-size: 14px; color: var(--muted); }
+.hm-duo { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; }
+.hm-card { padding: clamp(22px, 3vw, 32px); border-radius: 12px; border: 1px solid var(--line); display: flex; flex-direction: column; gap: 16px; scroll-margin-top: 24px; }
+.hm-card.accent { border-color: rgba(242, 84, 27, 0.55); }
+.hm-card h2 { margin: 0; font-size: clamp(24px, 2.6vw, 30px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.12; }
+.hm-card p { margin: 0; font-size: 16px; line-height: 1.6; color: var(--soft); }
+.hm-card .actions { margin-top: auto; padding-top: 8px; }
+.hm-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+.hm-list li { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 10px; font-size: 16px; line-height: 1.55; color: var(--soft); }
+.hm-list li::before { content: "—"; color: var(--accent); font-weight: 800; }
+.hm-list strong { color: var(--white); }
+.hm-res { display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 20px; align-items: start; }
+.hm-res h2 { font-size: clamp(22px, 2.4vw, 28px); }
+.sheet-mini { width: 88px; aspect-ratio: 3 / 4; border: 1.5px solid rgba(255, 255, 255, 0.6); padding: 13% 11%; display: flex; flex-direction: column; justify-content: space-between; }
+.sheet-mini span { display: block; height: 2px; background: rgba(255, 255, 255, 0.35); }
+.sheet-mini span:first-child { height: 3px; width: 70%; background: var(--accent); }
+.sheet-mini span:nth-child(odd):not(:first-child) { width: 64%; }
+.hm-blog .posts { margin-top: 24px; }
+.hm-blog .row { padding: 24px 0; }
+.row h3 { margin: 0; font-size: clamp(19px, 2.2vw, 25px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.2; transition: color .2s; }
+.row:hover h3, .row:focus-visible h3 { color: var(--accent); }
+.hm-blog .linkish { margin-top: 16px; }
+.hm-start p { max-width: 36em; margin: 16px 0 0; font-size: 18px; line-height: 1.6; color: var(--soft); }
+.hm-close { padding: clamp(56px, 8vw, 104px) 0; border-top: 1px solid var(--line); display: flex; flex-direction: column; align-items: center; gap: 28px; }
+.hm-close .mark { width: clamp(72px, 10vw, 112px); }
+.hm-close .tagline { margin: 0; }
+@media (min-width: 900px) {
+  .hm-hero { grid-template-columns: minmax(0, 1fr) 260px; }
+  .hm-art { display: block; width: 100%; height: auto; }
+  .hm-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; border-top: 0; }
+  .hm-steps li { grid-template-columns: minmax(0, 1fr); gap: 14px; border-bottom: 0; border-top: 1px solid var(--line); }
+  .hm-duo { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+  .hm { padding: 0 20px; }
+  .hm-hero .actions .btn { flex: 1 1 100%; }
+}
+
+/* About page */
+.ticks { list-style: none; margin: 0 0 1.15em; padding: 0; border-top: 1px solid var(--line); }
+.ticks li { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--line); font-size: 17px; line-height: 1.5; }
+.ticks svg { margin-top: 3px; }
+.sign { margin: 40px 0 0; font-size: 15px; color: var(--muted); }
+
+/* Free resource: page and card */
+.free-card { margin-top: 32px; display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 18px; align-items: center; padding: 18px 20px; border-radius: 12px; border: 1px solid rgba(242, 84, 27, 0.55); color: inherit; text-decoration: none; }
+.free-card .sheet-mini { width: 64px; }
+.free-card .t { display: block; margin-top: 6px; font-size: 20px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.2; transition: color .2s; }
+.free-card .d { display: block; margin-top: 4px; font-size: 15px; line-height: 1.5; color: var(--soft); }
+.free-card:hover .t, .free-card:focus-visible .t { color: var(--accent); }
+.free-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.tpl-get { margin-top: 32px; display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
+.tpl-get .small { margin: 0; }
+.sheet-mini.big { width: 180px; margin: 48px auto 0; }
+.steps .eg { margin: 12px 0 0; padding-left: 14px; border-left: 2px solid var(--accent); font-size: 16px; line-height: 1.55; color: var(--white); }
